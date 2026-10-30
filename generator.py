@@ -320,8 +320,22 @@ def _valid_tld(domain):
     return (len(last) == 2 and last.isalpha()) or last in KNOWN_TLDS
 
 
+def _js_regex_valid(pat):
+    """检查 pattern 是否为 QX/JavaScript 合法正则。
+    QX 用 JS 正则引擎，不支持 (?i)/(?m) 等 PCRE 内联旗标。"""
+    # 去内联旗标 (?(?i)(?m)(?s)(?x)) —— JS 不支持
+    test = re.sub(r"\(\?[imsx]+\)", "", pat)
+    try:
+        # 用 JS 兼容的近似：Python re 校验（JS 子集）
+        re.compile(test)
+        return True
+    except re.error:
+        return False
+
+
 def clean_rewrite_rules(lines):
-    """过滤未知 action + 按 pattern 去重（保留第一条），用于所有 rewrite conf。"""
+    """过滤未知 action + 按 pattern 去重（保留第一条），用于所有 rewrite conf。
+    同时剔除 QX/JS 无法编译的正则（如 (?i) 内联旗标）。"""
     out = []
     seen = set()
     for ln in lines:
@@ -333,6 +347,10 @@ def clean_rewrite_rules(lines):
             continue  # 剔除未知 action（如 reject-array）
         pat = ln.split(" url ")[0].strip()
         pat = re.sub(r"\\+$", "", pat).strip()  # 去悬空 \
+        # 去 (?i) 等 JS 不支持的内联旗标（adblock 源常见）
+        pat = re.sub(r"^\(\?[imsx]+\)", "", pat).strip()
+        if not _js_regex_valid(pat):
+            continue  # 剔除 QX/JS 无法编译的正则
         key = re.sub(r"^\^http", "http", pat)  # 去 ^ 前缀后去重
         if key in seen:
             continue
@@ -563,6 +581,14 @@ def gen_hostname(hosts, max_len=180):
     return "hostname = " + ",\n".join(lines)
 
 
+def gen_hostname_single(hosts):
+    """单行 hostname（QX 原生解析把多行 hostname 续行误判为 rewrite 规则）。"""
+    items = sorted(hosts)
+    if not items:
+        return ""
+    return "hostname = " + ",".join(items)
+
+
 def gen_splash_list(all_domains):
     """分流层：聚合域名生成 HOST-SUFFIX/REJECT 规则。"""
     out = [
@@ -588,7 +614,7 @@ def gen_rewrite(text, name, desc, hosts):
             seen.add(line)
             raw_lines.append(line)
     out += clean_rewrite_rules(raw_lines)
-    hn = gen_hostname(hosts)
+    hn = gen_hostname_single(hosts)
     if hn:
         out.append("")
         out.append(hn)
