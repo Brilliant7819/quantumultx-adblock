@@ -38,8 +38,4 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-script.conf, tag=
 - 信息流重写 hostname: 436 个
 - 有效解锁模块: 65 个
 
-<<<<<<< HEAD
-最后生成: 2026-10-30 08:22:39 UTC
-=======
-最后生成: 2026-10-30 08:36:29 UTC
->>>>>>> b6c775d (feat: v3 多源聚合+国际源(easylistchina/adguard) + 65个解锁模块同步)
+最后生成: 2026-10-30 08:41:05 UTC
