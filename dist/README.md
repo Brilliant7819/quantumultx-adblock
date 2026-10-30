@@ -28,4 +28,4 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-script.conf, tag=
 - 开屏重写 hostname: 434 个
 - 信息流重写 hostname: 436 个
 
-最后生成: 2026-10-30 08:21:48 UTC
+最后生成: 2026-10-30 08:22:39 UTC
