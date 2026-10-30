@@ -24,6 +24,7 @@ QuantumultX 广告资源自动生成器 (v2 · 多源聚合)
 import re
 import sys
 import time
+import json
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -223,11 +224,11 @@ def extract_surge_mitm_hosts(text):
     return hosts
 
 
-def gen_unlock_merged(bobola_lines, sooya_rule_lines, all_hosts, repo_raw):
+def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts, repo_raw):
     """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
-        "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX）",
+        "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX + yqc007 裸脚本）",
         "# 由 generator.py 自动生成，QX 一键引用",
         "",
         "[rewrite_local]",
@@ -236,9 +237,94 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, all_hosts, repo_raw):
     out += bobola_lines
     out += ["", "# ===== sooyaaabo（Surge 转 QX）====="]
     out += sooya_rule_lines
+    out += ["", "# ===== yqc007（裸脚本头部内嵌 QX 规则）====="]
+    out += yqc_rule_lines
     out += ["", "[mitm]"]
     out.append("hostname = " + ", ".join(sorted(all_hosts)))
     return "\n".join(out)
+
+
+# ===== yqc007 裸脚本解锁（头部内嵌 QX 规则自动提取）=====
+YQC007_API = "https://api.github.com/repos/yqc007/QuantumultX/contents"
+YQC007_RAW = "https://raw.githubusercontent.com/yqc007/QuantumultX/master/"
+
+# 对部分正则较复杂但域名明确的模式，手动补 hostname（片段匹配）
+YQC007_HOST_SUPPLEMENT = [
+    (r"api_2496\.kuwo\.cn", "kuwo.cn"),
+    (r"api\.(meiease|picsart)\.cn", "meiease.cn"),
+    (r"api\.(meiease|picsart)\.cn", "picsart.cn"),
+    (r"apiios_dq\.xiangha\.com", "xiangha.com"),
+]
+
+_YQC_DOMAIN_RE = re.compile(r"^(\*\.)?[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]*[a-z0-9])?)+$")
+
+
+def _unescape(s):
+    return re.sub(r"\\(.)", r"\1", s)
+
+
+def extract_yqc_hosts(pat):
+    """从 yqc007 URL 模式提取 hostname（含通配 *.domain）。返回 (hosts, wild_domains)。"""
+    hosts = set()
+    wild = set()
+    s = _unescape(re.sub(r"^\^", "", pat))
+    if "://" not in s:
+        return hosts, wild
+    seg = s.split("://", 1)[1].split("/")[0]
+    has_wild_prefix = bool(re.search(r"(\.\*|\.\+|\*)\\.", seg)) or ("*." in seg)
+    for part in re.split(r"[()|,]", seg):
+        part = part.strip(".*+?\\^$ ").lower()
+        if _YQC_DOMAIN_RE.fullmatch(part):
+            hosts.add(part)
+            if has_wild_prefix and not part.startswith("*.") and not part[0].isdigit():
+                wild.add(part)
+    return hosts, wild
+
+
+def extract_yqc007(existing_patterns):
+    """枚举 yqc007 裸脚本，从头部提取内嵌 QX 规则 + hostname，去重。
+    返回 (rules, hosts)。rules 为 [(pattern, action, script)]。"""
+    rules = []
+    hosts = set()
+    seen = set()
+    try:
+        data = json.loads(fetch(YQC007_API))
+    except Exception:
+        return rules, hosts
+    scripts = [x["name"] for x in data if x.get("type") == "file" and x["name"].endswith(".js")]
+    for name in scripts:
+        try:
+            txt = fetch(YQC007_RAW + name)
+        except Exception:
+            continue
+        for line in txt.splitlines():
+            line = line.strip()
+            if not (line.startswith("^") and " url script-" in line):
+                continue
+            parts = line.split(" url ")
+            pat = parts[0].strip()
+            rest = parts[1].strip()
+            rp = rest.split(None, 1)
+            if len(rp) != 2 or not rp[0].startswith("script-") or "https://" not in rp[1]:
+                continue
+            action = rp[0]
+            script = rp[1].split()[0].rstrip(",").strip()
+            if pat in existing_patterns or pat in seen:
+                continue
+            # 提取 hostname；无 host 的规则无法被 MITM，跳过（避免死规则）
+            hs, wl = extract_yqc_hosts(pat)
+            has_supplement = any(re.search(frag, pat) for frag, _ in YQC007_HOST_SUPPLEMENT)
+            if not hs and not wl and not has_supplement:
+                continue
+            seen.add(pat)
+            rules.append((pat, action, script))
+            hosts |= hs
+            hosts |= {"*." + w for w in wl}
+    # 手动补充 hostname
+    for frag, host in YQC007_HOST_SUPPLEMENT:
+        if any(re.search(frag, p) for p, _, _ in rules):
+            hosts.add(host)
+    return rules, hosts
 
 # 本仓库 raw 前缀（Actions 里会被替换成真实仓库地址）
 REPO_RAW = "${REPO_RAW}"
@@ -477,8 +563,15 @@ def main():
             unlock_ok += 1
         except Exception as e:
             unlock_bad.append(f"{tag}")
-    print(f"  [OK] 有效 {unlock_ok} · 失效剔除 {len(unlock_bad)}")
-    print(f"  [合并] BOBOLAOSHIV规则 {len(bobola_lines)} 条 · sooyaaabo规则 {len(sooya_rule_lines)} 条 · hostname {len(unlock_hosts)} 个")
+    # yqc007：裸脚本，从头部提取内嵌 QX 规则（去重）
+    existing_pats = set()
+    for ln in list(bobola_lines) + list(sooya_rule_lines):
+        if " url " in ln:
+            existing_pats.add(ln.split(" url ")[0])
+    yqc_rules, yqc_hosts = extract_yqc007(existing_pats)
+    yqc_rule_lines = [f"{p} url {a} {s}" for p, a, s in yqc_rules]
+    unlock_hosts |= yqc_hosts
+    print(f"  [合并] BOBOLAOSHIV规则 {len(bobola_lines)} 条 · sooyaaabo规则 {len(sooya_rule_lines)} 条 · yqc007规则 {len(yqc_rule_lines)} 条 · hostname {len(unlock_hosts)} 个")
     if unlock_bad:
         print(f"  [剔除] {', '.join(unlock_bad)}")
 
@@ -518,9 +611,9 @@ def main():
 
     # 解锁模块合并文件（单文件，QX 一键引用）
     repo_raw2 = REPO_RAW if not REPO_RAW.startswith("$") else "https://raw.githubusercontent.com/OWNER/REPO/main/script"
-    merged = gen_unlock_merged(bobola_lines, sooya_rule_lines, unlock_hosts, repo_raw2)
+    merged = gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, unlock_hosts, repo_raw2)
     (OUT / "unlock-merged.conf").write_text(merged, encoding="utf-8")
-    print(f"  [OK] unlock-merged.conf: {unlock_ok} 模块合并 → {len(bobola_lines)+len(sooya_rule_lines)} 条规则")
+    print(f"  [OK] unlock-merged.conf: {unlock_ok} 模块合并 → {len(bobola_lines)+len(sooya_rule_lines)+len(yqc_rule_lines)} 条规则")
 
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
     src_line = " · ".join(src_detail)
@@ -559,20 +652,20 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 > `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
 
 ## 解锁模块
-{unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX），{len(bobola_lines)} + {len(sooya_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。
+{unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），{len(bobola_lines)} + {len(sooya_rule_lines)} + {len(yqc_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。
 
 ## 统计
 - 聚合广告域名: {len(domain_pool)} 个
 - 开屏重写 hostname: {len(splash_hosts)} 个
 - 信息流重写 hostname: {len(feed_hosts)} 个
-- 有效解锁模块: {unlock_ok} 个（合并 {len(bobola_lines)}+{len(sooya_rule_lines)} 条规则）
+- 有效解锁模块: {unlock_ok} 个（合并 {len(bobola_lines)}+{len(sooya_rule_lines)}+{len(yqc_rule_lines)} 条规则）
 
 最后生成: {ts}
 """
     (OUT / "README.md").write_text(readme, encoding="utf-8")
 
     print(f"\n完成！生成 {len(list(OUT.glob('*')))} 个文件到 dist/")
-    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)} · 解锁模块 {unlock_ok}（{len(bobola_lines)}+{len(sooya_rule_lines)} 规则）")
+    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)} · 解锁模块 {unlock_ok}（{len(bobola_lines)}+{len(sooya_rule_lines)}+{len(yqc_rule_lines)} 规则）")
     return 0
 
 
