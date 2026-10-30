@@ -212,7 +212,7 @@ def is_section(line):
 
 
 def extract_surge_mitm_hosts(text):
-    """从 Surge [MITM] 提取 hostname（处理 %APPEND% 前缀）。"""
+    """从 Surge [MITM] 提取 hostname（处理 %APPEND% 前缀，净化非法项）。"""
     hosts = set()
     for line in text.splitlines():
         line = line.strip()
@@ -220,33 +220,17 @@ def extract_surge_mitm_hosts(text):
             val = line.split("=", 1)[1] if "=" in line else ""
             val = val.replace("%APPEND%", "").strip()
             for h in val.split(","):
-                h = h.strip().rstrip(".").lower()
-                if h:
-                    hosts.add(h)
+                s = sanitize_hostname(h)
+                if s:
+                    hosts.add(s)
     return hosts
 
 
 def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts, repo_raw):
     """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
-    def keep(ln):
-        # 只保留 QX 支持的 action；其余（Surge 专属等）剔除，防 result missing
-        m = re.search(r"\surl\s([a-z-]+)\s", ln)
-        if not (m and m.group(1) in QX_REWRITE_ACTIONS):
-            return False
-        # 净化 pattern：去悬空 \，且必须是可编译的正则
-        pat = ln.split(" url ")[0].strip()
-        pat = re.sub(r"\\+$", "", pat).strip()
-        try:
-            re.compile(pat)
-        except re.error:
-            return False
-        return True
-    def clean(ln):
-        pat = re.sub(r"\\+$", "", ln.split(" url ")[0]).strip()
-        return pat + " url " + ln.split(" url ", 1)[1]
-    bobola_lines = [clean(l) for l in bobola_lines if keep(l)]
-    sooya_rule_lines = [clean(l) for l in sooya_rule_lines if keep(l)]
-    yqc_rule_lines = [clean(l) for l in yqc_rule_lines if keep(l)]
+    bobola_lines = clean_rewrite_rules(bobola_lines)
+    sooya_rule_lines = clean_rewrite_rules(sooya_rule_lines)
+    yqc_rule_lines = clean_rewrite_rules(yqc_rule_lines)
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
         "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX + yqc007 裸脚本）",
@@ -267,14 +251,95 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts,
 
 # ===== yqc007 裸脚本解锁（头部内嵌 QX 规则自动提取）=====
 YQC007_API = "https://api.github.com/repos/yqc007/QuantumultX/contents"
+YQC007_HTML_TREE = "https://github.com/yqc007/QuantumultX/tree/master"
 YQC007_RAW = "https://raw.githubusercontent.com/yqc007/QuantumultX/master/"
 
-# QX [rewrite_local] 支持的 action 白名单（script-analyze-echo-response 是 Surge 专属，QX 不支持 → 会致 result missing）
+# QX [rewrite_local] 支持的 action 白名单（完整）。排除 Surge/Loon 专属：script-analyze-echo-response、reject-array 等。
 QX_REWRITE_ACTIONS = {
     "script-request-header", "script-request-body",
     "script-response-header", "script-response-body",
-    "script-error-response", "reject",
+    "script-error-response", "script-echo-response",
+    "reject", "reject-200", "reject-403", "reject-404", "reject-406",
+    "reject-408", "reject-410", "reject-451", "reject-img", "reject-dict",
+    "302", "307", "request-header", "response-header",
 }
+
+
+KNOWN_TLDS = {
+    "com", "cn", "net", "org", "io", "co", "me", "cc", "tv", "xyz", "top", "vip", "fun",
+    "app", "mobi", "info", "biz", "site", "online", "tech", "store", "cloud", "dev", "pro",
+    "live", "life", "world", "plus", "club", "shop", "art", "work", "news", "media", "video",
+    "music", "link", "ltd", "group", "team", "space", "icu", "xin", "wang", "gov", "edu",
+    "mil", "int", "asia", "fm", "im", "ly", "to", "name", "ren", "ink", "wiki", "design",
+    "agency", "digital", "email", "gg", "je", "la", "vc", "ws", "pw", "tk", "nu", "run",
+    "one", "two", "six", "red", "blue", "gold", "cool", "best", "love", "wine", "beer",
+}
+
+# 已知占位/垃圾域名（源模块里的占位符或明显非法碎片），直接剔除
+GARBAGE_HOSTS = {
+    "example.com", "example.org", "example.net",
+    "localhost", "s.com", "mt.com", "tx.com", "hlw.d",
+    "api.meiease", "api.picsart", "h5.you",
+    "api.example.com", "www.example.com",
+}
+
+
+def sanitize_hostname(h):
+    """净化 hostname：去端口、去错位通配符/问号、去前导 -、去纯 IP、校验真实 TLD、剔垃圾；
+    返回合法域名或 None。"""
+    h = (h or "").strip().lower().rstrip(".")
+    if not h:
+        return None
+    h = re.sub(r":\d+$", "", h)  # 去端口
+    if h.startswith("*."):
+        body = h[2:]
+        if re.fullmatch(r"[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]*[a-z0-9])?)+", body):
+            if _valid_tld(body):
+                return h  # 合法通配子域，保留
+        return sanitize_hostname(body)
+    h = h.replace("*", "").replace("?", "")  # 去错位通配符/问号
+    h = h.lstrip("-")
+    h = re.sub(r"\.{2,}", ".", h).strip(".")
+    if not re.fullmatch(r"[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]*[a-z0-9])?)+", h):
+        return None
+    # 拒绝纯 IP
+    if all(re.fullmatch(r"\d+", lab) for lab in h.split(".")):
+        return None
+    # 校验真实 TLD
+    if not _valid_tld(h):
+        return None
+    # 剔垃圾/占位域名
+    if h in GARBAGE_HOSTS:
+        return None
+    return h
+
+
+def _valid_tld(domain):
+    """校验域名最后一段是真实 TLD（2 字母 ccTLD 或已知 TLD）。"""
+    last = domain.rsplit(".", 1)[-1] if "." in domain else domain
+    return (len(last) == 2 and last.isalpha()) or last in KNOWN_TLDS
+
+
+def clean_rewrite_rules(lines):
+    """过滤未知 action + 按 pattern 去重（保留第一条），用于所有 rewrite conf。"""
+    out = []
+    seen = set()
+    for ln in lines:
+        if " url " not in ln:
+            out.append(ln)
+            continue
+        m = re.search(r"\surl\s([a-z-]+)(?:\s|$)", ln)
+        if not (m and m.group(1) in QX_REWRITE_ACTIONS):
+            continue  # 剔除未知 action（如 reject-array）
+        pat = ln.split(" url ")[0].strip()
+        pat = re.sub(r"\\+$", "", pat).strip()  # 去悬空 \
+        key = re.sub(r"^\^http", "http", pat)  # 去 ^ 前缀后去重
+        if key in seen:
+            continue
+        seen.add(key)
+        rest = ln.split(" url ", 1)[1]
+        out.append(pat + " url " + rest)
+    return out
 
 # 对部分正则较复杂但域名明确的模式，手动补 hostname（片段匹配）
 YQC007_HOST_SUPPLEMENT = [
@@ -291,22 +356,81 @@ def _unescape(s):
     return re.sub(r"\\(.)", r"\1", s)
 
 
+def _expand_alt(seg):
+    """递归展开 (a|b|c) 与 (x)? 可选分组，返回所有展开变体。"""
+    m = re.search(r"\(([^()]*\|[^()]*)\)", seg)
+    if m:
+        out = []
+        for alt in m.group(1).split("|"):
+            out.extend(_expand_alt(seg[:m.start()] + alt + seg[m.end():]))
+        return out
+    m = re.search(r"\(([^()]*)\)\?", seg)
+    if m:
+        inner = m.group(1)
+        return (_expand_alt(seg[:m.start()] + inner + seg[m.end():])
+                + _expand_alt(seg[:m.start()] + seg[m.end():]))
+    return [seg]
+
+
+def _trailing_literal_domain(variant):
+    """取最后一个通配符(.* .+ *. )之后的字面域，净化后返回合法域名或 None。"""
+    matches = list(re.finditer(r"\.\*|\.\+|\*\.", variant))
+    if not matches:
+        return None
+    cand = variant[matches[-1].end():]
+    cand = re.sub(r"^[.*+?()]+", "", cand).lstrip(".").strip(".")
+    return sanitize_hostname(cand)
+
+
 def extract_yqc_hosts(pat):
-    """从 yqc007 URL 模式提取 hostname（含通配 *.domain）。返回 (hosts, wild_domains)。"""
+    """从 yqc007 URL 模式提取 hostname。
+    - 纯字面域名（无通配/元字符）→ 直接添加。
+    - 含 .* / .+ / *. 通配 → 提取最后一个通配符之后的字面域（→ *.domain + domain）。
+    - 含 (a|b) / (x)? → 展开后逐个处理。
+    只接受真实 TLD 校验通过的完整域名；拒绝 IP、垃圾碎片。
+    返回 (hosts, wild_domains)。"""
     hosts = set()
     wild = set()
     s = _unescape(re.sub(r"^\^", "", pat))
     if "://" not in s:
         return hosts, wild
     seg = s.split("://", 1)[1].split("/")[0]
-    has_wild_prefix = bool(re.search(r"(\.\*|\.\+|\*)\\.", seg)) or ("*." in seg)
-    for part in re.split(r"[()|,]", seg):
-        part = part.strip(".*+?\\^$ ").lower()
-        if _YQC_DOMAIN_RE.fullmatch(part):
-            hosts.add(part)
-            if has_wild_prefix and not part.startswith("*.") and not part[0].isdigit():
-                wild.add(part)
+    seg = re.sub(r":.*$", "", seg)  # 去端口(:d{4} / :9293 / :443 等)
+    for variant in _expand_alt(seg):
+        variant = variant.replace("_", "")  # 下划线非合法域名字符
+        # 情况A：纯字面域名（无任何通配符/元字符）
+        if re.fullmatch(r"[a-z0-9.\-]+", variant):
+            s2 = sanitize_hostname(variant)
+            if s2:
+                hosts.add(s2)
+            continue
+        # 情况B：含通配符/元字符 → 提取最后一个通配符之后的字面域
+        s2 = _trailing_literal_domain(variant)
+        if s2 and s2.count(".") >= 1:
+            hosts.add("*." + s2)
+            hosts.add(s2)
     return hosts, wild
+
+
+def _yqc_script_list():
+    """获取 yqc007 仓库的 .js 文件列表。优先 GitHub API，失败则解析 HTML tree。"""
+    names = []
+    try:
+        data = json.loads(fetch(YQC007_API))
+        names = [x["name"] for x in data if x.get("type") == "file" and x["name"].endswith(".js")]
+        if names:
+            return names
+    except Exception:
+        pass
+    # 回退：解析 HTML tree（无 API 限流）
+    try:
+        html = fetch(YQC007_HTML_TREE)
+        names = sorted(set(re.findall(r'([A-Za-z0-9._\-]+\.js)"', html)))
+        if names:
+            return names
+    except Exception:
+        pass
+    return names
 
 
 def extract_yqc007(existing_patterns):
@@ -315,11 +439,7 @@ def extract_yqc007(existing_patterns):
     rules = []
     hosts = set()
     seen = set()
-    try:
-        data = json.loads(fetch(YQC007_API))
-    except Exception:
-        return rules, hosts
-    scripts = [x["name"] for x in data if x.get("type") == "file" and x["name"].endswith(".js")]
+    scripts = _yqc_script_list()
     for name in scripts:
         try:
             txt = fetch(YQC007_RAW + name)
@@ -459,13 +579,15 @@ def gen_splash_list(all_domains):
 def gen_rewrite(text, name, desc, hosts):
     out = [f"# NAME: {name}", f"# DESC: {desc}", "# 由 generator.py 自动生成，含 hostname", ""]
     seen = set()
+    raw_lines = []
     for line in text.splitlines():
         line = norm(line)
         if not line:
             continue
         if line not in seen:
             seen.add(line)
-            out.append(line)
+            raw_lines.append(line)
+    out += clean_rewrite_rules(raw_lines)
     hn = gen_hostname(hosts)
     if hn:
         out.append("")
@@ -562,9 +684,9 @@ def main():
                 if line.strip().lower().startswith("hostname"):
                     val = line.split("=", 1)[1] if "=" in line else ""
                     for h in val.split(","):
-                        h = h.strip().rstrip(".").lower()
-                        if h:
-                            unlock_hosts.add(h)
+                        s = sanitize_hostname(h)
+                        if s:
+                            unlock_hosts.add(s)
             unlock_ok += 1
         except Exception as e:
             unlock_bad.append(f"{tag}")
