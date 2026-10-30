@@ -41,7 +41,15 @@ FILTER_SOURCES = {
     "hwind-antihijack": "https://raw.githubusercontent.com/hwind2021/QuantumultX-AdBlock-CN/main/quantumultx/filter/AdBlock-AntiHijack.list",
     "hwind-privacy": "https://raw.githubusercontent.com/hwind2021/QuantumultX-AdBlock-CN/main/quantumultx/filter/AdBlock-Privacy.list",
     "hwind-blockhttpdns": "https://raw.githubusercontent.com/hwind2021/QuantumultX-AdBlock-CN/main/quantumultx/filter/BlockHttpDNS.list",
+    # 国际源（Adblock Plus 语法 ||domain^）
+    "easylistchina": "https://raw.githubusercontent.com/easylist/easylistchina/master/easylistchina.txt",
+    "adguard-base": "https://filters.adtidy.org/extension/ublock/filters/1.txt",
+    "adguard-mobile": "https://filters.adtidy.org/extension/ublock/filters/11.txt",
+    "adguard-annoyance": "https://filters.adtidy.org/extension/ublock/filters/14.txt",
 }
+
+# 这些源用 ABP 语法解析（||domain^），其余用 parse_domains
+ABP_SOURCES = {"easylistchina", "adguard-base", "adguard-mobile", "adguard-annoyance"}
 
 # 重写层源：返回原始规则文本（末尾自动补 hostname）
 REWRITE_SOURCES = {
@@ -60,6 +68,80 @@ SCRIPTS = {
     "feed-killer.js": "https://raw.githubusercontent.com/hwind2021/QuantumultX-AdBlock-CN/main/quantumultx/script/feed-killer.js",
 }
 
+# ========== 解锁模块（破解功能脚本，远程引用，每日验证可达性，死链自动剔除）==========
+# sooyaaabo/Egern 45 个
+UNLOCK_SOOYA = {
+    "RevenueCat": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/RevenueCat.module",
+    "Bilibili": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Bilibili.module",
+    "QQMusic": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/QQMusic.module",
+    "NeteaseMusic": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/NeteaseMusic.module",
+    "Spotify": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Spotify.module",
+    "KuwoMusic": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/KuwoMusic.module",
+    "YoukuVideo": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/YoukuVideo.module",
+    "IQIYI": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/IQIYI.module",
+    "MangoTV": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/MangoTV.module",
+    "HimalayaFM": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/HimalayaFM.module",
+    "Zhihu": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Zhihu.module",
+    "RedNote": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/RedNote.module",
+    "Keep": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Keep.module",
+    "Fenbi": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Fenbi.module",
+    "Railway12306": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Railway12306.module",
+    "DiDi": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/DiDi.module",
+    "QuarkBrowser": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/QuarkBrowser.module",
+    "ThunderCloudDisk": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/ThunderCloudDisk.module",
+    "BodianMusic": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/BodianMusic.module",
+    "SodaMusic": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/SodaMusic.module",
+    "Listenify": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Listenify.module",
+    "VVebo": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/VVebo.module",
+    "Weibo": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Weibo.module",
+    "Soul": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Soul.module",
+    "LuckinCoffee": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/LuckinCoffee.module",
+    "Cainiao": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Cainiao.module",
+    "Alipan": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Alipan.module",
+    "BaiduTieba": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/BaiduTieba.module",
+    "ColorfulCloudsWeatherPro": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/ColorfulCloudsWeatherPro.module",
+    "QQ": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/QQ.module",
+    "IThome": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/IThome.module",
+    "HUPU": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/HUPU.module",
+    "Ezviz": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Ezviz.module",
+    "Fanshu": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Fanshu.module",
+    "KDocs": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/KDocs.module",
+    "ChinaMobile": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/ChinaMobile.module",
+    "ChinaUnicom": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/ChinaUnicom.module",
+    "Bank": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Bank.module",
+    "Amap": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Amap.module",
+    "Goofish": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Goofish.module",
+    "smzdm": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/smzdm.module",
+    "iTunes": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/iTunes.module",
+    "Google": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/Google.module",
+    "YouTube": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/YouTube.module",
+    "AppRaven": "https://github.com/sooyaaabo/Egern/raw/refs/heads/main/Module/AppRaven.module",
+}
+
+# BOBOLAOSHIV 20 个
+UNLOCK_BOBOLA = {
+    "AdGuard": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/AdGuard/AdGuard.conf",
+    "Audiomack": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Audiomack/Audiomack.conf",
+    "Boom": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Boom/Boom.conf",
+    "FilmicPro": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/FilmicPro/FilmicPro.conf",
+    "Filmix": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Filmix/Filmix.conf",
+    "IFTTT": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/IFTTT/IFTTT.conf",
+    "LeicaLUX": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/LeicaLUX/LeicaLUX.conf",
+    "MIX": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MIX/MIX.conf",
+    "MuBu": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/MuBu/MuBu.conf",
+    "Notability": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Notability/Notability.conf",
+    "Perfect365": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Perfect365/Perfect365.conf",
+    "Photomator": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Photomator/Photomator.conf",
+    "ProCamera": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/ProCamera/ProCamera.conf",
+    "Snailsleep": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Snailsleep/Snailsleep.conf",
+    "WPS": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/WPS/WPS.conf",
+    "iLovePDF": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/iLovePDF/iLovePDF.conf",
+    "GunDongJiePing": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/GunDongJiePing/GunDongJiePing.conf",
+    "Picsart": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Picsart/Picsart.conf",
+    "CamScanner": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/CamScanner/CamScanner.conf",
+    "Goodnotes6": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Goodnotes6/Goodnotes6.conf",
+}
+
 # 本仓库 raw 前缀（Actions 里会被替换成真实仓库地址）
 REPO_RAW = "${REPO_RAW}"
 
@@ -75,6 +157,23 @@ def norm(line):
     if not line or line.startswith("#") or line.startswith("!"):
         return None
     return line
+
+
+def parse_abp_domains(text):
+    """从 Adblock Plus 语法提取 ||domain^ 域名（过滤 IP 和通配符）。"""
+    domains = set()
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("!") or line.startswith("["):
+            continue
+        m = re.match(r"^\|\|([a-z0-9.-]+)\^", line.lower())
+        if m:
+            d = m.group(1).strip(".").lower()
+            # 过滤 IP、通配符、单标签
+            if d and "." in d and not re.match(r"^\d+(\.\d+){3}$", d) \
+               and not re.search(r"[*?\[\]{}]", d) and re.search(r"[a-z]", d):
+                domains.add(d)
+    return domains
 
 
 def parse_domains(text):
@@ -189,7 +288,10 @@ def main():
         try:
             txt = fetch(url)
             raw_filter[name] = txt
-            ds = parse_domains(txt)
+            if name in ABP_SOURCES:
+                ds = parse_abp_domains(txt)
+            else:
+                ds = parse_domains(txt)
             domain_pool |= ds
             src_detail.append(f"{name}:{len(ds)}")
             print(f"  [OK] {name}: {len(ds)} 域名")
@@ -221,6 +323,23 @@ def main():
             all_ok = False
             scr_raw[name] = ""
             print(f"  [FAIL] {name}: {e}")
+
+    # 4) 解锁模块同步：验证可达性，死链剔除，生成 rewrite_remote 配置
+    print("== 解锁模块同步 ==")
+    unlock_lines = []
+    unlock_ok = 0
+    unlock_bad = []
+    for tag, url in list(UNLOCK_SOOYA.items()) + list(UNLOCK_BOBOLA.items()):
+        try:
+            fetch(url)  # 只验证可达
+            unlock_lines.append(
+                f"{url}, tag={tag}解锁, update-interval=86400, opt-parser=true, enabled=true")
+            unlock_ok += 1
+        except Exception as e:
+            unlock_bad.append(f"{tag}")
+    print(f"  [OK] 有效 {unlock_ok} · 失效剔除 {len(unlock_bad)}")
+    if unlock_bad:
+        print(f"  [剔除] {', '.join(unlock_bad)}")
 
     if check_only:
         print("CHECK:", "PASS" if all_ok else "FAIL")
@@ -256,14 +375,28 @@ def main():
         except Exception as e:
             print(f"  [FAIL] script {fname}: {e}")
 
+    # 解锁模块配置片段（rewrite_remote 行，死链已剔除）
+    unlock_conf = [
+        "# ===== 解锁模块（自建同步，每日验证可达性，死链自动剔除）=====",
+        "# 复制到你的 [rewrite_remote] 区块",
+        "",
+    ] + unlock_lines
+    (OUT / "unlock-rewrite.conf").write_text("\n".join(unlock_conf), encoding="utf-8")
+    print(f"  [OK] unlock-rewrite.conf: {unlock_ok} 条有效模块")
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
     src_line = " · ".join(src_detail)
     readme = f"""# 自建 QuantumultX 广告清单（多源聚合）
 
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
-## 上游源
+## 上游源（广告）
 {src_line}
+
+## 上游源（解锁模块）
+- sooyaaabo/Egern: 45 个模块
+- BOBOLAOSHIV587/Rules: 20 个模块
+> 每日验证可达性，死链自动剔除。
 
 ## 文件
 - `splash-killer.list` —— 分流层（按域名 REJECT，无需 MITM）
@@ -271,6 +404,7 @@ def main():
 - `adblock-feed.conf` —— 信息流/弹窗重写（含 hostname）
 - `adblock-script.conf` —— 脚本层去广告（引用本仓库脚本）
 - `splash-killer.js` / `feed-killer.js` —— 脚本本体
+- `unlock-rewrite.conf` —— 解锁模块配置片段（复制进 [rewrite_remote]）
 
 ## QX 配置
 ```ini
@@ -283,17 +417,21 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-feed.conf, tag=�
 https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=true, enabled=true
 ```
 
+## 解锁模块（复制 unlock-rewrite.conf 内容到 [rewrite_remote]）
+{unlock_ok} 个有效模块（死链已剔除）。
+
 ## 统计
 - 聚合广告域名: {len(domain_pool)} 个
 - 开屏重写 hostname: {len(splash_hosts)} 个
 - 信息流重写 hostname: {len(feed_hosts)} 个
+- 有效解锁模块: {unlock_ok} 个
 
 最后生成: {ts}
 """
     (OUT / "README.md").write_text(readme, encoding="utf-8")
 
     print(f"\n完成！生成 {len(list(OUT.glob('*')))} 个文件到 dist/")
-    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)}")
+    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)} · 解锁模块 {unlock_ok}")
     return 0
 
 
