@@ -168,8 +168,9 @@ def surge_rule_to_qx(line):
     qx_type = {"http-request": "script-request-body", "http-response": "script-response-body"}.get(typ)
     if not qx_type:
         return None, False
-    # pattern 里 QX 不接受尾随无意义 ?，去掉
+    # 清理 pattern：去掉尾随无意义 ? 和悬空转义反斜杠（skin\? → skin\ 的残留 \，会使解析器报 invalid Line）
     pat = pat.rstrip("?").strip()
+    pat = re.sub(r"\\+$", "", pat).strip()
     return f"{pat} url {qx_type} {script}", True
 
 
@@ -186,6 +187,7 @@ def surge_rewrite_reject_to_qx(line):
         return None, False
     if "reject" in body.lower():
         pat = m_pat.group(1).strip().rstrip("?").strip()
+        pat = re.sub(r"\\+$", "", pat).strip()
         return f"{pat} url reject", True
     return None, False
 
@@ -229,10 +231,22 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts,
     def keep(ln):
         # 只保留 QX 支持的 action；其余（Surge 专属等）剔除，防 result missing
         m = re.search(r"\surl\s([a-z-]+)\s", ln)
-        return m and m.group(1) in QX_REWRITE_ACTIONS
-    bobola_lines = [l for l in bobola_lines if keep(l)]
-    sooya_rule_lines = [l for l in sooya_rule_lines if keep(l)]
-    yqc_rule_lines = [l for l in yqc_rule_lines if keep(l)]
+        if not (m and m.group(1) in QX_REWRITE_ACTIONS):
+            return False
+        # 净化 pattern：去悬空 \，且必须是可编译的正则
+        pat = ln.split(" url ")[0].strip()
+        pat = re.sub(r"\\+$", "", pat).strip()
+        try:
+            re.compile(pat)
+        except re.error:
+            return False
+        return True
+    def clean(ln):
+        pat = re.sub(r"\\+$", "", ln.split(" url ")[0]).strip()
+        return pat + " url " + ln.split(" url ", 1)[1]
+    bobola_lines = [clean(l) for l in bobola_lines if keep(l)]
+    sooya_rule_lines = [clean(l) for l in sooya_rule_lines if keep(l)]
+    yqc_rule_lines = [clean(l) for l in yqc_rule_lines if keep(l)]
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
         "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX + yqc007 裸脚本）",
