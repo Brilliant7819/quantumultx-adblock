@@ -41,8 +41,4 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 - 信息流重写 hostname: 436 个
 - 有效解锁模块: 65 个（合并 26+155+84 条规则）
 
-<<<<<<< HEAD
-最后生成: 2026-10-30 10:30:55 UTC
-=======
-最后生成: 2026-10-30 11:57:13 UTC
->>>>>>> 2a10b67 (fix: 修复 QX 资源解析器 59 issue——净化 hostname/剔除未知 action/去重复 pattern)
+最后生成: 2026-10-30 12:00:52 UTC
