@@ -226,6 +226,13 @@ def extract_surge_mitm_hosts(text):
 
 def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts, repo_raw):
     """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
+    def keep(ln):
+        # 只保留 QX 支持的 action；其余（Surge 专属等）剔除，防 result missing
+        m = re.search(r"\surl\s([a-z-]+)\s", ln)
+        return m and m.group(1) in QX_REWRITE_ACTIONS
+    bobola_lines = [l for l in bobola_lines if keep(l)]
+    sooya_rule_lines = [l for l in sooya_rule_lines if keep(l)]
+    yqc_rule_lines = [l for l in yqc_rule_lines if keep(l)]
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
         "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX + yqc007 裸脚本）",
@@ -247,6 +254,13 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts,
 # ===== yqc007 裸脚本解锁（头部内嵌 QX 规则自动提取）=====
 YQC007_API = "https://api.github.com/repos/yqc007/QuantumultX/contents"
 YQC007_RAW = "https://raw.githubusercontent.com/yqc007/QuantumultX/master/"
+
+# QX [rewrite_local] 支持的 action 白名单（script-analyze-echo-response 是 Surge 专属，QX 不支持 → 会致 result missing）
+QX_REWRITE_ACTIONS = {
+    "script-request-header", "script-request-body",
+    "script-response-header", "script-response-body",
+    "script-error-response", "reject",
+}
 
 # 对部分正则较复杂但域名明确的模式，手动补 hostname（片段匹配）
 YQC007_HOST_SUPPLEMENT = [
@@ -309,6 +323,8 @@ def extract_yqc007(existing_patterns):
                 continue
             action = rp[0]
             script = rp[1].split()[0].rstrip(",").strip()
+            if action not in QX_REWRITE_ACTIONS:
+                continue  # 过滤非 QX 支持的 action（如 Surge 专属 script-analyze-echo-response）
             if pat in existing_patterns or pat in seen:
                 continue
             # 提取 hostname；无 host 的规则无法被 MITM，跳过（避免死规则）

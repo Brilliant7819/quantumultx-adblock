@@ -33,12 +33,12 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 > `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
 
 ## 解锁模块
-65 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），26 + 155 + 81 条规则，hostname 306 个。
+65 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），26 + 155 + 80 条规则，hostname 306 个。
 
 ## 统计
 - 聚合广告域名: 113089 个
 - 开屏重写 hostname: 434 个
 - 信息流重写 hostname: 436 个
-- 有效解锁模块: 65 个（合并 26+155+81 条规则）
+- 有效解锁模块: 65 个（合并 26+155+80 条规则）
 
-最后生成: 2026-10-30 09:48:23 UTC
+最后生成: 2026-10-30 10:15:08 UTC
