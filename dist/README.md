@@ -41,8 +41,4 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 - 信息流重写 hostname: 436 个
 - 有效解锁模块: 65 个（合并 26+155+80 条规则）
 
-<<<<<<< HEAD
-最后生成: 2026-10-30 10:16:44 UTC
-=======
-最后生成: 2026-10-30 10:29:13 UTC
->>>>>>> 48b10d5 (fix: 清理 sooyaaabo 转换规则尾随悬空反斜杠（45 条，致资源解析器 invalid Line/result missing）)
+最后生成: 2026-10-30 10:30:55 UTC
