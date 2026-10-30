@@ -28661,7 +28661,6 @@ HOST-SUFFIX,datado.me,REJECT
 HOST-SUFFIX,datadog-service.mvfglobal.com,REJECT
 HOST-SUFFIX,datadoghq-browser-agent.com,REJECT
 HOST-SUFFIX,datadoghq.eu,REJECT
-HOST-SUFFIX,datadome.co,REJECT
 HOST-SUFFIX,datadome.maisonsdumonde.com,REJECT
 HOST-SUFFIX,datadsk.com,REJECT
 HOST-SUFFIX,datafa.st,REJECT
