@@ -142,6 +142,104 @@ UNLOCK_BOBOLA = {
     "Goodnotes6": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Goodnotes6/Goodnotes6.conf",
 }
 
+
+def surge_rule_to_qx(line):
+    """把 Surge 的 [Script] / [URL Rewrite] 规则行转成 QX rewrite 规则。
+    返回 (qx_line, ok)。
+    """
+    line = line.strip()
+    if not line or line.startswith("#"):
+        return None, False
+    # 去掉 "名称 = " 前缀（名称可能含中文/{{{}}}，以 type= 或 pattern= 结尾才处理）
+    m = re.match(r"^(.+?)\s*=\s*(type=.*)$", line)
+    if m:
+        line = m.group(2)
+    # 去掉 {{{...}}} 占位符
+    line = re.sub(r"\{\{\{[^}]*\}\}\}", "", line)
+    m_type = re.search(r"type=(http-request|http-response)", line)
+    m_pat = re.search(r"pattern=([^,]+)", line)
+    m_script = re.search(r"script-path=([^,\s]+)", line)
+    if not m_type or not m_pat or not m_script:
+        return None, False
+    typ = m_type.group(1)
+    pat = m_pat.group(1).strip()
+    script = m_script.group(1).strip()
+    qx_type = {"http-request": "script-request-body", "http-response": "script-response-body"}.get(typ)
+    if not qx_type:
+        return None, False
+    # pattern 里 QX 不接受尾随无意义 ?，去掉
+    pat = pat.rstrip("?").strip()
+    return f"{pat} url {qx_type} {script}", True
+
+
+def surge_rewrite_reject_to_qx(line):
+    """把 Surge [URL Rewrite] 的 reject 规则转 QX reject。"""
+    line = line.strip()
+    if not line or line.startswith("#"):
+        return None, False
+    m = re.match(r"^(.+?)\s*=\s*(.*)$", line)
+    body = m.group(2) if m else line
+    body = re.sub(r"\{\{\{[^}]*\}\}\}", "", body)
+    m_pat = re.search(r"pattern=([^,]+)", body)
+    if not m_pat:
+        return None, False
+    if "reject" in body.lower():
+        pat = m_pat.group(1).strip().rstrip("?").strip()
+        return f"{pat} url reject", True
+    return None, False
+
+
+KNOWN_SECTIONS = {
+    "script", "url rewrite", "rule", "mitm", "map local", "body rewrite", "header rewrite",
+    "local dns", "host", "general", "rewrite", "rewrite local", "rewrite remote",
+    "replication", "script", "task", "filter remote", "filter local",
+    # 下划线变体（QX 原生）
+    "rewrite_local", "rewrite_remote", "filter_local", "filter_remote", "task_local", "task_remote",
+    "server_local", "server_remote", "http_backend", "dns", "policy",
+}
+
+
+def is_section(line):
+    """判断一行是否为 section 头（已知 section 名，避免把 [模块名]xxx 误判）。"""
+    s = line.strip()
+    if not s.startswith("[") or not s.endswith("]"):
+        return False
+    inner = s[1:-1].strip().lower()
+    return inner in KNOWN_SECTIONS
+
+
+def extract_surge_mitm_hosts(text):
+    """从 Surge [MITM] 提取 hostname（处理 %APPEND% 前缀）。"""
+    hosts = set()
+    for line in text.splitlines():
+        line = line.strip()
+        if line.lower().startswith("hostname"):
+            val = line.split("=", 1)[1] if "=" in line else ""
+            val = val.replace("%APPEND%", "").strip()
+            for h in val.split(","):
+                h = h.strip().rstrip(".").lower()
+                if h:
+                    hosts.add(h)
+    return hosts
+
+
+def gen_unlock_merged(bobola_lines, sooya_rule_lines, all_hosts, repo_raw):
+    """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
+    out = [
+        "# NAME: Unlock-Merged (自建聚合)",
+        "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX）",
+        "# 由 generator.py 自动生成，QX 一键引用",
+        "",
+        "[rewrite_local]",
+        "# ===== BOBOLAOSHIV（原生 QX 格式）=====",
+    ]
+    out += bobola_lines
+    out += ["", "# ===== sooyaaabo（Surge 转 QX）====="]
+    out += sooya_rule_lines
+    out += ["", "[mitm]"]
+    out.append("hostname = " + ", ".join(sorted(all_hosts)))
+    return "\n".join(out)
+
 # 本仓库 raw 前缀（Actions 里会被替换成真实仓库地址）
 REPO_RAW = "${REPO_RAW}"
 
@@ -324,20 +422,63 @@ def main():
             scr_raw[name] = ""
             print(f"  [FAIL] {name}: {e}")
 
-    # 4) 解锁模块同步：验证可达性，死链剔除，生成 rewrite_remote 配置
-    print("== 解锁模块同步 ==")
-    unlock_lines = []
+    # 4) 解锁模块同步：下载全部 → BOBOLAOSHIV(QX原生) + sooyaaabo(Surge转QX) → 合并成单个文件
+    print("== 解锁模块同步(合并) ==")
+    bobola_lines = []   # QX 原生规则
+    sooya_rule_lines = []  # Surge 转 QX 规则
+    unlock_hosts = set()  # 全部 hostname
     unlock_ok = 0
     unlock_bad = []
-    for tag, url in list(UNLOCK_SOOYA.items()) + list(UNLOCK_BOBOLA.items()):
+    # BOBOLAOSHIV：原生 QX 格式，直接提取 [rewrite_local] 规则 + hostname
+    for tag, url in UNLOCK_BOBOLA.items():
         try:
-            fetch(url)  # 只验证可达
-            unlock_lines.append(
-                f"{url}, tag={tag}解锁, update-interval=86400, opt-parser=true, enabled=true")
+            txt = fetch(url)
+            in_rl = False
+            for line in txt.splitlines():
+                s = line.strip()
+                if is_section(s):
+                    in_rl = (s[1:-1].strip().lower() == "rewrite_local")
+                    continue
+                if in_rl and s and not s.startswith("#") and " url " in s:
+                    bobola_lines.append(s)
+            # 提取 hostname
+            for line in txt.splitlines():
+                if line.strip().lower().startswith("hostname"):
+                    val = line.split("=", 1)[1] if "=" in line else ""
+                    for h in val.split(","):
+                        h = h.strip().rstrip(".").lower()
+                        if h:
+                            unlock_hosts.add(h)
+            unlock_ok += 1
+        except Exception as e:
+            unlock_bad.append(f"{tag}")
+    # sooyaaabo：Surge 格式，转 QX
+    for tag, url in UNLOCK_SOOYA.items():
+        try:
+            txt = fetch(url)
+            in_script = in_urlrewrite = False
+            for line in txt.splitlines():
+                s = line.strip()
+                if is_section(s):
+                    lower = s[1:-1].strip().lower()
+                    in_script = (lower == "script")
+                    in_urlrewrite = (lower == "url rewrite")
+                    continue
+                if in_script and s and "type=" in s:
+                    qx, ok = surge_rule_to_qx(s)
+                    if ok and qx:
+                        sooya_rule_lines.append(qx)
+                elif in_urlrewrite and s and ("reject" in s.lower()):
+                    qx, ok = surge_rewrite_reject_to_qx(s)
+                    if ok and qx:
+                        sooya_rule_lines.append(qx)
+            # 提取 MITM hostname
+            unlock_hosts |= extract_surge_mitm_hosts(txt)
             unlock_ok += 1
         except Exception as e:
             unlock_bad.append(f"{tag}")
     print(f"  [OK] 有效 {unlock_ok} · 失效剔除 {len(unlock_bad)}")
+    print(f"  [合并] BOBOLAOSHIV规则 {len(bobola_lines)} 条 · sooyaaabo规则 {len(sooya_rule_lines)} 条 · hostname {len(unlock_hosts)} 个")
     if unlock_bad:
         print(f"  [剔除] {', '.join(unlock_bad)}")
 
@@ -375,14 +516,11 @@ def main():
         except Exception as e:
             print(f"  [FAIL] script {fname}: {e}")
 
-    # 解锁模块配置片段（rewrite_remote 行，死链已剔除）
-    unlock_conf = [
-        "# ===== 解锁模块（自建同步，每日验证可达性，死链自动剔除）=====",
-        "# 复制到你的 [rewrite_remote] 区块",
-        "",
-    ] + unlock_lines
-    (OUT / "unlock-rewrite.conf").write_text("\n".join(unlock_conf), encoding="utf-8")
-    print(f"  [OK] unlock-rewrite.conf: {unlock_ok} 条有效模块")
+    # 解锁模块合并文件（单文件，QX 一键引用）
+    repo_raw2 = REPO_RAW if not REPO_RAW.startswith("$") else "https://raw.githubusercontent.com/OWNER/REPO/main/script"
+    merged = gen_unlock_merged(bobola_lines, sooya_rule_lines, unlock_hosts, repo_raw2)
+    (OUT / "unlock-merged.conf").write_text(merged, encoding="utf-8")
+    print(f"  [OK] unlock-merged.conf: {unlock_ok} 模块合并 → {len(bobola_lines)+len(sooya_rule_lines)} 条规则")
 
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
     src_line = " · ".join(src_detail)
@@ -404,7 +542,7 @@ def main():
 - `adblock-feed.conf` —— 信息流/弹窗重写（含 hostname）
 - `adblock-script.conf` —— 脚本层去广告（引用本仓库脚本）
 - `splash-killer.js` / `feed-killer.js` —— 脚本本体
-- `unlock-rewrite.conf` —— 解锁模块配置片段（复制进 [rewrite_remote]）
+- `unlock-merged.conf` —— **全部解锁模块合并（QX 一键引用，含 hostname）**
 
 ## QX 配置
 ```ini
@@ -415,23 +553,26 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/splash-killer.list, tag=�
 https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true
 https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=true, enabled=true
 https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=true, enabled=true
+https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=true, enabled=true
 ```
 
-## 解锁模块（复制 unlock-rewrite.conf 内容到 [rewrite_remote]）
-{unlock_ok} 个有效模块（死链已剔除）。
+> `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
+
+## 解锁模块
+{unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX），{len(bobola_lines)} + {len(sooya_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。
 
 ## 统计
 - 聚合广告域名: {len(domain_pool)} 个
 - 开屏重写 hostname: {len(splash_hosts)} 个
 - 信息流重写 hostname: {len(feed_hosts)} 个
-- 有效解锁模块: {unlock_ok} 个
+- 有效解锁模块: {unlock_ok} 个（合并 {len(bobola_lines)}+{len(sooya_rule_lines)} 条规则）
 
 最后生成: {ts}
 """
     (OUT / "README.md").write_text(readme, encoding="utf-8")
 
     print(f"\n完成！生成 {len(list(OUT.glob('*')))} 个文件到 dist/")
-    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)} · 解锁模块 {unlock_ok}")
+    print(f"  聚合域名 {len(domain_pool)} · 开屏 hostname {len(splash_hosts)} · 信息流 hostname {len(feed_hosts)} · 解锁模块 {unlock_ok}（{len(bobola_lines)}+{len(sooya_rule_lines)} 规则）")
     return 0
 
 
