@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:100685 · anti-ad-surge:100685 · nobyda-adrule:7955 · hwind-splash-killer:412 · hwind-antihijack:186 · hwind-privacy:39898 · hwind-blockhttpdns:21 · easylistchina:6085 · adguard-base:2080 · adguard-mobile:968 · adguard-annoyance:1049
+anti-ad-quanx:100682 · anti-ad-surge:100682 · nobyda-adrule:7955 · hwind-splash-killer:412 · hwind-antihijack:186 · hwind-privacy:39898 · hwind-blockhttpdns:21 · easylistchina:6094 · adguard-base:2080 · adguard-mobile:968 · adguard-annoyance:1049
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -36,9 +36,9 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 65 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），26 + 155 + 84 条规则，hostname 278 个。
 
 ## 统计
-- 聚合广告域名: 113090 个
+- 聚合广告域名: 113096 个
 - 开屏重写 hostname: 434 个
 - 信息流重写 hostname: 436 个
 - 有效解锁模块: 65 个（合并 26+155+84 条规则）
 
-最后生成: 2026-10-30 12:29:04 UTC
+最后生成: 2026-10-31 08:18:23 UTC
