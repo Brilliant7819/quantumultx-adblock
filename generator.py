@@ -740,6 +740,21 @@ def minimize_domains(domains):
     return keep
 
 
+def gen_clash_list(all_domains):
+    """生成 Clash 规则集（classical rule-set，DOMAIN-SUFFIX 语义与 QX HOST-SUFFIX 一致）。
+    供 rule-providers 引用，RULE-SET,adblock,REJECT。"""
+    out = [
+        "# NAME: Clash-AdBlock (自建多源聚合，从 QX splash-killer.list 转制)",
+        "# 用法: rule-providers 引用本文件(behavior: classical)，rules 加 RULE-SET,adblock,REJECT",
+        "# 由 generator.py 自动生成，DOMAIN-SUFFIX 匹配域名及其所有子域",
+        "",
+    ]
+    minimized = minimize_domains(all_domains)
+    for d in sorted(minimized):
+        out.append(f"DOMAIN-SUFFIX,{d}")
+    return "\n".join(out)
+
+
 def gen_rewrite(text, name, desc, hosts):
     out = [f"# NAME: {name}", f"# DESC: {desc}", "# 由 generator.py 自动生成，含 hostname", ""]
     seen = set()
@@ -926,6 +941,8 @@ def main():
     # 5) 生成文件
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "splash-killer.list").write_text(gen_splash_list(domain_pool), encoding="utf-8")
+    (OUT / "clash-adblock.list").write_text(gen_clash_list(domain_pool), encoding="utf-8")
+    print(f"  [OK] clash-adblock.list: {len(minimize_domains(domain_pool))} 域名 (Clash DOMAIN-SUFFIX)")
     (OUT / "adblock-splash.conf").write_text(
         gen_rewrite(rew_raw.get("adblock_splash", ""), "AdBlock-Splash", "开屏广告重写（含自动 hostname）", splash_hosts), encoding="utf-8")
     (OUT / "adblock-feed.conf").write_text(
