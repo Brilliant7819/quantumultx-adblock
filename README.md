@@ -42,6 +42,7 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 | 文件 | 作用 |
 |---|---|
 | `dist/splash-killer.list` | 分流层：按域名 REJECT（约 28.5 万个，已剔子域名冗余，无需 MITM） |
+| `dist/clash-adblock.list` | **Clash 规则集**：DOMAIN-SUFFIX（约 28.5 万条，供 rule-providers 引用） |
 | `dist/adblock-splash.conf` | 重写：开屏广告（含 hostname） |
 | `dist/adblock-feed.conf` | 重写：信息流/弹窗（含 hostname） |
 | `dist/adblock-script.conf` | 脚本：引用本仓库 splash-killer.js |
@@ -65,6 +66,25 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 - **NobyDa**（2 个 QX 模块：Js.conf 去微信广告/VIP/RevenueCat + TestFlightDownload.conf）
 - **sooyaaabo/Egern**（45 个 Surge `.module` 转 QX）
 - **yqc007/QuantumultX**（裸 `.js` 脚本，头部内嵌 QX 规则自动提取）
+
+## Clash 用法（电脑端）
+
+广告域名已同步提供 Clash 规则集 `dist/clash-adblock.list`（DOMAIN-SUFFIX，语义与 QX HOST-SUFFIX 一致）。在你的 Clash 配置里加：
+
+```yaml
+rule-providers:
+  adblock:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/clash-adblock.list
+    path: ./ruleset/clash-adblock.list
+    interval: 86400
+
+rules:
+  - RULE-SET,adblock,REJECT
+```
+
+> 只支持**广告域名层**。QX 的解锁/响应改写依赖 `script-response-body`（JS 补丁 HTTP 响应），Clash/Meta **没有**该能力，无法移植。
 
 ## 手动运行（本地）
 
