@@ -2,7 +2,7 @@ name: 每日广告资源聚合
 
 on:
   schedule:
-    - cron: "0 4 * * *"   # 每天 04:00 UTC = 北京 12:00
+    - cron: "17 4 * * *"   # 每天 04:17 UTC = 北京 12:17（避开整点高峰，减少 GitHub cron 延迟）
   workflow_dispatch:       # 也支持手动触发
 
 permissions:
