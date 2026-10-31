@@ -11,7 +11,7 @@
 GitHub Actions (cron 每日 04:17 UTC = 北京 12:17，避开整点高峰)
    └─ generator.py
         ├─ 拉取上游广告清单（anti-AD / NobyDa / hwind / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe）
-        ├─ 聚合去重广告域名（约 44.6 万个）
+        ├─ 聚合去重广告域名（约 28.5 万个，已剔子域名冗余）
         ├─ 拉取解锁模块（BOBOLAOSHIV + app2smile + NobyDa QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本）
         ├─ 合并为单个 unlock-merged.conf（285 条规则 + hostname）
         ├─ 自动生成 hostname 行（关键！解决 MITM hostname 问题）
@@ -41,7 +41,7 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 
 | 文件 | 作用 |
 |---|---|
-| `dist/splash-killer.list` | 分流层：按域名 REJECT（约 44.6 万个，无需 MITM） |
+| `dist/splash-killer.list` | 分流层：按域名 REJECT（约 28.5 万个，已剔子域名冗余，无需 MITM） |
 | `dist/adblock-splash.conf` | 重写：开屏广告（含 hostname） |
 | `dist/adblock-feed.conf` | 重写：信息流/弹窗（含 hostname） |
 | `dist/adblock-script.conf` | 脚本：引用本仓库 splash-killer.js |
