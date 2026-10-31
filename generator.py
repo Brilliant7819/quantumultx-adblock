@@ -706,16 +706,38 @@ def gen_hostname_single(hosts):
 
 
 def gen_splash_list(all_domains):
-    """分流层：聚合域名生成 HOST-SUFFIX/REJECT 规则。"""
+    """分流层：聚合域名生成 HOST-SUFFIX/REJECT 规则（先剔除子域名冗余）。"""
     out = [
         "# NAME: Splash-Killer (自建多源聚合)",
         "# POLICY: REJECT",
-        "# 由 generator.py 自动生成，含 anti-AD / hwind2021 / NobyDa 聚合",
+        "# 由 generator.py 自动生成，含 anti-AD / hwind2021 / NobyDa / AdGuard全系 / EasyList / StevenBlack 等聚合",
         "",
     ]
-    for d in sorted(all_domains):
+    minimized = minimize_domains(all_domains)
+    for d in sorted(minimized):
         out.append(f"HOST-SUFFIX,{d},REJECT")
     return "\n".join(out)
+
+
+def minimize_domains(domains):
+    """剔除子域名冗余：若某域名是集合中另一域名的子域名，则剔除。
+    （HOST-SUFFIX 父域名会匹配所有子域，保留子域名属于重复，零覆盖损失。）"""
+    dset = set(domains)
+    keep = set()
+    for d in dset:
+        parent = d
+        redundant = False
+        while True:
+            idx = parent.find(".")
+            if idx == -1:
+                break
+            parent = parent[idx + 1:]
+            if parent in dset:
+                redundant = True
+                break
+        if not redundant:
+            keep.add(d)
+    return keep
 
 
 def gen_rewrite(text, name, desc, hosts):
@@ -779,6 +801,9 @@ def main():
             all_ok = False
             print(f"  [FAIL] {name}: {e}")
     print(f"  → 分流域名去重合计: {len(domain_pool)}")
+    # 剔除子域名冗余（父域名 HOST-SUFFIX 已覆盖子域，零覆盖损失）
+    domain_pool = minimize_domains(domain_pool)
+    print(f"  → 子域名冗余剔除后: {len(domain_pool)}")
 
     # 2) 拉取重写层
     print("== 重写层源 ==")

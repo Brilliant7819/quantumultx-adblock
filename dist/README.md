@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:100672 · anti-ad-surge:100672 · nobyda-adrule:7954 · hwind-splash-killer:412 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6093 · easylist-intl:45306 · easyprivacy:47496 · adguard-base:2080 · adguard-mobile:968 · adguard-annoyance:1049 · adguard-social:57680 · adguard-tracking:117259 · adguard-gaming:184897 · adguard-chinese:6352 · adguard-annoyance2:626 · adguard-tracking-servers:726 · stevenblack:76724 · 1hosts:202830 · peterlowe:3561
+anti-ad-quanx:100672 · anti-ad-surge:100672 · nobyda-adrule:7954 · hwind-splash-killer:412 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6093 · easylist-intl:45308 · easyprivacy:47497 · adguard-base:2080 · adguard-mobile:968 · adguard-annoyance:1049 · adguard-social:57680 · adguard-tracking:117259 · adguard-gaming:184897 · adguard-chinese:6352 · adguard-annoyance2:626 · adguard-tracking-servers:726 · stevenblack:76724 · 1hosts:202830 · peterlowe:3561
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -36,9 +36,9 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 76 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），59 + 155 + 84 条规则，hostname 307 个。
 
 ## 统计
-- 聚合广告域名: 446428 个
+- 聚合广告域名: 285218 个
 - 开屏重写 hostname: 434 个
 - 信息流重写 hostname: 436 个
 - 有效解锁模块: 76 个（合并 59+155+84 条规则）
 
-最后生成: 2026-10-31 09:23:48 UTC
+最后生成: 2026-10-31 09:42:00 UTC
