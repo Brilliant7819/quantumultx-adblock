@@ -44,13 +44,30 @@ FILTER_SOURCES = {
     "hwind-blockhttpdns": "https://raw.githubusercontent.com/hwind2021/QuantumultX-AdBlock-CN/main/quantumultx/filter/BlockHttpDNS.list",
     # 国际源（Adblock Plus 语法 ||domain^）
     "easylistchina": "https://raw.githubusercontent.com/easylist/easylistchina/master/easylistchina.txt",
+    "easylist-intl": "https://easylist.to/easylist/easylist.txt",
+    "easyprivacy": "https://easylist.to/easylist/easyprivacy.txt",
     "adguard-base": "https://filters.adtidy.org/extension/ublock/filters/1.txt",
     "adguard-mobile": "https://filters.adtidy.org/extension/ublock/filters/11.txt",
     "adguard-annoyance": "https://filters.adtidy.org/extension/ublock/filters/14.txt",
+    "adguard-social": "https://filters.adtidy.org/extension/ublock/filters/2.txt",
+    "adguard-tracking": "https://filters.adtidy.org/extension/ublock/filters/3.txt",
+    "adguard-gaming": "https://filters.adtidy.org/extension/ublock/filters/15.txt",
+    "adguard-chinese": "https://filters.adtidy.org/extension/ublock/filters/224.txt",
+    "adguard-annoyance2": "https://filters.adtidy.org/extension/ublock/filters/6.txt",
+    "adguard-tracking-servers": "https://filters.adtidy.org/extension/ublock/filters/17.txt",
+    # hosts 格式源（0.0.0.0 domain / 127.0.0.1 domain）
+    "stevenblack": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+    "1hosts": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/hosts.txt",
+    "peterlowe": "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext",
 }
 
 # 这些源用 ABP 语法解析（||domain^），其余用 parse_domains
-ABP_SOURCES = {"easylistchina", "adguard-base", "adguard-mobile", "adguard-annoyance"}
+ABP_SOURCES = {"easylistchina", "easylist-intl", "easyprivacy", "adguard-base", "adguard-mobile",
+               "adguard-annoyance", "adguard-social", "adguard-tracking", "adguard-gaming",
+               "adguard-chinese", "adguard-annoyance2", "adguard-tracking-servers"}
+
+# 这些源是 hosts 格式（0.0.0.0 domain / 127.0.0.1 domain），用 parse_hosts
+HOSTS_SOURCES = {"stevenblack", "1hosts", "peterlowe"}
 
 # 重写层源：返回原始规则文本（末尾自动补 hostname）
 REWRITE_SOURCES = {
@@ -143,6 +160,23 @@ UNLOCK_BOBOLA = {
     "Goodnotes6": "https://raw.githubusercontent.com/BOBOLAOSHIV587/Rules/main/JS/Goodnotes6/Goodnotes6.conf",
 }
 
+# 平铺 QX 格式解锁/去广告模块（无 [rewrite_local] 头，直接收集所有 " url " 行）
+UNLOCK_QX_FLAT = {
+    # app2smile（应用去广告/解锁，QX 格式）
+    "app2smile-spotify": "https://raw.githubusercontent.com/app2smile/rules/master/module/spotify.conf",
+    "app2smile-bilibili": "https://raw.githubusercontent.com/app2smile/rules/master/module/bilibili-qx.conf",
+    "app2smile-zhihu": "https://raw.githubusercontent.com/app2smile/rules/master/module/zhihu.conf",
+    "app2smile-qidian": "https://raw.githubusercontent.com/app2smile/rules/master/module/qidian.conf",
+    "app2smile-qqnews": "https://raw.githubusercontent.com/app2smile/rules/master/module/qqnews.conf",
+    "app2smile-tieba": "https://raw.githubusercontent.com/app2smile/rules/master/module/tieba-qx.conf",
+    "app2smile-vgtime": "https://raw.githubusercontent.com/app2smile/rules/master/module/vgtime.conf",
+    "app2smile-youtube": "https://raw.githubusercontent.com/app2smile/rules/master/module/youtube-qx.conf",
+    "app2smile-adsense": "https://raw.githubusercontent.com/app2smile/rules/master/module/adsense.conf",
+    # NobyDa（去广告/VIP，QX 格式，无 section 头）
+    "nobyda-js": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/Js.conf",
+    "nobyda-testflight": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/TestFlightDownload.conf",
+}
+
 
 def surge_rule_to_qx(line):
     """把 Surge 的 [Script] / [URL Rewrite] 规则行转成 QX rewrite 规则。
@@ -226,6 +260,26 @@ def extract_surge_mitm_hosts(text):
     return hosts
 
 
+def extract_qx_flat(txt):
+    """提取平铺 QX 重写模块的规则行 + hostname（无 [rewrite_local] 头，直接收集所有 " url " 行）。
+    返回 (rules, hosts)。"""
+    rules = []
+    hosts = set()
+    for line in txt.splitlines():
+        s = line.strip()
+        if not s or s.startswith("#"):
+            continue
+        if " url " in s:
+            rules.append(s)
+        elif s.lower().startswith("hostname"):
+            val = s.split("=", 1)[1] if "=" in s else ""
+            for h in val.split(","):
+                s2 = sanitize_hostname(h)
+                if s2:
+                    hosts.add(s2)
+    return rules, hosts
+
+
 def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts, repo_raw):
     """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
     bobola_lines = clean_rewrite_rules(bobola_lines)
@@ -233,11 +287,11 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts,
     yqc_rule_lines = clean_rewrite_rules(yqc_rule_lines)
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
-        "# DESC: 65+ 解锁模块合并（BOBOLAOSHIV QX + sooyaaabo Surge转QX + yqc007 裸脚本）",
+        "# DESC: 90+ 解锁/去广告模块合并（BOBOLAOSHIV + app2smile + NobyDa + sooyaaabo + yqc007）",
         "# 由 generator.py 自动生成，QX 一键引用",
         "",
         "[rewrite_local]",
-        "# ===== BOBOLAOSHIV（原生 QX 格式）=====",
+        "# ===== BOBOLAOSHIV + app2smile + NobyDa（原生 QX 格式）=====",
     ]
     out += bobola_lines
     out += ["", "# ===== sooyaaabo（Surge 转 QX）====="]
@@ -511,8 +565,44 @@ def norm(line):
     return line
 
 
+# 垃圾/假 TLD（非真实顶级域），清洗时直接剔除
+FAKE_TLDS = {
+    "playtop", "form", "clays", "example0101", "test", "invalid", "localhost",
+    "example", "onion", "local", "home", "lan", "internal", "corp", "none",
+    "bar", "foo", "host", "dummy", "fake", "sample",
+}
+
+
+def clean_ad_domain(d):
+    """严格清洗广告域名：拒绝转义/路径垃圾、非法标签、假 TLD、纯 IP、下划线。
+    返回合法域名或 None（punycode xn-- 视为合法保留）。"""
+    d = (d or "").strip().lower().rstrip(".")
+    if not d or "." not in d:
+        return None
+    # 拒绝转义/路径/下划线/通配/花括号等垃圾
+    if re.search(r"[\\/{}?\[\]@_*]|\.json$|^\.|\.$", d):
+        return None
+    # 拒绝 hosts 文件 IP 粘连垃圾（0.0.0.0.domain / 127.0.0.1.domain）
+    if re.match(r"^\d{1,3}(?:\.\d{1,3}){3}\.", d):
+        return None
+    # 拒绝含非域名字符
+    if not re.fullmatch(r"[a-z0-9-]+(\.[a-z0-9-]+)+", d):
+        return None
+    labels = d.split(".")
+    # 拒绝以连字符开头/结尾的标签、空标签
+    if any(not l or l.startswith("-") or l.endswith("-") for l in labels):
+        return None
+    # 拒绝假 TLD
+    if labels[-1] in FAKE_TLDS:
+        return None
+    # 拒绝纯 IP
+    if all(re.fullmatch(r"\d+", l) for l in labels):
+        return None
+    return d
+
+
 def parse_abp_domains(text):
-    """从 Adblock Plus 语法提取 ||domain^ 域名（过滤 IP 和通配符）。"""
+    """从 Adblock Plus 语法提取 ||domain^ 域名（过滤 IP、通配符、垃圾域名）。"""
     domains = set()
     for line in text.splitlines():
         line = line.strip()
@@ -521,10 +611,11 @@ def parse_abp_domains(text):
         m = re.match(r"^\|\|([a-z0-9.-]+)\^", line.lower())
         if m:
             d = m.group(1).strip(".").lower()
-            # 过滤 IP、通配符、单标签
             if d and "." in d and not re.match(r"^\d+(\.\d+){3}$", d) \
                and not re.search(r"[*?\[\]{}]", d) and re.search(r"[a-z]", d):
-                domains.add(d)
+                s = clean_ad_domain(d)
+                if s:
+                    domains.add(s)
     return domains
 
 
@@ -541,11 +632,36 @@ def parse_domains(text):
         if len(parts) >= 2 and parts[0] in ("host-suffix", "domain-suffix", "host", "domain"):
             d = parts[1].strip().rstrip(".").lower()
             if d and re.search(r"[a-z0-9-]+\.[a-z]{2,}", d):
-                domains.add(d)
+                s = clean_ad_domain(d)
+                if s:
+                    domains.add(s)
                 continue
         # 兜底：纯域名行（含至少一个点，无路径/通配符）
         if re.match(r"^[a-z0-9-]+(\.[a-z0-9-]+)+$", low):
-            domains.add(low)
+            s = clean_ad_domain(low)
+            if s:
+                domains.add(s)
+    return domains
+
+
+def parse_hosts(text):
+    """从 hosts 文件提取域名（0.0.0.0 domain / 127.0.0.1 domain / ::1 domain）。"""
+    domains = set()
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        # 去掉行内注释
+        line = line.split("#")[0].strip()
+        parts = line.split()
+        # hosts 行: IP domain [domain2 ...]
+        if len(parts) >= 2 and re.match(r"^(?:\d{1,3}(?:\.\d{1,3}){3}|::1|0:0:0:0:0:0:0:1)$", parts[0]):
+            for d in parts[1:]:
+                d = d.strip().lower().rstrip(".")
+                if d and re.search(r"[a-z0-9-]+\.[a-z]{2,}", d):
+                    s = clean_ad_domain(d)
+                    if s:
+                        domains.add(s)
     return domains
 
 
@@ -652,6 +768,8 @@ def main():
             raw_filter[name] = txt
             if name in ABP_SOURCES:
                 ds = parse_abp_domains(txt)
+            elif name in HOSTS_SOURCES:
+                ds = parse_hosts(txt)
             else:
                 ds = parse_domains(txt)
             domain_pool |= ds
@@ -714,6 +832,17 @@ def main():
                         if s:
                             unlock_hosts.add(s)
             unlock_ok += 1
+        except Exception as e:
+            unlock_bad.append(f"{tag}")
+    # app2smile + NobyDa：平铺 QX 格式，直接收集所有 " url " 行 + hostname
+    for tag, url in UNLOCK_QX_FLAT.items():
+        try:
+            txt = fetch(url)
+            rules, hosts = extract_qx_flat(txt)
+            bobola_lines.extend(rules)
+            unlock_hosts |= hosts
+            unlock_ok += 1
+            print(f"  [OK-QXFLAT] {tag}: {len(rules)} 规则 · {len(hosts)} hostname")
         except Exception as e:
             unlock_bad.append(f"{tag}")
     # sooyaaabo：Surge 格式，转 QX
