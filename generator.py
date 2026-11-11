@@ -546,6 +546,15 @@ def clean_rewrite_rules(lines):
         m = re.search(r"\surl\s([a-z-]+)(?:\s|$)", ln)
         if not (m and m.group(1) in QX_REWRITE_ACTIONS):
             continue  # 剔除未知 action（如 reject-array）
+        # 剔除引用裸脚本名（非 URL）的规则：单文件合并后这些脚本不在 dist/，QX 会 404
+        act = m.group(1)
+        if act.startswith("script"):
+            rest = ln.split(" url ", 1)[1]
+            sm = re.search(r"\b(?:script-(?:response|request)-(?:body|header)|script-response|script-request)\s+(\S+)", rest)
+            if sm:
+                sarg = sm.group(1)
+                if sarg and not sarg.startswith("http"):
+                    continue  # 裸脚本名（如 bilibili-filter.js），剔除
         pat = ln.split(" url ")[0].strip()
         pat = re.sub(r"\\+$", "", pat).strip()  # 去悬空 \
         # 去 (?i) 等 JS 不支持的内联旗标（adblock 源常见）
