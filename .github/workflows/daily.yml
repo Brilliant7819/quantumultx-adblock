@@ -20,6 +20,12 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: 自动检索上游源（GitHub 搜索 + 验证收录）
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python discover_sources.py --token "$GH_TOKEN" --limit 15 || echo "自动检索失败（跳过，不影响生成）"
+
       - name: 注入仓库地址并生成
         env:
           REPO_RAW: https://raw.githubusercontent.com/${{ github.repository }}/main/script

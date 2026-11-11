@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6214 · easylist-intl:45582 · easyprivacy:47572 · adguard-base:2081 · adguard-mobile:969 · adguard-annoyance:1055 · adguard-social:58351 · adguard-tracking:119309 · adguard-gaming:187708 · adguard-chinese:6469 · adguard-annoyance2:626 · adguard-tracking-servers:730 · stevenblack:78201 · 1hosts:202830 · peterlowe:3560
+anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6214 · easylist-intl:45587 · easyprivacy:47574 · adguard-base:2081 · adguard-mobile:969 · adguard-annoyance:1055 · adguard-social:58364 · adguard-tracking:119309 · adguard-gaming:187708 · adguard-chinese:6473 · adguard-annoyance2:626 · adguard-tracking-servers:730 · stevenblack:78201 · 1hosts:202830 · peterlowe:3560 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:110659 · auto-bigdargon-hostsvn-hosts:18576
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -33,12 +33,18 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 > `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
 
 ## 解锁模块
-82 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），63 + 155 + 84 条规则，hostname 312 个。
+97 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），702 + 184 + 84 条规则，hostname 528 个。
+
+## 原作者致谢
+本仓库聚合了以下上游开源项目的成果，**向每一位原作者致谢**（完整清单见 `CREDITS.md`）：
+- 广告域名：anti-AD / hwind2021 / NobyDa / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe
+- 解锁模块：BOBOLAOSHIV587 / app2smile / NobyDa / sooyaaabo(Egern) / yqc007
+- 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
-- 聚合广告域名: 289493 个
+- 聚合广告域名: 300948 个
 - 开屏重写 hostname: 435 个
 - 信息流重写 hostname: 437 个
-- 有效解锁模块: 82 个（合并 63+155+84 条规则）
+- 有效解锁模块: 97 个（合并 702+184+84 条规则）
 
-最后生成: 2026-11-11 00:31:44 UTC
+最后生成: 2026-11-11 01:10:15 UTC

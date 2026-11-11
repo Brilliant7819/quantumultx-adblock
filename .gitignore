@@ -5,3 +5,9 @@ __pycache__/
 # 临时
 *.bak
 .tmp/
+
+# 开发/校验脚本（不进仓库）
+_*.py
+_*.js
+_out_*
+_list_out.txt

@@ -2,7 +2,8 @@
 
 > 你的个人 QuantumultX 广告去重仓库。**每天 04:17 UTC（北京时间 12:17）由 GitHub Actions 自动运行**，
 > 聚合上游（anti-AD / NobyDa / hwind2021 / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe 等）广告资源
-> \+ 82 个解锁/去广告模块（BOBOLAOSHIV / app2smile / NobyDa / sooyaaabo / yqc007 / NobyDa/File 裸脚本），
+> \+ 82 个解锁/去广告模块（BOBOLAOSHIV / app2smile / NobyDa / sooyaaabo / yqc007 / NobyDa/File 裸脚本）
+> \+ 每日自动检索 GitHub 上游源并验证收录（去广告 + 解锁脚本），
 > 生成可直接被 QX 拉取的远程清单。**你只需在 QX 里添加本仓库的 5 条远程引用，之后零维护。**
 
 ## 原理
@@ -41,14 +42,17 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 
 | 文件 | 作用 |
 |---|---|
-| `dist/splash-killer.list` | 分流层：按域名 REJECT（约 28.5 万个，已剔子域名冗余，无需 MITM） |
-| `dist/clash-adblock.list` | **Clash 规则集**：DOMAIN-SUFFIX（约 28.5 万条，供 rule-providers 引用） |
+| `dist/splash-killer.list` | 分流层：按域名 REJECT（约 30 万个，已剔子域名冗余，无需 MITM） |
+| `dist/clash-adblock.list` | **Clash 规则集**：DOMAIN-SUFFIX（约 30 万条，供 rule-providers 引用） |
 | `dist/adblock-splash.conf` | 重写：开屏广告（含 hostname） |
 | `dist/adblock-feed.conf` | 重写：信息流/弹窗（含 hostname） |
 | `dist/adblock-script.conf` | 脚本：引用本仓库 splash-killer.js |
 | `dist/splash-killer.js` | 脚本：开屏杀手 |
 | `dist/feed-killer.js` | 脚本：信息流杀手 |
-| `dist/unlock-merged.conf` | **解锁模块单文件聚合**（302 规则 / hostname） |
+| `dist/unlock-merged.conf` | **解锁模块单文件聚合**（约 970 规则 / hostname） |
+| `dist/CREDITS.md` | **原作者致谢**：全部上游源作者/仓库清单 |
+| `dist/sources.json` | **自动检索**：GitHub 搜索验证后收录的源（机器可读） |
+| `dist/DISCOVERED.md` | **自动检索**：人工审核清单（同 sources.json 内容） |
 
 ## 广告源覆盖
 
@@ -67,6 +71,30 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 - **sooyaaabo/Egern**（45 个 Surge `.module` 转 QX）
 - **yqc007/QuantumultX**（裸 `.js` 脚本，头部内嵌 QX 规则自动提取）
 - **NobyDa/File**（6 个裸脚本，头部内嵌 QX 规则自动提取：Zymh.js 紫月漫画 / xjsp.js 香蕉视频 / 91.js 91视频；Wechat/wnyd/vsco 与 Js.conf 重复自动去重）
+- **自动检索**：GitHub 搜索验证后自动收录（见下）
+
+## 原作者致谢
+
+本仓库聚合了以下上游开源项目的成果，**向每一位原作者致谢**（完整清单见 `dist/CREDITS.md`，随 Actions 每日更新）：
+
+- **广告域名**：anti-AD（privacy-protection-tools）/ hwind2021 / NobyDa / AdGuard 全系（AdguardTeam）/ EasyList 中英（easylist）/ EasyPrivacy / StevenBlack / 1Hosts / PeterLowe
+- **解锁模块**：BOBOLAOSHIV587 / app2smile / NobyDa / sooyaaabo(Egern) / yqc007
+- **自动检索新增**：见 `dist/DISCOVERED.md`
+
+## 自动检索上游源
+
+`discover_sources.py` 用 GitHub search API 自动搜索**去广告源 + QX 解锁脚本源**，对候选仓库探测文件树、拉样例验证格式与数量，达到阈值（广告 ≥500 域名 / 解锁 ≥3 规则）才收录到 `dist/sources.json`。每日 Actions 在生成前先跑检索，generator 自动合并已验证的源，失败自动跳过：
+
+```bash
+# 本地（需 GitHub token；Actions 里自动用 GITHUB_TOKEN）
+python discover_sources.py --token YOUR_TOKEN --limit 15
+
+# 重新全量探测（忽略已收录缓存）
+python discover_sources.py --token YOUR_TOKEN --limit 15 --force
+```
+
+> 已收录源记录在 `dist/sources.json`，重复运行只增量探测新仓库，不重复 API 调用。
+> 首次收录示例：killads（11 万域名）/ adult-hosts-list / hostsVN；解锁 deezertidal（399 规则）/ funnyzak（222 规则）/ 98kevinxiao（111 规则）等。
 
 ## Clash 用法（电脑端）
 

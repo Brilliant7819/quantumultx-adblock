@@ -192,6 +192,135 @@ NOBYDA_FILE_HOST_SUPPLEMENT = {
     "nobyda-file-91": ["my10api.com", "my10api.tips", "my10api.app", "my10api.xyz"],
 }
 
+# ========== 原作者致谢 ==========
+# 每个源 tag → (作者/仓库, 仓库链接, 说明)。用于生成 dist/CREDITS.md + 文件头部致谢。
+# 自动检索发现的动态源（sources.json）无需在此登记，作者直接从仓库 owner 推导。
+CREDIT_NOTES = {
+    # 广告域名源
+    "anti-ad-quanx": ("privacy-protection-tools/anti-AD", "https://github.com/privacy-protection-tools/anti-AD", "国内最强广告拦截清单（每日更新）"),
+    "anti-ad-surge": ("privacy-protection-tools/anti-AD", "https://github.com/privacy-protection-tools/anti-AD", "anti-AD Surge 格式"),
+    "nobyda-adrule": ("NobyDa/Script", "https://github.com/NobyDa/Script", "去广告规则补充"),
+    "hwind-splash-killer": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "开屏 SDK 拦截"),
+    "hwind-antihijack": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "防劫持"),
+    "hwind-privacy": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "隐私追踪"),
+    "hwind-blockhttpdns": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "HTTPDNS 拦截"),
+    "easylistchina": ("easylist/easylistchina", "https://github.com/easylist/easylistchina", "EasyList 中国版"),
+    "easylist-intl": ("easylist/easylist", "https://github.com/easylist/easylist", "EasyList 国际"),
+    "easyprivacy": ("easylist/easylist", "https://github.com/easylist/easylist", "EasyPrivacy 隐私追踪"),
+    "adguard-base": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 基础过滤"),
+    "adguard-mobile": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 移动端"),
+    "adguard-annoyance": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 恼人元素"),
+    "adguard-social": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 社交"),
+    "adguard-tracking": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 追踪"),
+    "adguard-gaming": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 游戏"),
+    "adguard-chinese": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 中文"),
+    "adguard-annoyance2": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 恼人元素(过滤6)"),
+    "adguard-tracking-servers": ("AdguardTeam/AdguardFilters", "https://github.com/AdguardTeam/AdguardFilters", "AdGuard 追踪服务器"),
+    "stevenblack": ("StevenBlack/hosts", "https://github.com/StevenBlack/hosts", "国际广告/恶意域名 hosts"),
+    "1hosts": ("badmojr/1Hosts", "https://github.com/badmojr/1Hosts", "1Hosts Lite hosts"),
+    "peterlowe": ("pgl.yoyo.org", "https://pgl.yoyo.org/adservers/", "Peter Lowe 广告服务器列表"),
+    # 重写/脚本层
+    "adblock_splash": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "开屏广告重写"),
+    "adblock_feed": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "信息流/弹窗重写"),
+    "adblock_script": ("hwind2021/QuantumultX-AdBlock-CN", "https://github.com/hwind2021/QuantumultX-AdBlock-CN", "脚本层去广告"),
+    # 解锁模块（按组登记，URL 不逐一列）
+    "UNLOCK_BOBOLA": ("BOBOLAOSHIV587/Rules", "https://github.com/BOBOLAOSHIV587/Rules", "QX 原生解锁模块（20 个）"),
+    "UNLOCK_SOOYA": ("sooyaaabo/Egern", "https://github.com/sooyaaabo/Egern", "Surge 转 QX 解锁模块（45 个）"),
+    "UNLOCK_QX_FLAT": ("app2smile + NobyDa", "https://github.com/app2smile/rules", "平铺 QX 解锁模块（app2smile 9 + NobyDa 2）"),
+    "UNLOCK_NOBYDA_FILE": ("NobyDa/Script", "https://github.com/NobyDa/Script", "NobyDa/File 裸脚本（6 个）"),
+}
+
+
+def repo_from_url(url):
+    """从 raw URL 推导 GitHub 仓库 owner/repo，非 GitHub 源返回 None。"""
+    m = re.match(r"https?://(?:raw\.)?githubusercontent?\.com/([^/]+)/([^/]+)", url)
+    if m:
+        return f"{m.group(1)}/{m.group(2)}"
+    m2 = re.match(r"https?://github\.com/([^/]+)/([^/]+)", url)
+    if m2:
+        return f"{m2.group(1)}/{m2.group(2)}"
+    return None
+
+
+def load_dynamic_sources():
+    """读取自动检索发现的源（dist/sources.json）。
+    返回 (dyn_ad, dyn_ad_parser, dyn_unlock, dyn_unlock_format)。
+    文件缺失/损坏返回空，失败源由调用方 try/except 跳过。"""
+    dyn_ad, dyn_ad_parser = {}, {}
+    dyn_unlock, dyn_unlock_format = {}, {}
+    sp = OUT / "sources.json"
+    if not sp.exists():
+        return dyn_ad, dyn_ad_parser, dyn_unlock, dyn_unlock_format
+    try:
+        data = json.loads(sp.read_text(encoding="utf-8"))
+    except Exception:
+        return dyn_ad, dyn_ad_parser, dyn_unlock, dyn_unlock_format
+    for s in data.get("ad", []):
+        tag, url = s.get("tag"), s.get("url")
+        if tag and url:
+            dyn_ad[tag] = url
+            dyn_ad_parser[tag] = s.get("parser", "plain")
+    for s in data.get("unlock", []):
+        tag, url = s.get("tag"), s.get("url")
+        if tag and url:
+            dyn_unlock[tag] = url
+            dyn_unlock_format[tag] = s.get("format", "qx-flat")
+    return dyn_ad, dyn_ad_parser, dyn_unlock, dyn_unlock_format
+
+
+def gen_credits_md(dyn_ad, dyn_unlock):
+    """生成 dist/CREDITS.md：汇总全部上游原作者致谢（静态 + 自动检索动态源）。
+    同一仓库按分类合并为一行（去重），作者/主页优先用 CREDIT_NOTES，GitHub 源自动推导。"""
+    groups = {}  # (category, author, repo) -> [descs]
+    def add_group(dic, category, note_key=None):
+        for tag, url in dic.items():
+            note = CREDIT_NOTES.get(tag) or CREDIT_NOTES.get(note_key)
+            if note:
+                author, repo, desc = note
+                link = repo  # CREDIT_NOTES 里是主页链接（GitHub 官网 / 上游官网）
+            else:
+                repo = repo_from_url(url)
+                author = repo.split("/")[0] if repo else "原作者"
+                link = url
+                desc = ""
+            key = (category, author, repo)
+            groups.setdefault(key, [])
+            if desc and desc not in groups[key]:
+                groups[key].append(desc)
+    add_group(FILTER_SOURCES, "广告域名")
+    add_group(REWRITE_SOURCES, "广告重写")
+    add_group(SCRIPT_SOURCES, "广告脚本")
+    add_group(UNLOCK_BOBOLA, "解锁模块", "UNLOCK_BOBOLA")
+    add_group(UNLOCK_SOOYA, "解锁模块", "UNLOCK_SOOYA")
+    add_group(UNLOCK_QX_FLAT, "解锁模块", "UNLOCK_QX_FLAT")
+    add_group(UNLOCK_NOBYDA_FILE, "解锁模块", "UNLOCK_NOBYDA_FILE")
+    # 自动检索动态源：从 sources.json 读完整元数据（author/repo/desc）
+    sp = OUT / "sources.json"
+    if sp.exists():
+        try:
+            sj = json.loads(sp.read_text(encoding="utf-8"))
+            for s in sj.get("ad", []):
+                key = ("广告域名(自动检索)", s.get("author", "原作者"), s.get("repo", ""))
+                groups.setdefault(key, [])
+                if s.get("desc"):
+                    groups[key].append(s["desc"])
+            for s in sj.get("unlock", []):
+                key = ("解锁模块(自动检索)", s.get("author", "原作者"), s.get("repo", ""))
+                groups.setdefault(key, [])
+                if s.get("desc"):
+                    groups[key].append(s["desc"])
+        except Exception:
+            pass
+    lines = ["# 原作者致谢（CREDITS）\n",
+             "> 本仓库聚合了以下上游开源项目的成果。**在此向每一位原作者致谢！**\n",
+             "> 由 generator.py 自动生成，随 Actions 每日更新。\n",
+             "", "| 分类 | 原作者/仓库 | 说明 | 链接 |", "|---|---|---|---|"]
+    for (category, author, repo), descs in sorted(groups.items(), key=lambda kv: (kv[0][0], kv[0][1])):
+        desc = "; ".join(descs) if descs else ""
+        link = f"[{repo}]({repo})" if repo.startswith("http") else (repo or "—")
+        lines.append(f"| {category} | {author} | {desc} | {link} |")
+    return "\n".join(lines)
+
 
 def surge_rule_to_qx(line):
     """把 Surge 的 [Script] / [URL Rewrite] 规则行转成 QX rewrite 规则。
@@ -304,8 +433,9 @@ def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts,
     yqc_rule_lines = clean_rewrite_rules(yqc_rule_lines)
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
-        "# DESC: 90+ 解锁/去广告模块合并（BOBOLAOSHIV + app2smile + NobyDa + sooyaaabo + yqc007）",
+        "# DESC: 90+ 解锁/去广告模块合并（BOBOLAOSHIV + app2smile + NobyDa + sooyaaabo + yqc007 + 自动检索）",
         "# 由 generator.py 自动生成，QX 一键引用",
+        "# 原作者致谢: 见 dist/CREDITS.md",
         "",
         "[rewrite_local]",
         "# ===== BOBOLAOSHIV + app2smile + NobyDa（原生 QX 格式）=====",
@@ -728,6 +858,7 @@ def gen_splash_list(all_domains):
         "# NAME: Splash-Killer (自建多源聚合)",
         "# POLICY: REJECT",
         "# 由 generator.py 自动生成，含 anti-AD / hwind2021 / NobyDa / AdGuard全系 / EasyList / StevenBlack 等聚合",
+        "# 原作者致谢: 见 dist/CREDITS.md（本仓库聚合全部上游作者的成果）",
         "",
     ]
     minimized = minimize_domains(all_domains)
@@ -764,6 +895,7 @@ def gen_clash_list(all_domains):
         "# NAME: Clash-AdBlock (自建多源聚合，从 QX splash-killer.list 转制)",
         "# 用法: rule-providers 引用本文件(behavior: classical)，rules 加 RULE-SET,adblock,REJECT",
         "# 由 generator.py 自动生成，DOMAIN-SUFFIX 匹配域名及其所有子域",
+        "# 原作者致谢: 见 dist/CREDITS.md",
         "",
     ]
     minimized = minimize_domains(all_domains)
@@ -813,14 +945,26 @@ def main():
 
     # 1) 拉取全部分流域名源
     print("== 分流域名源 ==")
+    # 加载自动检索发现的动态源（dist/sources.json），合并进过滤循环
+    dyn_ad, dyn_ad_parser, dyn_unlock, dyn_unlock_format = load_dynamic_sources()
+    all_filter = dict(FILTER_SOURCES)
+    all_filter.update(dyn_ad)
     domain_pool = set()
     src_detail = []
     raw_filter = {}
-    for name, url in FILTER_SOURCES.items():
+    for name, url in all_filter.items():
         try:
             txt = fetch(url)
             raw_filter[name] = txt
-            if name in ABP_SOURCES:
+            if name in dyn_ad_parser:
+                parser = dyn_ad_parser[name]
+                if parser == "abp":
+                    ds = parse_abp_domains(txt)
+                elif parser == "hosts":
+                    ds = parse_hosts(txt)
+                else:
+                    ds = parse_domains(txt)
+            elif name in ABP_SOURCES:
                 ds = parse_abp_domains(txt)
             elif name in HOSTS_SOURCES:
                 ds = parse_hosts(txt)
@@ -941,6 +1085,37 @@ def main():
             unlock_ok += 1
         except Exception as e:
             unlock_bad.append(f"{tag}")
+    # 自动检索发现的动态解锁源（dist/sources.json）：qx-flat 平铺 / surge 转 QX
+    for tag, url in dyn_unlock.items():
+        try:
+            txt = fetch(url)
+            fmt = dyn_unlock_format.get(tag, "qx-flat")
+            if fmt == "surge":
+                in_script = in_urlrewrite = False
+                for line in txt.splitlines():
+                    s = line.strip()
+                    if is_section(s):
+                        lower = s[1:-1].strip().lower()
+                        in_script = (lower == "script")
+                        in_urlrewrite = (lower == "url rewrite")
+                        continue
+                    if in_script and s and "type=" in s:
+                        qx, ok = surge_rule_to_qx(s)
+                        if ok and qx:
+                            sooya_rule_lines.append(qx)
+                    elif in_urlrewrite and s and ("reject" in s.lower()):
+                        qx, ok = surge_rewrite_reject_to_qx(s)
+                        if ok and qx:
+                            sooya_rule_lines.append(qx)
+                unlock_hosts |= extract_surge_mitm_hosts(txt)
+            else:  # qx-flat
+                rules, hosts = extract_qx_flat(txt)
+                bobola_lines.extend(rules)
+                unlock_hosts |= hosts
+            unlock_ok += 1
+            print(f"  [OK-AUTO] {tag}: {fmt} 处理成功")
+        except Exception as e:
+            unlock_bad.append(f"{tag}")
     # yqc007：裸脚本，从头部提取内嵌 QX 规则（去重）
     existing_pats = set()
     for ln in list(bobola_lines) + list(sooya_rule_lines):
@@ -995,6 +1170,11 @@ def main():
     (OUT / "unlock-merged.conf").write_text(merged, encoding="utf-8")
     print(f"  [OK] unlock-merged.conf: {unlock_ok} 模块合并 → {len(bobola_lines)+len(sooya_rule_lines)+len(yqc_rule_lines)} 条规则")
 
+    # 生成原作者致谢（CREDITS.md）
+    credits = gen_credits_md(dyn_ad, dyn_unlock)
+    (OUT / "CREDITS.md").write_text(credits, encoding="utf-8")
+    print(f"  [OK] CREDITS.md: 原作者致谢")
+
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
     src_line = " · ".join(src_detail)
     readme = f"""# 自建 QuantumultX 广告清单（多源聚合）
@@ -1033,6 +1213,12 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 
 ## 解锁模块
 {unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），{len(bobola_lines)} + {len(sooya_rule_lines)} + {len(yqc_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。
+
+## 原作者致谢
+本仓库聚合了以下上游开源项目的成果，**向每一位原作者致谢**（完整清单见 `CREDITS.md`）：
+- 广告域名：anti-AD / hwind2021 / NobyDa / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe
+- 解锁模块：BOBOLAOSHIV587 / app2smile / NobyDa / sooyaaabo(Egern) / yqc007
+- 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
 - 聚合广告域名: {len(domain_pool)} 个
