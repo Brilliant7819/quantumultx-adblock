@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-11 01:00:14 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-11 01:14:18 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 
@@ -23,6 +23,10 @@
 - **auto-bigdargon-hostsvn-hosts** · hosts 18581 域名 · 作者 `bigdargon` · ⭐611
   - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
   - bigdargon/hostsVN · Hosts block ads of Vietnamese
+
+- **auto-biroloter-mobile-ad-hosts-hosts** · hosts 751 域名 · 作者 `biroloter` · ⭐9
+  - https://raw.githubusercontent.com/biroloter/Mobile-Ad-Hosts/master/hosts
+  - biroloter/Mobile-Ad-Hosts · hosts file to block mobile ads
 
 ## 解锁/重写源
 
@@ -85,3 +89,59 @@
 - **auto-ppproxy-4surge-base** · surge 15 规则 · 作者 `ppproxy` · ⭐5
   - https://raw.githubusercontent.com/ppproxy/4surge/main/Base.conf
   - ppproxy/4surge · scripts and module
+
+- **auto-fmz200-wool-scripts-tiktokjp** · qx-flat 4 规则 · 作者 `fmz200` · ⭐5946
+  - https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/rewrite/unlock/TikTok/TiktokJP.conf
+  - fmz200/wool_scripts · 收集一些Loon、Surge、QuantumultX、ShadowRocket、Egern的配置与去广告规则。
+
+- **auto-githubdulong-script-douban-qx** · qx-flat 3 规则 · 作者 `githubdulong` · ⭐990
+  - https://raw.githubusercontent.com/githubdulong/Script/master/Douban_qx.js
+  - githubdulong/Script · QuantumultX｜Surge｜Loon
+
+- **auto-tartarus2014-quantumultx-script-tiktokkr** · qx-flat 3 规则 · 作者 `Tartarus2014` · ⭐840
+  - https://raw.githubusercontent.com/Tartarus2014/QuantumultX-Script/main/Unlock/TiktokKR.conf
+  - Tartarus2014/QuantumultX-Script · QuantumultX脚本收集
+
+- **auto-sliverkiss-quantumultx-xmapp** · qx-flat 5 规则 · 作者 `Sliverkiss` · ⭐718
+  - https://raw.githubusercontent.com/Sliverkiss/QuantumultX/main/AdBlock/xmApp/xmApp.conf
+  - Sliverkiss/QuantumultX · Collection of Scripts written for QuantumultX iOS App
+
+- **auto-lowking-scripts-10000** · qx-flat 5 规则 · 作者 `lowking` · ⭐470
+  - https://raw.githubusercontent.com/lowking/Scripts/master/Scriptable/10000.js
+  - lowking/Scripts · Scripts for Surge, Quantumult X, Loon, Stash, Node.js
+
+- **auto-songyangzz-quantumultx-get-cookie-remote** · qx-flat 139 规则 · 作者 `songyangzz` · ⭐305
+  - https://raw.githubusercontent.com/songyangzz/QuantumultX/master/Get_Cookie_Remote.conf
+  - songyangzz/QuantumultX · qx script
+
+- **auto-broccoliyn618-quantumultx-script-getcookie** · qx-flat 20 规则 · 作者 `BroccoliYn618` · ⭐250
+  - https://raw.githubusercontent.com/BroccoliYn618/QuantumultX-Script/main/GetCookie.conf
+  - BroccoliYn618/QuantumultX-Script · 自用QX脚本，参考各位大佬。
+
+- **auto-98kevinxiao-rewrite-advertisingplus** · qx-flat 451 规则 · 作者 `98kevinxiao` · ⭐32
+  - https://raw.githubusercontent.com/98kevinxiao/rewrite/main/AdvertisingPlus.conf
+  - 98kevinxiao/rewrite ·  QuantumultX 重写
+
+- **auto-just22tu-surfing-rewrite** · qx-flat 66 规则 · 作者 `just22tu` · ⭐15
+  - https://raw.githubusercontent.com/just22tu/surfing/main/rewrite/QutumultX/rewrite.conf
+  - just22tu/surfing · Optimization rules for network requests and responses of QuantumultX, Shadowrocket, Loon and Surge.
+
+- **auto-funnyzak-network-rules-advertisingplus** · qx-flat 19 规则 · 作者 `funnyzak` · ⭐10
+  - https://raw.githubusercontent.com/funnyzak/network-rules/main/QuantumultX/Rewrite/Block/AdvertisingPlus.conf
+  - funnyzak/network-rules · Rules and Scripts For Surge 、 QuantumultX 、Clash、Loon、Stash.
+
+- **auto-ryancai-personal-quantumultx-rewrite-zqzess-conf-bak** · qx-flat 18 规则 · 作者 `ryancai-personal` · ⭐2
+  - https://raw.githubusercontent.com/ryancai-personal/QuantumultX_rewrite/main/zqzess_conf_bak.conf
+  - ryancai-personal/QuantumultX_rewrite · 圈X重写，自用规则
+
+- **auto-rzmy-bilibili-filter-quantumult-x** · qx-flat 3 规则 · 作者 `RzMY` · ⭐2
+  - https://raw.githubusercontent.com/RzMY/BiliBili-Filter/main/rewrite/quantumult-x.local.conf
+  - RzMY/BiliBili-Filter · 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to
+
+- **auto-flyingfish9-quantumultx-rewrite-adblock** · qx-flat 10 规则 · 作者 `Flyingfish9` · ⭐1
+  - https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/AdBlock.conf
+  - Flyingfish9/QuantumultX-rewrite · ❌年久失修，已暫停更新。
+
+- **auto-phowx-script-nodeseek** · qx-flat 3 规则 · 作者 `Phowx` · ⭐0
+  - https://raw.githubusercontent.com/Phowx/script/main/scripts/nodeseek/nodeseek.js
+  - Phowx/script · NodeSeek daily check-in Surge module
