@@ -2,7 +2,7 @@
 
 > 你的个人 QuantumultX 广告去重仓库。**每天 04:17 UTC（北京时间 12:17）由 GitHub Actions 自动运行**，
 > 聚合上游（anti-AD / NobyDa / hwind2021 / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe 等）广告资源
-> \+ 76 个解锁/去广告模块（BOBOLAOSHIV / app2smile / NobyDa / sooyaaabo / yqc007），
+> \+ 82 个解锁/去广告模块（BOBOLAOSHIV / app2smile / NobyDa / sooyaaabo / yqc007 / NobyDa/File 裸脚本），
 > 生成可直接被 QX 拉取的远程清单。**你只需在 QX 里添加本仓库的 5 条远程引用，之后零维护。**
 
 ## 原理
@@ -12,10 +12,10 @@ GitHub Actions (cron 每日 04:17 UTC = 北京 12:17，避开整点高峰)
    └─ generator.py
         ├─ 拉取上游广告清单（anti-AD / NobyDa / hwind / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe）
         ├─ 聚合去重广告域名（约 28.5 万个，已剔子域名冗余）
-        ├─ 拉取解锁模块（BOBOLAOSHIV + app2smile + NobyDa QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本）
-        ├─ 合并为单个 unlock-merged.conf（285 条规则 + hostname）
+        ├─ 拉取解锁模块（BOBOLAOSHIV + app2smile + NobyDa QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本 + NobyDa/File 裸脚本）
+        ├─ 合并为单个 unlock-merged.conf（302 条规则 + hostname）
         ├─ 自动生成 hostname 行（关键！解决 MITM hostname 问题）
-        └─ 产出 dist/ 下的 8 个文件并自动提交
+        └─ 产出 dist/ 下的 9 个文件并自动提交
 ```
 
 > **注意**：GitHub Actions 的 cron 是"尽量跑"，可能延迟或偶发跳过某天。若某天未跑，去仓库 Actions → `每日广告资源聚合` → `Run workflow` 手动触发即可。
@@ -48,7 +48,7 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 | `dist/adblock-script.conf` | 脚本：引用本仓库 splash-killer.js |
 | `dist/splash-killer.js` | 脚本：开屏杀手 |
 | `dist/feed-killer.js` | 脚本：信息流杀手 |
-| `dist/unlock-merged.conf` | **解锁模块单文件聚合**（285 规则 / hostname） |
+| `dist/unlock-merged.conf` | **解锁模块单文件聚合**（302 规则 / hostname） |
 
 ## 广告源覆盖
 
@@ -59,13 +59,14 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 - **EasyList 中国 + EasyList 国际 + EasyPrivacy**
 - **StevenBlack / 1Hosts / PeterLowe**（hosts 格式，含国际广告/追踪）
 
-## 解锁模块覆盖（76 个，285 条规则，单文件 `unlock-merged.conf`）
+## 解锁模块覆盖（82 个，302 条规则，单文件 `unlock-merged.conf`）
 
 - **BOBOLAOSHIV**（20 个 QX 原生 `.conf`）
 - **app2smile**（9 个 QX 模块：Spotify / Bilibili / 知乎 / 起点 / 腾讯新闻 / 贴吧 / VGtime / YouTube / AdSense 去广告）
 - **NobyDa**（2 个 QX 模块：Js.conf 去微信广告/VIP/RevenueCat + TestFlightDownload.conf）
 - **sooyaaabo/Egern**（45 个 Surge `.module` 转 QX）
 - **yqc007/QuantumultX**（裸 `.js` 脚本，头部内嵌 QX 规则自动提取）
+- **NobyDa/File**（6 个裸脚本，头部内嵌 QX 规则自动提取：Zymh.js 紫月漫画 / xjsp.js 香蕉视频 / 91.js 91视频；Wechat/wnyd/vsco 与 Js.conf 重复自动去重）
 
 ## Clash 用法（电脑端）
 
