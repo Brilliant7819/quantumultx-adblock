@@ -177,6 +177,21 @@ UNLOCK_QX_FLAT = {
     "nobyda-testflight": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/TestFlightDownload.conf",
 }
 
+# NobyDa/File 裸脚本（头部注释内嵌 QX [rewrite_local] 规则 + [mitm] hostname，自动提取）
+UNLOCK_NOBYDA_FILE = {
+    "nobyda-file-91": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/91.js",
+    "nobyda-file-wechat": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Wechat.js",
+    "nobyda-file-zymh": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Zymh.js",
+    "nobyda-file-vsco": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/vsco.js",
+    "nobyda-file-wnyd": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/wnyd.js",
+    "nobyda-file-xjsp": "https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/xjsp.js",
+}
+
+# NobyDa/File 脚本头部缺少 [mitm] 时手动补 hostname（如 91.js 只有 Surge force-http-engine-hosts）
+NOBYDA_FILE_HOST_SUPPLEMENT = {
+    "nobyda-file-91": ["my10api.com", "my10api.tips", "my10api.app", "my10api.xyz"],
+}
+
 
 def surge_rule_to_qx(line):
     """把 Surge 的 [Script] / [URL Rewrite] 规则行转成 QX rewrite 规则。
@@ -262,6 +277,7 @@ def extract_surge_mitm_hosts(text):
 
 def extract_qx_flat(txt):
     """提取平铺 QX 重写模块的规则行 + hostname（无 [rewrite_local] 头，直接收集所有 " url " 行）。
+    规则行必须以 ^ 开头（真 QX 正则规则，避免把代码里的 " url " 子串误判）。
     返回 (rules, hosts)。"""
     rules = []
     hosts = set()
@@ -269,7 +285,8 @@ def extract_qx_flat(txt):
         s = line.strip()
         if not s or s.startswith("#"):
             continue
-        if " url " in s:
+        # 真 QX 规则：以 ^ 开头且含 " url "（排除 var url = $request.url 之类代码子串）
+        if s.startswith("^") and " url " in s:
             rules.append(s)
         elif s.lower().startswith("hostname"):
             val = s.split("=", 1)[1] if "=" in s else ""
@@ -883,6 +900,20 @@ def main():
             unlock_hosts |= hosts
             unlock_ok += 1
             print(f"  [OK-QXFLAT] {tag}: {len(rules)} 规则 · {len(hosts)} hostname")
+        except Exception as e:
+            unlock_bad.append(f"{tag}")
+    # NobyDa/File 裸脚本：头部注释内嵌 QX 规则自动提取
+    for tag, url in UNLOCK_NOBYDA_FILE.items():
+        try:
+            txt = fetch(url)
+            rules, hosts = extract_qx_flat(txt)
+            # 脚本头部缺 [mitm] 时手动补 hostname
+            for h in NOBYDA_FILE_HOST_SUPPLEMENT.get(tag, []):
+                hosts.add(h)
+            bobola_lines.extend(rules)
+            unlock_hosts |= hosts
+            unlock_ok += 1
+            print(f"  [OK-NOBYDAFILE] {tag}: {len(rules)} 规则 · {len(hosts)} hostname")
         except Exception as e:
             unlock_bad.append(f"{tag}")
     # sooyaaabo：Surge 格式，转 QX
