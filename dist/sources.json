@@ -456,6 +456,84 @@
       "rules": 3,
       "desc": "NodeSeek daily check-in Surge module",
       "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-tartarus2014-quantumultx-script-tiktoktw",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/Tartarus2014/QuantumultX-Script/main/Unlock/TiktokTW.conf",
+      "format": "qx-flat",
+      "author": "Tartarus2014",
+      "repo": "Tartarus2014/QuantumultX-Script",
+      "file": "Unlock/TiktokTW.conf",
+      "stars": 840,
+      "rules": 3,
+      "desc": "QuantumultX脚本收集",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-lowking-scripts-scriptabletoolkit",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/lowking/Scripts/master/Scriptable/ScriptableToolKit.js",
+      "format": "qx-flat",
+      "author": "lowking",
+      "repo": "lowking/Scripts",
+      "file": "Scriptable/ScriptableToolKit.js",
+      "stars": 470,
+      "rules": 4,
+      "desc": "Scripts for Surge, Quantumult X, Loon, Stash, Node.js",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-songyangzz-quantumultx-js",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/songyangzz/QuantumultX/master/Js.conf",
+      "format": "qx-flat",
+      "author": "songyangzz",
+      "repo": "songyangzz/QuantumultX",
+      "file": "Js.conf",
+      "stars": 305,
+      "rules": 124,
+      "desc": "qx script",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-98kevinxiao-rewrite-bilibili",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/98kevinxiao/rewrite/main/BiliBili.conf",
+      "format": "qx-flat",
+      "author": "98kevinxiao",
+      "repo": "98kevinxiao/rewrite",
+      "file": "BiliBili.conf",
+      "stars": 32,
+      "rules": 28,
+      "desc": " QuantumultX 重写",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-rzmy-bilibili-filter-bilibili-filter",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/RzMY/BiliBili-Filter/main/scripts/bilibili-filter.js",
+      "format": "qx-flat",
+      "author": "RzMY",
+      "repo": "RzMY/BiliBili-Filter",
+      "file": "scripts/bilibili-filter.js",
+      "stars": 2,
+      "rules": 3,
+      "desc": "通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-flyingfish9-quantumultx-rewrite-baiduwangpan",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/BaiDuWangPan.conf",
+      "format": "qx-flat",
+      "author": "Flyingfish9",
+      "repo": "Flyingfish9/QuantumultX-rewrite",
+      "file": "BaiDuWangPan.conf",
+      "stars": 1,
+      "rules": 5,
+      "desc": "❌年久失修，已暫停更新。",
+      "added_at": "2026-11-11"
     }
   ]
 }

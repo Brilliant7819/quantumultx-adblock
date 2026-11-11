@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-11 01:14:18 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-11 01:25:26 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 
@@ -145,3 +145,27 @@
 - **auto-phowx-script-nodeseek** · qx-flat 3 规则 · 作者 `Phowx` · ⭐0
   - https://raw.githubusercontent.com/Phowx/script/main/scripts/nodeseek/nodeseek.js
   - Phowx/script · NodeSeek daily check-in Surge module
+
+- **auto-tartarus2014-quantumultx-script-tiktoktw** · qx-flat 3 规则 · 作者 `Tartarus2014` · ⭐840
+  - https://raw.githubusercontent.com/Tartarus2014/QuantumultX-Script/main/Unlock/TiktokTW.conf
+  - Tartarus2014/QuantumultX-Script · QuantumultX脚本收集
+
+- **auto-lowking-scripts-scriptabletoolkit** · qx-flat 4 规则 · 作者 `lowking` · ⭐470
+  - https://raw.githubusercontent.com/lowking/Scripts/master/Scriptable/ScriptableToolKit.js
+  - lowking/Scripts · Scripts for Surge, Quantumult X, Loon, Stash, Node.js
+
+- **auto-songyangzz-quantumultx-js** · qx-flat 124 规则 · 作者 `songyangzz` · ⭐305
+  - https://raw.githubusercontent.com/songyangzz/QuantumultX/master/Js.conf
+  - songyangzz/QuantumultX · qx script
+
+- **auto-98kevinxiao-rewrite-bilibili** · qx-flat 28 规则 · 作者 `98kevinxiao` · ⭐32
+  - https://raw.githubusercontent.com/98kevinxiao/rewrite/main/BiliBili.conf
+  - 98kevinxiao/rewrite ·  QuantumultX 重写
+
+- **auto-rzmy-bilibili-filter-bilibili-filter** · qx-flat 3 规则 · 作者 `RzMY` · ⭐2
+  - https://raw.githubusercontent.com/RzMY/BiliBili-Filter/main/scripts/bilibili-filter.js
+  - RzMY/BiliBili-Filter · 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to
+
+- **auto-flyingfish9-quantumultx-rewrite-baiduwangpan** · qx-flat 5 规则 · 作者 `Flyingfish9` · ⭐1
+  - https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/BaiDuWangPan.conf
+  - Flyingfish9/QuantumultX-rewrite · ❌年久失修，已暫停更新。
