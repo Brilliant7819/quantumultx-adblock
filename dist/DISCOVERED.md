@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-11 01:25:26 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-11 11:58:02 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 
@@ -168,4 +168,20 @@
 
 - **auto-flyingfish9-quantumultx-rewrite-baiduwangpan** · qx-flat 5 规则 · 作者 `Flyingfish9` · ⭐1
   - https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/BaiDuWangPan.conf
+  - Flyingfish9/QuantumultX-rewrite · ❌年久失修，已暫停更新。
+
+- **auto-tartarus2014-quantumultx-script-tiktokuk** · qx-flat 3 规则 · 作者 `Tartarus2014` · ⭐839
+  - https://raw.githubusercontent.com/Tartarus2014/QuantumultX-Script/main/Unlock/TiktokUK.conf
+  - Tartarus2014/QuantumultX-Script · QuantumultX脚本收集
+
+- **auto-songyangzz-quantumultx-dingdong** · qx-flat 5 规则 · 作者 `songyangzz` · ⭐305
+  - https://raw.githubusercontent.com/songyangzz/QuantumultX/master/dingdong/dingdong.js
+  - songyangzz/QuantumultX · qx script
+
+- **auto-98kevinxiao-rewrite-cookie** · qx-flat 4 规则 · 作者 `98kevinxiao` · ⭐32
+  - https://raw.githubusercontent.com/98kevinxiao/rewrite/main/Cookie.conf
+  - 98kevinxiao/rewrite ·  QuantumultX 重写
+
+- **auto-flyingfish9-quantumultx-rewrite-kuwomusicnew** · qx-flat 17 规则 · 作者 `Flyingfish9` · ⭐1
+  - https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/KuWoMusicNew.js
   - Flyingfish9/QuantumultX-rewrite · ❌年久失修，已暫停更新。

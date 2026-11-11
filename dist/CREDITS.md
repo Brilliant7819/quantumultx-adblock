@@ -28,14 +28,14 @@
 | 解锁模块 | NobyDa/Script | NobyDa/File 裸脚本（6 个） | [https://github.com/NobyDa/Script](https://github.com/NobyDa/Script) |
 | 解锁模块 | app2smile + NobyDa | 平铺 QX 解锁模块（app2smile 9 + NobyDa 2） | [https://github.com/app2smile/rules](https://github.com/app2smile/rules) |
 | 解锁模块 | sooyaaabo/Egern | Surge 转 QX 解锁模块（45 个） | [https://github.com/sooyaaabo/Egern](https://github.com/sooyaaabo/Egern) |
-| 解锁模块(自动检索) | 98kevinxiao |  QuantumultX 重写;  QuantumultX 重写;  QuantumultX 重写 | 98kevinxiao/rewrite |
+| 解锁模块(自动检索) | 98kevinxiao |  QuantumultX 重写;  QuantumultX 重写;  QuantumultX 重写;  QuantumultX 重写 | 98kevinxiao/rewrite |
 | 解锁模块(自动检索) | BroccoliYn618 | 自用QX脚本，参考各位大佬。 | BroccoliYn618/QuantumultX-Script |
-| 解锁模块(自动检索) | Flyingfish9 | ❌年久失修，已暫停更新。; ❌年久失修，已暫停更新。 | Flyingfish9/QuantumultX-rewrite |
+| 解锁模块(自动检索) | Flyingfish9 | ❌年久失修，已暫停更新。; ❌年久失修，已暫停更新。; ❌年久失修，已暫停更新。 | Flyingfish9/QuantumultX-rewrite |
 | 解锁模块(自动检索) | Phowx | NodeSeek daily check-in Surge module | Phowx/script |
 | 解锁模块(自动检索) | RzMY | 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to; 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to | RzMY/BiliBili-Filter |
 | 解锁模块(自动检索) | Siriusrry | Repository of script, rules, module related  to Surge. | Siriusrry/Surge |
 | 解锁模块(自动检索) | Sliverkiss | Collection of Scripts written for QuantumultX iOS App; Collection of Scripts written for QuantumultX iOS App | Sliverkiss/QuantumultX |
-| 解锁模块(自动检索) | Tartarus2014 | QuantumultX脚本收集; QuantumultX脚本收集; QuantumultX脚本收集 | Tartarus2014/QuantumultX-Script |
+| 解锁模块(自动检索) | Tartarus2014 | QuantumultX脚本收集; QuantumultX脚本收集; QuantumultX脚本收集; QuantumultX脚本收集 | Tartarus2014/QuantumultX-Script |
 | 解锁模块(自动检索) | agkjVIP |  | agkjVIP/QuantumultX-Rewrite-Rules |
 | 解锁模块(自动检索) | aobenny | 500 / Simple Config GeoIP for Quantumult X (QuantumultX) 预配置文件: 去广告分流规则、Tiktok 解锁 Rewrite、神机分流规则  | aobenny/500 |
 | 解锁模块(自动检索) | deezertidal | QuantumultX QX quantumult 圈X quanx 重写 脚本 rewrite 规则 分流 破解 解锁 | deezertidal/QuantumultX-Rewrite |
@@ -47,5 +47,5 @@
 | 解锁模块(自动检索) | ppproxy | scripts and module | ppproxy/4surge |
 | 解锁模块(自动检索) | ryancai-personal | 圈X重写，自用规则 | ryancai-personal/QuantumultX_rewrite |
 | 解锁模块(自动检索) | smxl | Quantumult X, Loon, Stash 预配置文件: Apple News 解锁, 去广告, 分流规则, Bing AI, TikTok 解锁 Rewrite, VIP 视频解析 | smxl/500 |
-| 解锁模块(自动检索) | songyangzz | qx script; qx script | songyangzz/QuantumultX |
+| 解锁模块(自动检索) | songyangzz | qx script; qx script; qx script | songyangzz/QuantumultX |
 | 解锁模块(自动检索) | zmqcherish | Quantumult X / Surge 微博和其他一些脚本 | zmqcherish/proxy-script |

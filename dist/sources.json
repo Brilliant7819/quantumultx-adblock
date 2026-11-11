@@ -534,6 +534,58 @@
       "rules": 5,
       "desc": "❌年久失修，已暫停更新。",
       "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-tartarus2014-quantumultx-script-tiktokuk",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/Tartarus2014/QuantumultX-Script/main/Unlock/TiktokUK.conf",
+      "format": "qx-flat",
+      "author": "Tartarus2014",
+      "repo": "Tartarus2014/QuantumultX-Script",
+      "file": "Unlock/TiktokUK.conf",
+      "stars": 839,
+      "rules": 3,
+      "desc": "QuantumultX脚本收集",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-songyangzz-quantumultx-dingdong",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/songyangzz/QuantumultX/master/dingdong/dingdong.js",
+      "format": "qx-flat",
+      "author": "songyangzz",
+      "repo": "songyangzz/QuantumultX",
+      "file": "dingdong/dingdong.js",
+      "stars": 305,
+      "rules": 5,
+      "desc": "qx script",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-98kevinxiao-rewrite-cookie",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/98kevinxiao/rewrite/main/Cookie.conf",
+      "format": "qx-flat",
+      "author": "98kevinxiao",
+      "repo": "98kevinxiao/rewrite",
+      "file": "Cookie.conf",
+      "stars": 32,
+      "rules": 4,
+      "desc": " QuantumultX 重写",
+      "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-flyingfish9-quantumultx-rewrite-kuwomusicnew",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/Flyingfish9/QuantumultX-rewrite/main/KuWoMusicNew.js",
+      "format": "qx-flat",
+      "author": "Flyingfish9",
+      "repo": "Flyingfish9/QuantumultX-rewrite",
+      "file": "KuWoMusicNew.js",
+      "stars": 1,
+      "rules": 17,
+      "desc": "❌年久失修，已暫停更新。",
+      "added_at": "2026-11-11"
     }
   ]
 }
