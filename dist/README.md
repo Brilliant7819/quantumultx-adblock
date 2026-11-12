@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6220 · easylist-intl:45765 · easyprivacy:47574 · adguard-base:2081 · adguard-mobile:970 · adguard-annoyance:1055 · adguard-social:58564 · adguard-tracking:120710 · adguard-gaming:189323 · adguard-chinese:6480 · adguard-annoyance2:626 · adguard-tracking-servers:731 · stevenblack:78201 · 1hosts:202830 · peterlowe:3560 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:109229 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751
+anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6227 · easylist-intl:46172 · easyprivacy:47592 · adguard-base:2081 · adguard-mobile:970 · adguard-annoyance:1056 · adguard-social:58957 · adguard-tracking:120718 · adguard-gaming:189735 · adguard-chinese:6487 · adguard-annoyance2:626 · adguard-tracking-servers:731 · stevenblack:78201 · 1hosts:202830 · peterlowe:3561 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:109229 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -42,9 +42,9 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 - 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
-- 聚合广告域名: 300917 个
+- 聚合广告域名: 301342 个
 - 开屏重写 hostname: 435 个
 - 信息流重写 hostname: 437 个
 - 有效解锁模块: 121 个（合并 1490+184+83 条规则）
 
-最后生成: 2026-11-11 11:59:27 UTC
+最后生成: 2026-11-12 12:53:41 UTC
