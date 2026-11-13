@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6227 · easylist-intl:46172 · easyprivacy:47592 · adguard-base:2081 · adguard-mobile:970 · adguard-annoyance:1056 · adguard-social:58957 · adguard-tracking:120718 · adguard-gaming:189735 · adguard-chinese:6487 · adguard-annoyance2:626 · adguard-tracking-servers:731 · stevenblack:78201 · 1hosts:202830 · peterlowe:3561 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:109229 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751
+anti-ad-quanx:101626 · anti-ad-surge:101626 · nobyda-adrule:7954 · hwind-splash-killer:413 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6238 · easylist-intl:46551 · easyprivacy:47599 · adguard-base:2081 · adguard-mobile:970 · adguard-annoyance:1056 · adguard-social:59342 · adguard-tracking:120727 · adguard-gaming:190142 · adguard-chinese:6496 · adguard-annoyance2:626 · adguard-tracking-servers:732 · stevenblack:78201 · 1hosts:202830 · peterlowe:3561 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:109229 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -33,7 +33,7 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 > `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
 
 ## 解锁模块
-121 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），1490 + 184 + 83 条规则，hostname 908 个。
+122 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），1600 + 184 + 78 条规则，hostname 1006 个。
 
 ## 原作者致谢
 本仓库聚合了以下上游开源项目的成果，**向每一位原作者致谢**（完整清单见 `CREDITS.md`）：
@@ -42,9 +42,9 @@ https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=�
 - 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
-- 聚合广告域名: 301342 个
+- 聚合广告域名: 301742 个
 - 开屏重写 hostname: 435 个
 - 信息流重写 hostname: 437 个
-- 有效解锁模块: 121 个（合并 1490+184+83 条规则）
+- 有效解锁模块: 122 个（合并 1600+184+78 条规则）
 
-最后生成: 2026-11-12 12:53:41 UTC
+最后生成: 2026-11-13 12:22:06 UTC

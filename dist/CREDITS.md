@@ -31,6 +31,7 @@
 | 解锁模块(自动检索) | 98kevinxiao |  QuantumultX 重写;  QuantumultX 重写;  QuantumultX 重写;  QuantumultX 重写 | 98kevinxiao/rewrite |
 | 解锁模块(自动检索) | BroccoliYn618 | 自用QX脚本，参考各位大佬。 | BroccoliYn618/QuantumultX-Script |
 | 解锁模块(自动检索) | Flyingfish9 | ❌年久失修，已暫停更新。; ❌年久失修，已暫停更新。; ❌年久失修，已暫停更新。 | Flyingfish9/QuantumultX-rewrite |
+| 解锁模块(自动检索) | MaiJiantian |  | MaiJiantian/QuantumultX-Rewrite |
 | 解锁模块(自动检索) | Phowx | NodeSeek daily check-in Surge module | Phowx/script |
 | 解锁模块(自动检索) | RzMY | 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to; 通过 Quantumult X 重写，使用 TypeSafe Jev 根据标题、简介、分区和标签等元数据过滤 B站推荐。Rewritten using Quantumult X, this tool uses TypeSafe Jev to | RzMY/BiliBili-Filter |
 | 解锁模块(自动检索) | Siriusrry | Repository of script, rules, module related  to Surge. | Siriusrry/Surge |

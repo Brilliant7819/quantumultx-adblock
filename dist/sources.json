@@ -586,6 +586,19 @@
       "rules": 17,
       "desc": "❌年久失修，已暫停更新。",
       "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-maijiantian-quantumultx-rewrite-rewrite",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/MaiJiantian/QuantumultX-Rewrite/master/rewrite.conf",
+      "format": "qx-flat",
+      "author": "MaiJiantian",
+      "repo": "MaiJiantian/QuantumultX-Rewrite",
+      "file": "rewrite.conf",
+      "stars": 1,
+      "rules": 129,
+      "desc": "",
+      "added_at": "2026-11-13"
     }
   ]
 }
