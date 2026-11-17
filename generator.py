@@ -21,6 +21,7 @@ QuantumultX 广告资源自动生成器 (v2 · 多源聚合)
   python generator.py                 # 全部生成
   python generator.py --check-only    # 只检测上游可达性，不写文件
 """
+import os
 import re
 import sys
 import time
@@ -428,9 +429,9 @@ def extract_qx_flat(txt):
 
 def gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, all_hosts, repo_raw):
     """合并所有解锁模块为单个 QX conf（rewrite_local + mitm hostname）。"""
-    bobola_lines = clean_rewrite_rules(bobola_lines)
-    sooya_rule_lines = clean_rewrite_rules(sooya_rule_lines)
-    yqc_rule_lines = clean_rewrite_rules(yqc_rule_lines)
+    bobola_lines = filter_live_scripts(clean_rewrite_rules(bobola_lines))
+    sooya_rule_lines = filter_live_scripts(clean_rewrite_rules(sooya_rule_lines))
+    yqc_rule_lines = filter_live_scripts(clean_rewrite_rules(yqc_rule_lines))
     out = [
         "# NAME: Unlock-Merged (自建聚合)",
         "# DESC: 90+ 解锁/去广告模块合并（BOBOLAOSHIV + app2smile + NobyDa + sooyaaabo + yqc007 + 自动检索）",
@@ -523,11 +524,12 @@ def _valid_tld(domain):
 
 def _js_regex_valid(pat):
     """检查 pattern 是否为 QX/JavaScript 合法正则。
-    QX 用 JS 正则引擎，不支持 (?i)/(?m) 等 PCRE 内联旗标。"""
-    # 去内联旗标 (?(?i)(?m)(?s)(?x)) —— JS 不支持
+    QX 用 JS 正则引擎：不支持 (?i) 内联旗标，也不支持 lookbehind。
+    一条非法正则会让整份远程重写解析失败。"""
+    if re.search(r"\(\?<[=!]", pat):
+        return False
     test = re.sub(r"\(\?[imsx]+\)", "", pat)
     try:
-        # 用 JS 兼容的近似：Python re 校验（JS 子集）
         re.compile(test)
         return True
     except re.error:
@@ -704,8 +706,125 @@ def extract_yqc007(existing_patterns):
             hosts.add(host)
     return rules, hosts
 
-# 本仓库 raw 前缀（Actions 里会被替换成真实仓库地址）
-REPO_RAW = "${REPO_RAW}"
+# 本仓库 raw 目录（脚本在 dist/，不是 script/）。Actions 用环境变量 REPO_RAW 注入。
+def resolve_repo_raw():
+    raw = os.environ.get("REPO_RAW", "").strip().rstrip("/")
+    if (not raw) or raw.startswith("$") or "OWNER/REPO" in raw:
+        raw = "https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist"
+    if raw.endswith("/script"):
+        raw = raw[: -len("/script")] + "/dist"
+    return raw
+
+
+_SCRIPT_STATUS = {}
+
+
+def _script_http_status(url):
+    """探测脚本是否能被 QX 拉到。网络失败返回 0（保留规则，避免偶发超时误删）。"""
+    if url in _SCRIPT_STATUS:
+        return _SCRIPT_STATUS[url]
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "QuantumultX/1.5.3 (iPhone; iOS 18.0)",
+            "Range": "bytes=0-64",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            code = r.status
+    except urllib.error.HTTPError as e:
+        code = e.code
+    except Exception:
+        code = 0
+    _SCRIPT_STATUS[url] = code
+    return code
+
+
+def filter_live_scripts(lines):
+    """去掉脚本地址 403/404/410 的规则。QX 更新重写时会预下载全部脚本，死链会让整份远程报错。"""
+    import concurrent.futures
+
+    urls = []
+    seen = set()
+    for ln in lines:
+        if " url script-" not in ln:
+            continue
+        rest = ln.split(" url ", 1)[1]
+        m = re.search(r"https?://\S+", rest)
+        if not m:
+            continue
+        u = m.group(0).rstrip(",;")
+        if u not in seen:
+            seen.add(u)
+            urls.append(u)
+    dead = set()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=24) as ex:
+        for u, code in zip(urls, ex.map(_script_http_status, urls)):
+            if code in (403, 404, 410):
+                dead.add(u)
+    if not dead:
+        return lines
+    kept = []
+    dropped = 0
+    for ln in lines:
+        if " url script-" in ln:
+            rest = ln.split(" url ", 1)[1]
+            m = re.search(r"https?://\S+", rest)
+            u = m.group(0).rstrip(",;") if m else ""
+            if u in dead:
+                dropped += 1
+                continue
+        kept.append(ln)
+    print(f"  [脚本探活] 剔除死链规则 {dropped} 条（{len(dead)} 个 URL）")
+    return kept
+
+
+def gen_splash_list(all_domains):
+    """分流层：QX 原生 host-suffix（小写、带空格）。不要再输出 HOST-SUFFIX 大写。"""
+    out = [
+        "# NAME: Splash-Killer (自建多源聚合)",
+        "# POLICY: reject",
+        "# QX 原生分流，引用时 opt-parser=false（30 万行走解析器会超时失败）",
+        "# 由 generator.py 自动生成，含 anti-AD / hwind2021 / NobyDa / AdGuard全系 / EasyList / StevenBlack 等聚合",
+        "# 原作者致谢: 见 dist/CREDITS.md（本仓库聚合全部上游作者的成果）",
+        "",
+    ]
+    minimized = minimize_domains(all_domains)
+    for d in sorted(minimized):
+        out.append(f"host-suffix, {d}, reject")
+    return "\n".join(out) + "\n"
+
+
+def write_qx_chunks(all_domains, chunk_size=30000):
+    """再切成小分片。整份装不下时，用 dist/qx/adblock-XX.list 替换那一条分流，仍然 opt-parser=false。"""
+    minimized = sorted(minimize_domains(all_domains))
+    qx_dir = OUT / "qx"
+    qx_dir.mkdir(parents=True, exist_ok=True)
+    for old in qx_dir.glob("adblock-*.list"):
+        old.unlink()
+    header = [
+        "# NAME: Splash-Killer chunk",
+        "# QX 原生 host-suffix，opt-parser=false",
+        "",
+    ]
+    names = []
+    for i in range(0, len(minimized), chunk_size):
+        part = minimized[i:i + chunk_size]
+        n = len(names) + 1
+        name = f"adblock-{n:02d}.list"
+        body = header + [f"host-suffix, {d}, reject" for d in part]
+        (qx_dir / name).write_text("\n".join(body) + "\n", encoding="utf-8")
+        names.append(name)
+    lines = []
+    for n, name in enumerate(names, 1):
+        lines.append(
+            "https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/"
+            f"{name}, tag=自建-广告分流-{n:02d}, update-interval=28800, opt-parser=false, enabled=true"
+        )
+    (OUT / "qx-filter-remote.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"  [OK] qx chunks: {len(names)} × ≤{chunk_size}")
+    return names
 
 
 def fetch(url, timeout=30):
@@ -861,21 +980,6 @@ def gen_hostname_single(hosts):
     return "hostname = " + ",".join(items)
 
 
-def gen_splash_list(all_domains):
-    """分流层：聚合域名生成 HOST-SUFFIX/REJECT 规则（先剔除子域名冗余）。"""
-    out = [
-        "# NAME: Splash-Killer (自建多源聚合)",
-        "# POLICY: REJECT",
-        "# 由 generator.py 自动生成，含 anti-AD / hwind2021 / NobyDa / AdGuard全系 / EasyList / StevenBlack 等聚合",
-        "# 原作者致谢: 见 dist/CREDITS.md（本仓库聚合全部上游作者的成果）",
-        "",
-    ]
-    minimized = minimize_domains(all_domains)
-    for d in sorted(minimized):
-        out.append(f"HOST-SUFFIX,{d},REJECT")
-    return "\n".join(out)
-
-
 def minimize_domains(domains):
     """剔除子域名冗余：若某域名是集合中另一域名的子域名，则剔除。
     （HOST-SUFFIX 父域名会匹配所有子域，保留子域名属于重复，零覆盖损失。）"""
@@ -939,13 +1043,33 @@ def gen_script_conf(text, repo_raw):
         "# 由 generator.py 自动生成",
         "",
     ]
+    script_url = f"{repo_raw}/splash-killer.js"
+    hosts = []
     for line in text.splitlines():
         line = norm(line)
         if not line:
             continue
-        line = re.sub(r"https?:\/\/[^\s]+\.js", f"{repo_raw}/splash-killer.js", line)
+        if line.lower().startswith("hostname"):
+            body = line.split("=", 1)[1] if "=" in line else ""
+            for h in body.split(","):
+                raw_h = h.strip()
+                s = sanitize_hostname(raw_h)
+                if s:
+                    hosts.append(s)
+                # capis*.example.com 这种非法通配，补成 *.example.com，否则子域 MITM 不上
+                if "*" in raw_h and not raw_h.startswith("*."):
+                    parent = sanitize_hostname(raw_h)
+                    if parent and "." in parent:
+                        hosts.append("*." + parent.split(".", 1)[-1])
+            continue
+        line = re.sub(r"https?://\S+\.js", script_url, line)
+        if "OWNER/REPO" in line:
+            continue
         out.append(line)
-    return "\n".join(out)
+    out = clean_rewrite_rules(out)
+    if hosts:
+        out.append("hostname = " + ",".join(sorted(set(hosts))))
+    return "\n".join(out) + "\n"
 
 
 def main():
@@ -1156,6 +1280,7 @@ def main():
     # 5) 生成文件
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "splash-killer.list").write_text(gen_splash_list(domain_pool), encoding="utf-8")
+    write_qx_chunks(domain_pool)
     (OUT / "clash-adblock.list").write_text(gen_clash_list(domain_pool), encoding="utf-8")
     print(f"  [OK] clash-adblock.list: {len(minimize_domains(domain_pool))} 域名 (Clash DOMAIN-SUFFIX)")
     (OUT / "adblock-splash.conf").write_text(
@@ -1163,7 +1288,8 @@ def main():
     (OUT / "adblock-feed.conf").write_text(
         gen_rewrite(rew_raw.get("adblock_feed", ""), "AdBlock-Feed", "信息流/弹窗重写（含自动 hostname）", feed_hosts), encoding="utf-8")
 
-    repo_raw = REPO_RAW if not REPO_RAW.startswith("$") else "https://raw.githubusercontent.com/OWNER/REPO/main/script"
+    repo_raw = resolve_repo_raw()
+    print(f"  [repo] {repo_raw}")
     (OUT / "adblock-script.conf").write_text(gen_script_conf(scr_raw.get("adblock_script", ""), repo_raw), encoding="utf-8")
 
     for fname, url in SCRIPTS.items():
@@ -1174,8 +1300,7 @@ def main():
             print(f"  [FAIL] script {fname}: {e}")
 
     # 解锁模块合并文件（单文件，QX 一键引用）
-    repo_raw2 = REPO_RAW if not REPO_RAW.startswith("$") else "https://raw.githubusercontent.com/OWNER/REPO/main/script"
-    merged = gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, unlock_hosts, repo_raw2)
+    merged = gen_unlock_merged(bobola_lines, sooya_rule_lines, yqc_rule_lines, unlock_hosts, repo_raw)
     (OUT / "unlock-merged.conf").write_text(merged, encoding="utf-8")
     print(f"  [OK] unlock-merged.conf: {unlock_ok} 模块合并 → {len(bobola_lines)+len(sooya_rule_lines)+len(yqc_rule_lines)} 条规则")
 
@@ -1186,6 +1311,7 @@ def main():
 
     ts = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
     src_line = " · ".join(src_detail)
+    base = repo_raw
     readme = f"""# 自建 QuantumultX 广告清单（多源聚合）
 
 > 由 GitHub Actions 每日自动生成，无需手动维护。
@@ -1209,16 +1335,18 @@ def main():
 ## QX 配置
 ```ini
 [filter_remote]
-https://raw.githubusercontent.com/OWNER/REPO/main/dist/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=true, enabled=true
+{base}/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=false, enabled=true
 
 [rewrite_remote]
-https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true
-https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=true, enabled=true
-https://raw.githubusercontent.com/OWNER/REPO/main/dist/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=true, enabled=true
-https://raw.githubusercontent.com/OWNER/REPO/main/dist/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=true, enabled=true
+{base}/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true
+{base}/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=true, enabled=true
+{base}/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=true, enabled=true
+{base}/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=true, enabled=true
 ```
 
-> `unlock-merged.conf` 为**单个文件**，内含 `[rewrite_local]` + `[mitm] hostname`，QX 用 `opt-parser=true` 一键引用即可，无需手动复制。
+> 分流是 QX 原生 `host-suffix`，必须 `opt-parser=false`。开了解析器会在手机上转 30 万行然后超时，整条引用报错。
+> 重写保持 `opt-parser=true`，用来合并 hostname。
+> 整份分流如果手机装不下，改用 `qx-filter-remote.txt` 里的分片（同样 opt-parser=false）。
 
 ## 解锁模块
 {unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），{len(bobola_lines)} + {len(sooya_rule_lines)} + {len(yqc_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。

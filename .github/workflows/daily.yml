@@ -28,7 +28,7 @@ jobs:
 
       - name: 注入仓库地址并生成
         env:
-          REPO_RAW: https://raw.githubusercontent.com/${{ github.repository }}/main/script
+          REPO_RAW: https://raw.githubusercontent.com/${{ github.repository }}/main/dist
         run: |
           python generator.py
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dist/
+          git add -A dist/
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
           else

@@ -1,9 +1,9 @@
 # ===== 自建广告清单（Brilliant7819/quantumultx-adblock）=====
-# 用法：把下面 5 行分别贴进你的 conf 对应区块；已含 hostname，opt-parser=true 自动合并 MITM
-# 解锁模块只需 1 行（unlock-merged.conf 为单文件聚合，内含全部解锁规则 + hostname）
+# 分流是 QX 原生 host-suffix，必须 opt-parser=false（开解析器会把 30 万行超时打成引用错误）
+# 重写保持 opt-parser=true，用来合并 hostname
 
 [filter_remote]
-https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=true, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=false, enabled=true
 
 [rewrite_remote]
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true

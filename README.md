@@ -25,7 +25,7 @@ GitHub Actions (cron 每日 04:17 UTC = 北京 12:17，避开整点高峰)
 
 ```ini
 [filter_remote]
-https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=true, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=false, enabled=true
 
 [rewrite_remote]
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true
@@ -34,9 +34,10 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/ad
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=true, enabled=true
 ```
 
-> 全部 `opt-parser=true`：generator 已在每个 conf 末尾写入完整 `hostname` 行，
-> QX 会自动合并进 MITM，无需手动维护 hostname。
-> `unlock-merged.conf` 为**单个文件**，内含全部解锁规则 + hostname，QX 一键引用，无需手动复制多行。
+> 分流清单是 QX 原生 `host-suffix`，**这一条必须 `opt-parser=false`**。
+> 打开解析器会在手机里用 JS 转大约 30 万行，超时后整条引用报错。改成 false 不是关掉规则，是让 QX 直接加载。
+> 重写 4 条保持 `opt-parser=true`，用来合并 hostname。
+> 如果整份分流仍然装不下，用 `dist/qx-filter-remote.txt` 里的分片替换分流那一条（同样 `opt-parser=false`）。
 
 ## 生成产物
 
