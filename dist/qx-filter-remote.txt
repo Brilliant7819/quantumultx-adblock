@@ -1,0 +1,11 @@
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-01.list, tag=自建-广告分流-01, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-02.list, tag=自建-广告分流-02, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-03.list, tag=自建-广告分流-03, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-04.list, tag=自建-广告分流-04, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-05.list, tag=自建-广告分流-05, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-06.list, tag=自建-广告分流-06, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-07.list, tag=自建-广告分流-07, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-08.list, tag=自建-广告分流-08, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-09.list, tag=自建-广告分流-09, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-10.list, tag=自建-广告分流-10, update-interval=28800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/qx/adblock-11.list, tag=自建-广告分流-11, update-interval=28800, opt-parser=false, enabled=true
