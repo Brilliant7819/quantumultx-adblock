@@ -77,6 +77,19 @@
       "domains": 751,
       "desc": "hosts file to block mobile ads",
       "added_at": "2026-11-11"
+    },
+    {
+      "tag": "auto-lonecoding-quantumultx-rules-china",
+      "type": "ad",
+      "url": "https://raw.githubusercontent.com/lonecoding/QuantumultX-Rules/main/China.list",
+      "parser": "qx-filter",
+      "author": "lonecoding",
+      "repo": "lonecoding/QuantumultX-Rules",
+      "file": "China.list",
+      "stars": 84,
+      "domains": 3664,
+      "desc": "Modular routing and advertising blocklists for Quantumult X.",
+      "added_at": "2026-11-17"
     }
   ],
   "unlock": [

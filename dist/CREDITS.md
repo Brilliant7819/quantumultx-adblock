@@ -21,6 +21,7 @@
 | 广告域名(自动检索) | biroloter | hosts file to block mobile ads | biroloter/Mobile-Ad-Hosts |
 | 广告域名(自动检索) | emiliodallatorre | A list of adult websites to eventually block on a DNS. | emiliodallatorre/adult-hosts-list |
 | 广告域名(自动检索) | ethanaicode | Adobe Block Hosts List to block Adobe activation. | ethanaicode/Adobe-Block-Hosts-List |
+| 广告域名(自动检索) | lonecoding | Modular routing and advertising blocklists for Quantumult X. | lonecoding/QuantumultX-Rules |
 | 广告域名(自动检索) | qianbinbin | 由 anti-AD 生成的去广告 hosts 文件，AdAway 可用，每日更新 | qianbinbin/killads |
 | 广告脚本 | hwind2021/QuantumultX-AdBlock-CN | 脚本层去广告 | [https://github.com/hwind2021/QuantumultX-AdBlock-CN](https://github.com/hwind2021/QuantumultX-AdBlock-CN) |
 | 广告重写 | hwind2021/QuantumultX-AdBlock-CN | 开屏广告重写; 信息流/弹窗重写 | [https://github.com/hwind2021/QuantumultX-AdBlock-CN](https://github.com/hwind2021/QuantumultX-AdBlock-CN) |

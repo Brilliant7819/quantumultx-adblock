@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-17 13:35:57 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-17 21:55:16 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 
@@ -27,6 +27,10 @@
 - **auto-biroloter-mobile-ad-hosts-hosts** · hosts 751 域名 · 作者 `biroloter` · ⭐9
   - https://raw.githubusercontent.com/biroloter/Mobile-Ad-Hosts/master/hosts
   - biroloter/Mobile-Ad-Hosts · hosts file to block mobile ads
+
+- **auto-lonecoding-quantumultx-rules-china** · qx-filter 3664 域名 · 作者 `lonecoding` · ⭐84
+  - https://raw.githubusercontent.com/lonecoding/QuantumultX-Rules/main/China.list
+  - lonecoding/QuantumultX-Rules · Modular routing and advertising blocklists for Quantumult X.
 
 ## 解锁/重写源
 
