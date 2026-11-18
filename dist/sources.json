@@ -90,6 +90,19 @@
       "domains": 3664,
       "desc": "Modular routing and advertising blocklists for Quantumult X.",
       "added_at": "2026-11-17"
+    },
+    {
+      "tag": "auto-lonecoding-quantumultx-rules-apple",
+      "type": "ad",
+      "url": "https://raw.githubusercontent.com/lonecoding/QuantumultX-Rules/main/Apple.list",
+      "parser": "qx-filter",
+      "author": "lonecoding",
+      "repo": "lonecoding/QuantumultX-Rules",
+      "file": "Apple.list",
+      "stars": 84,
+      "domains": 1550,
+      "desc": "Modular routing and advertising blocklists for Quantumult X.",
+      "added_at": "2026-11-18"
     }
   ],
   "unlock": [
