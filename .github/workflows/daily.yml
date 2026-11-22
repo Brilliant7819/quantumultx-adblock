@@ -32,6 +32,11 @@ jobs:
         run: |
           python generator.py
 
+      - name: 聚合业务分流与重写（单条远程产物）
+        run: |
+          python build_merge.py
+          python build_rewrite.py
+
       - name: 提交变更
         run: |
           git config user.name "github-actions[bot]"
