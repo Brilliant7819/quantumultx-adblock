@@ -1,0 +1,12 @@
+# NAME: Local-Extra Reject (自建补充分流)
+# QX 原生分流，引用时 opt-parser=false、force-policy=reject
+# 从主配置 filter_local 迁出的补充广告/追踪域名
+
+# > 彩云天气 解锁SVIP.最高支持版本：6.7.2(旧版)禁用上传信息 - 来源: @苍井灰灰
+host, gather.colorfulclouds.net,reject
+
+# > 插画世界-P站画师创作约稿平台解锁Vip&去开屏广告
+host-suffix, adukwai.com, reject
+
+# > IUV-万能小组件主题壁纸解锁永久Vip
+host-suffix, pglstatp-toutiao.com, reject
