@@ -1349,27 +1349,31 @@ def main():
 
 ## 文件
 - `splash-killer.list` —— 分流层（按域名 REJECT，无需 MITM）
-- `adblock-splash.conf` —— 开屏广告重写（含 hostname，opt-parser=true 自动合并）
-- `adblock-feed.conf` —— 信息流/弹窗重写（含 hostname）
-- `adblock-script.conf` —— 脚本层去广告（引用本仓库脚本）
+- `adblock-splash.conf` —— 开屏广告重写（QX 原生，引用时 opt-parser=false）
+- `adblock-feed.conf` —— 信息流/弹窗重写（QX 原生，引用时 opt-parser=false）
+- `adblock-script.conf` —— 脚本层去广告（引用本仓库脚本，opt-parser=false）
 - `splash-killer.js` / `feed-killer.js` —— 脚本本体
-- `unlock-merged.conf` —— **全部解锁模块合并（QX 一键引用，含 hostname）**
+- `unlock-merged.conf` —— **全部解锁模块合并（QX 原生，opt-parser=false）**
+- 仓库根目录 `quantumultx.conf` —— 合并了个人策略/DNS 的完整配置，不由本脚本覆盖
 
 ## QX 配置
+整份可用配置：`{base.replace("/dist", "")}/quantumultx.conf`
+
+远程资源不要开解析器（文件已是 QX 语法）。分流用分片，不要用整份 30 万行：
+
 ```ini
 [filter_remote]
-{base}/splash-killer.list, tag=自建-开屏分流, update-interval=28800, opt-parser=false, enabled=true
+# 见 dist/qx-filter-remote.txt
 
 [rewrite_remote]
-{base}/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=true, enabled=true
-{base}/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=true, enabled=true
-{base}/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=true, enabled=true
-{base}/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=true, enabled=true
+{base}/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=false, enabled=true
+{base}/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=false, enabled=true
+{base}/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=false, enabled=true
+{base}/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=false, enabled=true
 ```
 
-> 分流是 QX 原生 `host-suffix`，必须 `opt-parser=false`。开了解析器会在手机上转 30 万行然后超时，整条引用报错。
-> 重写保持 `opt-parser=true`，用来合并 hostname。
-> 整份分流如果手机装不下，改用 `qx-filter-remote.txt` 里的分片（同样 opt-parser=false）。
+> 分流是 QX 原生 `host-suffix`，必须 `opt-parser=false`，并且用 `qx/` 分片。整份 12MB 开解析器会超时，不开解析器也可能装不下。
+> 上面 4 条重写同样 `opt-parser=false`。hostname 已经写在文件里，QX 会合并，不用解析器。
 
 ## 解锁模块
 {unlock_ok} 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），{len(bobola_lines)} + {len(sooya_rule_lines)} + {len(yqc_rule_lines)} 条规则，hostname {len(unlock_hosts)} 个。
