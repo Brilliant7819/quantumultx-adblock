@@ -1,6 +1,10 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, appleapp.istyle.sk, reject
+host-suffix, appleapp.jumpplus.com, reject
+host-suffix, appleapp.lab9.be, reject
+host-suffix, appleapp.lineheart.lu, reject
 host-suffix, appleapp.mac-center.com, reject
 host-suffix, appleapp.mac-center.com.pe, reject
 host-suffix, appleapp.macforum.se, reject
@@ -15463,6 +15467,7 @@ host-suffix, camiltontrade.net, reject
 host-suffix, caminomia.cyou, reject
 host-suffix, caminonattockdeturb.cfd, reject
 host-suffix, camiocw.com, reject
+host-suffix, camiontorques.click, reject
 host-suffix, camjuice.eu, reject
 host-suffix, camliveshow.xyz, reject
 host-suffix, camlovers.tv, reject
@@ -29864,6 +29869,7 @@ host-suffix, cups.org, reject
 host-suffix, cups.republicoftea.com, reject
 host-suffix, cupulesdaur.rest, reject
 host-suffix, cuqtrlibylbiv.website, reject
+host-suffix, curacaokarts.click, reject
 host-suffix, curacoapips.com, reject
 host-suffix, curacyphobism.qpon, reject
 host-suffix, curaenatura.com, reject
@@ -29995,9 +30001,3 @@ host-suffix, custom.cookinfiesta.com, reject
 host-suffix, custom.cookinpanama.com, reject
 host-suffix, custom.cosyneeds.com, reject
 host-suffix, custom.creamlayer.store, reject
-host-suffix, custom.creedmoorsports.com, reject
-host-suffix, custom.crown-bd.com, reject
-host-suffix, custom.desertapparels.com, reject
-host-suffix, custom.diplomacycourses.org, reject
-host-suffix, custom.dowjones.com, reject
-host-suffix, custom.durableentrydoors.com, reject

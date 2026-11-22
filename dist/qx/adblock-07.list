@@ -1,6 +1,24 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, ozvmsmvmbxlfg.site, reject
+host-suffix, ozvri.goldilocksgoods.com, reject
+host-suffix, ozvvmicixrh.com, reject
+host-suffix, ozvxkyqzaski.in, reject
+host-suffix, ozwpqjnqohjii.site, reject
+host-suffix, ozwvd.com, reject
+host-suffix, ozxhasoxc.in, reject
+host-suffix, ozxmumjmya.in, reject
+host-suffix, ozxvyaklufsce.space, reject
+host-suffix, ozzkwkixgjblo.site, reject
+host-suffix, ozzpnf.loberon.ch, reject
+host-suffix, p-a-c-k.com, reject
+host-suffix, p-advg.com, reject
+host-suffix, p-ae1-adapt-beacon.awsprodops.movetv.com, reject
+host-suffix, p-analytics.ivanticloud.com, reject
+host-suffix, p-analytics.life, reject
+host-suffix, p-angels.com, reject
+host-suffix, p-bandai.com, reject
 host-suffix, p-behacdn.ksmobile.net, reject
 host-suffix, p-cg64-slinganalytics.movetv.com, reject
 host-suffix, p-digital-server.com, reject
@@ -8080,6 +8098,7 @@ host-suffix, positiva.limpacrm.com.br, reject
 host-suffix, positive-ads.com, reject
 host-suffix, positive-future.base44.app, reject
 host-suffix, positivecello.com, reject
+host-suffix, positivefarm.me, reject
 host-suffix, positivelong.com, reject
 host-suffix, positivelyassertappreciation.com, reject
 host-suffix, positivelypossiblemanatee.golf, reject
@@ -29982,22 +30001,3 @@ host-suffix, server.academiadevendas.shop, reject
 host-suffix, server.academiadominante.com.br, reject
 host-suffix, server.academiatreesix.com, reject
 host-suffix, server.academybebe.com, reject
-host-suffix, server.acaditi.com.br, reject
-host-suffix, server.acao037.com.br, reject
-host-suffix, server.aceleradordeagencia.com.br, reject
-host-suffix, server.aceleradormedico.com.br, reject
-host-suffix, server.aceleragro.com, reject
-host-suffix, server.achol.com.bd, reject
-host-suffix, server.aclandestina.com, reject
-host-suffix, server.acnhmall.com, reject
-host-suffix, server.acnoo.com, reject
-host-suffix, server.acorio.com.br, reject
-host-suffix, server.acorn.com, reject
-host-suffix, server.acquaveroinvestimentos.com.br, reject
-host-suffix, server.acrilicosmontecristo.com.br, reject
-host-suffix, server.acwady.com, reject
-host-suffix, server.ad.logic-test.viasat.io, reject
-host-suffix, server.ad.logic.viasat.io, reject
-host-suffix, server.adapta.org, reject
-host-suffix, server.adcplasp.com.br, reject
-host-suffix, server.addtocart.com.bd, reject

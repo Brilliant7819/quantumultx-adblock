@@ -1,6 +1,29 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, sst.ucholstebro.dk, reject
+host-suffix, sst.udime-grilujeme.cz, reject
+host-suffix, sst.uk.instasmile.com, reject
+host-suffix, sst.uk.yonka.com, reject
+host-suffix, sst.ukfixingsdirect.com, reject
+host-suffix, sst.uklandregistryportal.co.uk, reject
+host-suffix, sst.ulbra.br, reject
+host-suffix, sst.ulbsterarmshotel.co.uk, reject
+host-suffix, sst.ultecschool.com.br, reject
+host-suffix, sst.ultimateautographs.com, reject
+host-suffix, sst.ultimatebundledeal.com, reject
+host-suffix, sst.ultimateppf.com.br, reject
+host-suffix, sst.ultimatetravelcompetitions.com, reject
+host-suffix, sst.ultraputs.se, reject
+host-suffix, sst.ultrawears.com, reject
+host-suffix, sst.uma-tasu.com, reject
+host-suffix, sst.umt.edu.my, reject
+host-suffix, sst.unboxgreece.com, reject
+host-suffix, sst.uncovered-magazin.de, reject
+host-suffix, sst.unfold-outdoor.com.au, reject
+host-suffix, sst.unicohotelcollection.com, reject
+host-suffix, sst.unicohotelrivieramaya.com, reject
+host-suffix, sst.unicornia.shop, reject
 host-suffix, sst.unilu.ch, reject
 host-suffix, sst.unisa-europa.com, reject
 host-suffix, sst.unisr.it, reject
@@ -11435,6 +11458,7 @@ host-suffix, sweet-water.org, reject
 host-suffix, sweet.sweet-angels.net, reject
 host-suffix, sweetanalytics.com, reject
 host-suffix, sweetangel.tv, reject
+host-suffix, sweetbeat.net, reject
 host-suffix, sweetcerisex.blogspot.ro, reject
 host-suffix, sweetchicks.net, reject
 host-suffix, sweetdenisa.com, reject
@@ -15909,6 +15933,7 @@ host-suffix, tcgikincfivus.online, reject
 host-suffix, tcgjhulupwqpc.space, reject
 host-suffix, tcgnclibk.xyz, reject
 host-suffix, tcgplayer.com, reject
+host-suffix, tcgtjqvnxvjot.website, reject
 host-suffix, tcgtrkr.com, reject
 host-suffix, tch.info, reject
 host-suffix, tchaitruemanspoffle.cyou, reject
@@ -29976,28 +30001,3 @@ host-suffix, tss.oncrawl.com, reject
 host-suffix, tss.onestep.fr, reject
 host-suffix, tss.oogarden.com, reject
 host-suffix, tss.outlet.dailylab.com, reject
-host-suffix, tss.painting-diamonds.nl, reject
-host-suffix, tss.projeta.imb.br, reject
-host-suffix, tss.puulup.com.br, reject
-host-suffix, tss.revivalabs.com, reject
-host-suffix, tss.scaleplace.fr, reject
-host-suffix, tss.scolaris.be, reject
-host-suffix, tss.sport2000.fr, reject
-host-suffix, tss.studionextdoor.ch, reject
-host-suffix, tss.submagic.co, reject
-host-suffix, tss.tazmarquebordelaise.fr, reject
-host-suffix, tss.teqoya.com, reject
-host-suffix, tss.thresholdexperts.com, reject
-host-suffix, tss.thumbmagic.co, reject
-host-suffix, tss.usbparugby.com, reject
-host-suffix, tsser.afvclub.com, reject
-host-suffix, tssg.tobruxo.com.br, reject
-host-suffix, tsshern.shop, reject
-host-suffix, tsstracking.teachsundayschool.com, reject
-host-suffix, tst-link-ccontact.focuscura.com, reject
-host-suffix, tst.reinke-photovoltaik.de, reject
-host-suffix, tst.smartdiet.bg, reject
-host-suffix, tst14netreal.com, reject
-host-suffix, tst16infra.com, reject
-host-suffix, tst39.net.mydays.de, reject
-host-suffix, tstdhmtyf.com, reject

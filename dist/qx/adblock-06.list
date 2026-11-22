@@ -1,6 +1,21 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, m.wnxcg.com, reject
+host-suffix, m.wogpa.cn, reject
+host-suffix, m.wqiuj.com, reject
+host-suffix, m.wsoue.com, reject
+host-suffix, m.wsxxu.com, reject
+host-suffix, m.wuqutu.com, reject
+host-suffix, m.wv26d.cn, reject
+host-suffix, m.wxhh678.com, reject
+host-suffix, m.wxjrd.cn, reject
+host-suffix, m.wywna.cn, reject
+host-suffix, m.wz382.cn, reject
+host-suffix, m.x2e8id.cn, reject
+host-suffix, m.x316f.cn, reject
+host-suffix, m.x78tg.cn, reject
+host-suffix, m.x81zw.com, reject
 host-suffix, m.xbaiv.com, reject
 host-suffix, m.xcfwnhj.cn, reject
 host-suffix, m.xcouv.com, reject
@@ -21482,6 +21497,7 @@ host-suffix, niralkosvoq.in, reject
 host-suffix, nirdjz.revolveclothing.com.au, reject
 host-suffix, nirevantis-gpt.live, reject
 host-suffix, nirhpolzdzthq.online, reject
+host-suffix, nirxfdbvj.com, reject
 host-suffix, nirybekekiemu.website, reject
 host-suffix, nis.euvou.events, reject
 host-suffix, nis.mybluehost.me, reject
@@ -22278,6 +22294,7 @@ host-suffix, nonentignores.cfd, reject
 host-suffix, nonereeling.cyou, reject
 host-suffix, nonerr.com, reject
 host-suffix, nonethelessaugustcategory.com, reject
+host-suffix, nonfactbrooder.rest, reject
 host-suffix, nonfatmolochs.com, reject
 host-suffix, nonfatreused.com, reject
 host-suffix, nonfictionspatterrind.com, reject
@@ -23740,6 +23757,7 @@ host-suffix, nvshenfan.com, reject
 host-suffix, nvsheng.com, reject
 host-suffix, nvsucjifrawbf.online, reject
 host-suffix, nvsvlphrynhoq.website, reject
+host-suffix, nvugdinizbuls.website, reject
 host-suffix, nvumcv.standoil.kr, reject
 host-suffix, nvuwpi.jelmoli-shop.ch, reject
 host-suffix, nvwfdjlpjpzpt.site, reject
@@ -29983,21 +30001,3 @@ host-suffix, ozuu.hedgy-heckenpflanzen.de, reject
 host-suffix, ozuvdfqzkqxho.store, reject
 host-suffix, ozvdo.execupgrades.com, reject
 host-suffix, ozvlyz.justmusic.de, reject
-host-suffix, ozvmsmvmbxlfg.site, reject
-host-suffix, ozvri.goldilocksgoods.com, reject
-host-suffix, ozvvmicixrh.com, reject
-host-suffix, ozvxkyqzaski.in, reject
-host-suffix, ozwpqjnqohjii.site, reject
-host-suffix, ozwvd.com, reject
-host-suffix, ozxhasoxc.in, reject
-host-suffix, ozxmumjmya.in, reject
-host-suffix, ozxvyaklufsce.space, reject
-host-suffix, ozzkwkixgjblo.site, reject
-host-suffix, ozzpnf.loberon.ch, reject
-host-suffix, p-a-c-k.com, reject
-host-suffix, p-advg.com, reject
-host-suffix, p-ae1-adapt-beacon.awsprodops.movetv.com, reject
-host-suffix, p-analytics.ivanticloud.com, reject
-host-suffix, p-analytics.life, reject
-host-suffix, p-angels.com, reject
-host-suffix, p-bandai.com, reject

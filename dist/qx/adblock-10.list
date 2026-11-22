@@ -1,6 +1,31 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, tss.painting-diamonds.nl, reject
+host-suffix, tss.projeta.imb.br, reject
+host-suffix, tss.puulup.com.br, reject
+host-suffix, tss.revivalabs.com, reject
+host-suffix, tss.scaleplace.fr, reject
+host-suffix, tss.scolaris.be, reject
+host-suffix, tss.sport2000.fr, reject
+host-suffix, tss.studionextdoor.ch, reject
+host-suffix, tss.submagic.co, reject
+host-suffix, tss.tazmarquebordelaise.fr, reject
+host-suffix, tss.teqoya.com, reject
+host-suffix, tss.thresholdexperts.com, reject
+host-suffix, tss.thumbmagic.co, reject
+host-suffix, tss.usbparugby.com, reject
+host-suffix, tsser.afvclub.com, reject
+host-suffix, tssg.tobruxo.com.br, reject
+host-suffix, tsshern.shop, reject
+host-suffix, tsstracking.teachsundayschool.com, reject
+host-suffix, tst-link-ccontact.focuscura.com, reject
+host-suffix, tst.reinke-photovoltaik.de, reject
+host-suffix, tst.smartdiet.bg, reject
+host-suffix, tst14netreal.com, reject
+host-suffix, tst16infra.com, reject
+host-suffix, tst39.net.mydays.de, reject
+host-suffix, tstdhmtyf.com, reject
 host-suffix, tste.startribune.com, reject
 host-suffix, tstgotkendna.qpon, reject
 host-suffix, tstmh.eatmezcla.com, reject
@@ -5878,6 +5903,7 @@ host-suffix, uuff.com, reject
 host-suffix, uufgarwmibysu.online, reject
 host-suffix, uufjxnfitxtvt.website, reject
 host-suffix, uufsanys.fit1.hu, reject
+host-suffix, uufujrlqchjie.space, reject
 host-suffix, uugkhqaczzhtl.space, reject
 host-suffix, uuhapochhbjzl.site, reject
 host-suffix, uuhejd.snipes.es, reject
@@ -11615,6 +11641,7 @@ host-suffix, vucomsxylannahuan.cfd, reject
 host-suffix, vucxfzsavoxdd.online, reject
 host-suffix, vud.mybluehost.me, reject
 host-suffix, vudagmgwebke.in, reject
+host-suffix, vudbctybnxdon.space, reject
 host-suffix, vudequyangktk.site, reject
 host-suffix, vudfewdchrhnj.online, reject
 host-suffix, vudnpysryo.in, reject
@@ -17525,6 +17552,7 @@ host-suffix, wpnrtnmrewunrtok.xyz, reject
 host-suffix, wpnsrv.com, reject
 host-suffix, wpnxiswpuyrfn.icu, reject
 host-suffix, wpoikwoetyjrq.site, reject
+host-suffix, wponeharjwnil.site, reject
 host-suffix, wposrp.lampegiganten.no, reject
 host-suffix, wpp.upmanequim.com.br, reject
 host-suffix, wppluginspro.com, reject
@@ -27690,6 +27718,7 @@ host-suffix, xyerbsxlycvah.site, reject
 host-suffix, xyexwfbjrrnak.space, reject
 host-suffix, xyf21yawkj.com, reject
 host-suffix, xyfzrzldyaoaf.space, reject
+host-suffix, xygqvawpyathf.website, reject
 host-suffix, xygxko.shop-apotheke.ch, reject
 host-suffix, xyhihxmcizlsfd.com, reject
 host-suffix, xyhinc.app-best.jp, reject
@@ -29972,32 +30001,3 @@ host-suffix, ypxdakreabzhk.website, reject
 host-suffix, ypxnkgso.dagsmejan.ch, reject
 host-suffix, ypyryrauhherr.online, reject
 host-suffix, ypzktj.fly.pl, reject
-host-suffix, ypzps.com, reject
-host-suffix, ypztdrxavedah.space, reject
-host-suffix, ypztqlsweclfp.online, reject
-host-suffix, yq1d0yvwx.com, reject
-host-suffix, yq6.lhkwy.com, reject
-host-suffix, yqaatqlisyrma.site, reject
-host-suffix, yqan.uk, reject
-host-suffix, yqantasacylcf.site, reject
-host-suffix, yqaxvu.leilian-online.com, reject
-host-suffix, yqb.com, reject
-host-suffix, yqbbainsbsqmb.online, reject
-host-suffix, yqcgzf.specialized-onlinestore.jp, reject
-host-suffix, yqczpcrjjsggh.website, reject
-host-suffix, yqe.mybluehost.me, reject
-host-suffix, yqeaelhqycxcp.website, reject
-host-suffix, yqepkjcpcxnay.space, reject
-host-suffix, yqeshhkcliqgh.website, reject
-host-suffix, yqfax76xs.com, reject
-host-suffix, yqg.jobui.com, reject
-host-suffix, yqgbrupozdfrn.site, reject
-host-suffix, yqgtuqf.icu, reject
-host-suffix, yqgwaodkf.com, reject
-host-suffix, yqgyfmjmtnace.online, reject
-host-suffix, yqhbbppxapnzx.site, reject
-host-suffix, yqhorcill.com, reject
-host-suffix, yqhpp.thehonestkitchen.com, reject
-host-suffix, yqigli.tourlane.de, reject
-host-suffix, yqiila.nuernberger-jobanzeiger.de, reject
-host-suffix, yqjmtiuooduls.com, reject

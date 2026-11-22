@@ -1,6 +1,25 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, server.acaditi.com.br, reject
+host-suffix, server.acao037.com.br, reject
+host-suffix, server.aceleradordeagencia.com.br, reject
+host-suffix, server.aceleradormedico.com.br, reject
+host-suffix, server.aceleragro.com, reject
+host-suffix, server.achol.com.bd, reject
+host-suffix, server.aclandestina.com, reject
+host-suffix, server.acnhmall.com, reject
+host-suffix, server.acnoo.com, reject
+host-suffix, server.acorio.com.br, reject
+host-suffix, server.acorn.com, reject
+host-suffix, server.acquaveroinvestimentos.com.br, reject
+host-suffix, server.acrilicosmontecristo.com.br, reject
+host-suffix, server.acwady.com, reject
+host-suffix, server.ad.logic-test.viasat.io, reject
+host-suffix, server.ad.logic.viasat.io, reject
+host-suffix, server.adapta.org, reject
+host-suffix, server.adcplasp.com.br, reject
+host-suffix, server.addtocart.com.bd, reject
 host-suffix, server.adeisemarcondes.com.br, reject
 host-suffix, server.adjectivebd.com, reject
 host-suffix, server.admfinanceira.com.br, reject
@@ -8174,6 +8193,7 @@ host-suffix, sheui.com, reject
 host-suffix, shewantyou.net, reject
 host-suffix, shfoxs.vector-park.jp, reject
 host-suffix, shfsdvc.com, reject
+host-suffix, shfseppelta.cyou, reject
 host-suffix, shga.spyninjashq.com, reject
 host-suffix, shga.sublimehotels.pt, reject
 host-suffix, shgakmobtupxs.website, reject
@@ -10868,6 +10888,7 @@ host-suffix, sledgehammer09.com, reject
 host-suffix, sledgeryelping.qpon, reject
 host-suffix, sledxylan.com, reject
 host-suffix, sledzeniepaczki.cfd, reject
+host-suffix, sleechycreta.com, reject
 host-suffix, sleeklyureases.qpon, reject
 host-suffix, sleeklyyallaer.com, reject
 host-suffix, sleeknote.com, reject
@@ -16644,6 +16665,7 @@ host-suffix, snaptrckr.fun, reject
 host-suffix, snapwidget.com, reject
 host-suffix, snaqyb.24mx.be, reject
 host-suffix, snarescientific.com, reject
+host-suffix, snarksovert.cfd, reject
 host-suffix, snarlingrequirement.com, reject
 host-suffix, snarlsfuzzes.com, reject
 host-suffix, snashescanula.cfd, reject
@@ -19196,6 +19218,7 @@ host-suffix, spice.pmctelecom.co.uk, reject
 host-suffix, spiceclubgrill.com, reject
 host-suffix, spiceforthjobless.com, reject
 host-suffix, spicegems.org, reject
+host-suffix, spicemuzzler.cfd, reject
 host-suffix, spiceoptimistic.com, reject
 host-suffix, spicesonwheels.com, reject
 host-suffix, spicevikings.com, reject
@@ -29978,26 +30001,3 @@ host-suffix, sst.tyrihans.no, reject
 host-suffix, sst.ubergames.co.uk, reject
 host-suffix, sst.ucanpack.com, reject
 host-suffix, sst.ucation.com, reject
-host-suffix, sst.ucholstebro.dk, reject
-host-suffix, sst.udime-grilujeme.cz, reject
-host-suffix, sst.uk.instasmile.com, reject
-host-suffix, sst.uk.yonka.com, reject
-host-suffix, sst.ukfixingsdirect.com, reject
-host-suffix, sst.uklandregistryportal.co.uk, reject
-host-suffix, sst.ulbra.br, reject
-host-suffix, sst.ulbsterarmshotel.co.uk, reject
-host-suffix, sst.ultecschool.com.br, reject
-host-suffix, sst.ultimateautographs.com, reject
-host-suffix, sst.ultimatebundledeal.com, reject
-host-suffix, sst.ultimateppf.com.br, reject
-host-suffix, sst.ultimatetravelcompetitions.com, reject
-host-suffix, sst.ultraputs.se, reject
-host-suffix, sst.ultrawears.com, reject
-host-suffix, sst.uma-tasu.com, reject
-host-suffix, sst.umt.edu.my, reject
-host-suffix, sst.unboxgreece.com, reject
-host-suffix, sst.uncovered-magazin.de, reject
-host-suffix, sst.unfold-outdoor.com.au, reject
-host-suffix, sst.unicohotelcollection.com, reject
-host-suffix, sst.unicohotelrivieramaya.com, reject
-host-suffix, sst.unicornia.shop, reject

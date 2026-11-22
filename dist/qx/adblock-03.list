@@ -1,6 +1,12 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, custom.creedmoorsports.com, reject
+host-suffix, custom.crown-bd.com, reject
+host-suffix, custom.desertapparels.com, reject
+host-suffix, custom.diplomacycourses.org, reject
+host-suffix, custom.dowjones.com, reject
+host-suffix, custom.durableentrydoors.com, reject
 host-suffix, custom.dwell-inc.com, reject
 host-suffix, custom.ewptragetaschen.de, reject
 host-suffix, custom.fcsuniforms.com, reject
@@ -17576,6 +17582,7 @@ host-suffix, eavesdropbogusye.com, reject
 host-suffix, eavmb.bugmd.com, reject
 host-suffix, eavnlzmbsrssx.site, reject
 host-suffix, eavs02.eqifa.com, reject
+host-suffix, eawdhifx.com, reject
 host-suffix, eawkxpuyrbkvx.website, reject
 host-suffix, eawlyrypfeats.website, reject
 host-suffix, eaxmvpgmvsazo.site, reject
@@ -29994,10 +30001,3 @@ host-suffix, firstuk.barkingbags.co.uk, reject
 host-suffix, firstus.simplysensitivitychecks.com, reject
 host-suffix, firstvor.pro, reject
 host-suffix, firstweb.pl, reject
-host-suffix, firthcigne.store, reject
-host-suffix, firthegers.cfd, reject
-host-suffix, firthstosher.cfd, reject
-host-suffix, firurx.invia.hu, reject
-host-suffix, firvmamosigpu.website, reject
-host-suffix, firwinds.site, reject
-host-suffix, fisari.com, reject

@@ -1,6 +1,13 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, firthcigne.store, reject
+host-suffix, firthegers.cfd, reject
+host-suffix, firthstosher.cfd, reject
+host-suffix, firurx.invia.hu, reject
+host-suffix, firvmamosigpu.website, reject
+host-suffix, firwinds.site, reject
+host-suffix, fisari.com, reject
 host-suffix, fiscalexplanation.com, reject
 host-suffix, fisddlapfuife.website, reject
 host-suffix, fiseqj.yoursuper.com, reject
@@ -3403,6 +3410,7 @@ host-suffix, fubbedcubes.com, reject
 host-suffix, fubhyaena.cfd, reject
 host-suffix, fublue.com, reject
 host-suffix, fubsymustela.cyou, reject
+host-suffix, fubsyparas.cyou, reject
 host-suffix, fubuki-umami.space, reject
 host-suffix, fuchsia-baguette.shop, reject
 host-suffix, fucioryxes.qpon, reject
@@ -7674,6 +7682,7 @@ host-suffix, gigglegrowlworrisome.com, reject
 host-suffix, gigglemagnetismunaired.com, reject
 host-suffix, gigglergangism.qpon, reject
 host-suffix, gigkarma.com, reject
+host-suffix, giglotakenesdepucel.cfd, reject
 host-suffix, gigovatokal.link, reject
 host-suffix, gigsmanhowls.top, reject
 host-suffix, gigya.com, reject
@@ -7952,6 +7961,7 @@ host-suffix, gjgygejwispoo.space, reject
 host-suffix, gjh111.cn, reject
 host-suffix, gjhjo.impactdogcrates.com, reject
 host-suffix, gjhkyh.4fresh.ru, reject
+host-suffix, gjhmictjgixhj.space, reject
 host-suffix, gjigle.com, reject
 host-suffix, gjirc.findyourhealthyplace.com, reject
 host-suffix, gjiruqrsnzrsi.store, reject
@@ -8775,6 +8785,7 @@ host-suffix, gnowknhepfxie.website, reject
 host-suffix, gnozmx.locasun.fr, reject
 host-suffix, gnp.i56ol6mutr7pgxkthbnp.cyou, reject
 host-suffix, gnpge.com, reject
+host-suffix, gnpqqrcdkzefx.website, reject
 host-suffix, gnptpnwqvpiw.com, reject
 host-suffix, gnpzciyryovft.site, reject
 host-suffix, gnqam.fragrancenet.com, reject
@@ -8794,6 +8805,7 @@ host-suffix, gnsdp.toms.com, reject
 host-suffix, gnsdvr.com, reject
 host-suffix, gnshwf.room-park.ru, reject
 host-suffix, gnsnpaw.com, reject
+host-suffix, gntayeyzcryrn.website, reject
 host-suffix, gntelbdzwdmej.site, reject
 host-suffix, gntwuwuetfkzg.space, reject
 host-suffix, gnuavcpc.woods.se, reject
@@ -29989,15 +30001,3 @@ host-suffix, info.westerville.org, reject
 host-suffix, info.weststigers.com.au, reject
 host-suffix, info.whereis.com, reject
 host-suffix, info.whitepages.com.au, reject
-host-suffix, info.wilshire.com, reject
-host-suffix, info.wingsrecovery.org, reject
-host-suffix, info.wkf.fr, reject
-host-suffix, info.wolterskluwer.de, reject
-host-suffix, info.wolterskluwer.nl, reject
-host-suffix, info.wondoor.com, reject
-host-suffix, info.woodburyfinancial.com, reject
-host-suffix, info.woodward.com, reject
-host-suffix, info.workforce.pwc.com, reject
-host-suffix, info.workforceorchestrator.pwc.com, reject
-host-suffix, info.wosupply.com, reject
-host-suffix, info.wps.cn, reject
