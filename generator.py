@@ -536,9 +536,33 @@ def _js_regex_valid(pat):
         return False
 
 
+_SURGE_INLINE_OPT = re.compile(
+    r"(?:^|[\s,，;；]+)(?:requires-body|binary-body-mode|max-size|timeout|script-path|pattern|ability|argument)\s*=\s*\S+",
+    re.I,
+)
+
+
+def _scrub_rewrite_pattern(pat):
+    """把漏进 pattern 的 Surge 参数和全角标点清掉。
+
+    QX 遇到 pattern 里的全角逗号会把它当成参数分隔符，
+    ``json，requires-body=1 url script-...`` 会被判 invalid Line，整份远程重写失败。
+    """
+    pat = pat.replace("，", " ").replace("；", " ")
+    while True:
+        new = _SURGE_INLINE_OPT.sub(" ", pat)
+        if new == pat:
+            break
+        pat = new
+    pat = re.sub(r"\s+", " ", pat).strip(" \t,，;")
+    pat = re.sub(r"\\+$", "", pat).strip()
+    pat = re.sub(r"^\(\?[imsx]+\)", "", pat).strip()
+    return pat
+
+
 def clean_rewrite_rules(lines):
     """过滤未知 action + 按 pattern 去重（保留第一条），用于所有 rewrite conf。
-    同时剔除 QX/JS 无法编译的正则（如 (?i) 内联旗标）。"""
+    同时剔除 QX/JS 无法编译的正则（如 (?i) 内联旗标），并清掉会让整行非法的 Surge 残留。"""
     out = []
     seen = set()
     for ln in lines:
@@ -557,17 +581,16 @@ def clean_rewrite_rules(lines):
                 sarg = sm.group(1)
                 if sarg and not sarg.startswith("http"):
                     continue  # 裸脚本名（如 bilibili-filter.js），剔除
-        pat = ln.split(" url ")[0].strip()
-        pat = re.sub(r"\\+$", "", pat).strip()  # 去悬空 \
-        # 去 (?i) 等 JS 不支持的内联旗标（adblock 源常见）
-        pat = re.sub(r"^\(\?[imsx]+\)", "", pat).strip()
-        if not _js_regex_valid(pat):
-            continue  # 剔除 QX/JS 无法编译的正则
+        pat = _scrub_rewrite_pattern(ln.split(" url ")[0].strip())
+        if not pat or not _js_regex_valid(pat):
+            continue  # 剔除空 pattern 或 QX/JS 无法编译的正则
         key = re.sub(r"^\^http", "http", pat)  # 去 ^ 前缀后去重
         if key in seen:
             continue
         seen.add(key)
-        rest = ln.split(" url ", 1)[1]
+        rest = ln.split(" url ", 1)[1].replace("，", ",")
+        rest = re.sub(r"requires-body\s*=\s*1\b", "requires-body=true", rest, flags=re.I)
+        rest = re.sub(r"binary-body-mode\s*=\s*1\b", "binary-body-mode=true", rest, flags=re.I)
         out.append(pat + " url " + rest)
     return out
 
