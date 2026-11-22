@@ -1,6 +1,24 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, m.xbaiv.com, reject
+host-suffix, m.xcfwnhj.cn, reject
+host-suffix, m.xcouv.com, reject
+host-suffix, m.xdkje.com, reject
+host-suffix, m.xdunv.com, reject
+host-suffix, m.xeig.cn, reject
+host-suffix, m.xeihy.com, reject
+host-suffix, m.xetvb.com, reject
+host-suffix, m.xfya3.cn, reject
+host-suffix, m.xgaij.com, reject
+host-suffix, m.xhera.cn, reject
+host-suffix, m.xiangchim0.com, reject
+host-suffix, m.xidexableact.cn, reject
+host-suffix, m.xikdn.com, reject
+host-suffix, m.xingxd.com, reject
+host-suffix, m.xingyaoapi.com, reject
+host-suffix, m.xk0x.cn, reject
+host-suffix, m.xkena.com, reject
 host-suffix, m.xkqpco.com, reject
 host-suffix, m.xkunn.com, reject
 host-suffix, m.xlhm88.cn, reject
@@ -26176,6 +26194,7 @@ host-suffix, okx200.com, reject
 host-suffix, okyanus-digital.info, reject
 host-suffix, okyanusdigital.com, reject
 host-suffix, okyplohwxbjsz.space, reject
+host-suffix, okytaettnknsv.site, reject
 host-suffix, okyytrasubnjx.online, reject
 host-suffix, okyzsikrbpjnw.website, reject
 host-suffix, okzfsvbxiiydx.space, reject
@@ -27015,6 +27034,7 @@ host-suffix, onatallcolumn.com, reject
 host-suffix, onaudience.com, reject
 host-suffix, onautcatholi.xyz, reject
 host-suffix, onavo.com, reject
+host-suffix, onbdwuzu.in, reject
 host-suffix, onbeatsbydresale.com, reject
 host-suffix, onboardcretan.cyou, reject
 host-suffix, onboarding.preparedapp.com, reject
@@ -28436,6 +28456,7 @@ host-suffix, oreadfustic.shop, reject
 host-suffix, oredero.com, reject
 host-suffix, oredwearerangust.qpon, reject
 host-suffix, oreideshlqn.cyou, reject
+host-suffix, orejonpitwork.com, reject
 host-suffix, orelacime.net, reject
 host-suffix, orelvyncastriel.net, reject
 host-suffix, oremantolsey.com, reject
@@ -29980,24 +30001,3 @@ host-suffix, p-analytics.ivanticloud.com, reject
 host-suffix, p-analytics.life, reject
 host-suffix, p-angels.com, reject
 host-suffix, p-bandai.com, reject
-host-suffix, p-behacdn.ksmobile.net, reject
-host-suffix, p-cg64-slinganalytics.movetv.com, reject
-host-suffix, p-digital-server.com, reject
-host-suffix, p-events-delivery.akamaized.net, reject
-host-suffix, p-events.ivideosmart.com, reject
-host-suffix, p-k-4-x.com, reject
-host-suffix, p-k.kuka.com, reject
-host-suffix, p-l005616560.scuoladipsicoterapiaerichfromm.it, reject
-host-suffix, p-n.io, reject
-host-suffix, p-pan.triodos.com, reject
-host-suffix, p-stats.movetv.com, reject
-host-suffix, p-td.com, reject
-host-suffix, p.39jqf4pjf8l2yr93powx.cyou, reject
-host-suffix, p.4penpv5blklm7u5bk1m7.cyou, reject
-host-suffix, p.4xicjlqo4uj9uuhm173p.cyou, reject
-host-suffix, p.5mnh.com, reject
-host-suffix, p.7060.la, reject
-host-suffix, p.7keuoze7ctki63r419u4f.cyou, reject
-host-suffix, p.7xccjif6mm6zrf7go6y6z.cyou, reject
-host-suffix, p.8es.net, reject
-host-suffix, p.99mssj.com, reject

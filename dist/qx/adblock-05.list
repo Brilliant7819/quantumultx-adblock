@@ -1,6 +1,22 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, info.wsplanadvisor.com, reject
+host-suffix, info.xactflex.com, reject
+host-suffix, info.xits.com, reject
+host-suffix, info.yankeehome.com, reject
+host-suffix, info.yitsoftware.com, reject
+host-suffix, info.youphorin.hu, reject
+host-suffix, info.zelmanassociates.com, reject
+host-suffix, info.zonasearch.com, reject
+host-suffix, info.zoominfo-notice.com, reject
+host-suffix, info.zoominfo-privacy.com, reject
+host-suffix, info.zoominfo.io, reject
+host-suffix, info.zoominfohub.com, reject
+host-suffix, info.zoominfotechnologies.com, reject
+host-suffix, info.zoomintel.com, reject
+host-suffix, info.zuidema.nl, reject
+host-suffix, info01.on24.com, reject
 host-suffix, info1.thermofisher.com, reject
 host-suffix, info1.thermoscientific.com, reject
 host-suffix, info10.4thoughtmarketing.com, reject
@@ -9010,6 +9026,7 @@ host-suffix, kduyukupdnikp.website, reject
 host-suffix, kdwiwfiuxbmfk.space, reject
 host-suffix, kdwontyraqdswlqm.ossrescue.com, reject
 host-suffix, kdwtwlinnb.com, reject
+host-suffix, kdytfirkumelw.space, reject
 host-suffix, kdzbtghmlyuoa.online, reject
 host-suffix, kdzhf.webeyecare.com, reject
 host-suffix, kdzyieiqfynpx.space, reject
@@ -10599,6 +10616,7 @@ host-suffix, kmkk78.com, reject
 host-suffix, kmlastitytye.org, reject
 host-suffix, kmlhifmpqgxnu.website, reject
 host-suffix, kmllc.melindamaria.com, reject
+host-suffix, kmlrzaoatmfwg.online, reject
 host-suffix, kmltaguttgpiq.space, reject
 host-suffix, kmmdsn.dickhannahnissan.com, reject
 host-suffix, kmmhincmgdrme.space, reject
@@ -29983,21 +30001,3 @@ host-suffix, m.x2e8id.cn, reject
 host-suffix, m.x316f.cn, reject
 host-suffix, m.x78tg.cn, reject
 host-suffix, m.x81zw.com, reject
-host-suffix, m.xbaiv.com, reject
-host-suffix, m.xcfwnhj.cn, reject
-host-suffix, m.xcouv.com, reject
-host-suffix, m.xdkje.com, reject
-host-suffix, m.xdunv.com, reject
-host-suffix, m.xeig.cn, reject
-host-suffix, m.xeihy.com, reject
-host-suffix, m.xetvb.com, reject
-host-suffix, m.xfya3.cn, reject
-host-suffix, m.xgaij.com, reject
-host-suffix, m.xhera.cn, reject
-host-suffix, m.xiangchim0.com, reject
-host-suffix, m.xidexableact.cn, reject
-host-suffix, m.xikdn.com, reject
-host-suffix, m.xingxd.com, reject
-host-suffix, m.xingyaoapi.com, reject
-host-suffix, m.xk0x.cn, reject
-host-suffix, m.xkena.com, reject

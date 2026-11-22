@@ -1,6 +1,10 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, appleapp.mac-center.com, reject
+host-suffix, appleapp.mac-center.com.pe, reject
+host-suffix, appleapp.macforum.se, reject
+host-suffix, appleapp.machines.com.my, reject
 host-suffix, appleapp.macstore.com.pa, reject
 host-suffix, appleapp.macstoreonline.com.mx, reject
 host-suffix, appleapp.pe.tiendasishop.com, reject
@@ -3487,6 +3491,7 @@ host-suffix, avqnzl.aktivshop.de, reject
 host-suffix, avqorin.digital, reject
 host-suffix, avqorin.shop, reject
 host-suffix, avqovczcoanp.com, reject
+host-suffix, avqpoezrv.com, reject
 host-suffix, avqvapdzqkycf.website, reject
 host-suffix, avqymy.you.gr, reject
 host-suffix, avr.i-trailer.ru, reject
@@ -5650,6 +5655,7 @@ host-suffix, barbersdairy.com, reject
 host-suffix, barbershirts.com, reject
 host-suffix, barberssmitch.cfd, reject
 host-suffix, barbetwenge.shop, reject
+host-suffix, barbitabackupslexemic.cfd, reject
 host-suffix, barboscaught.com, reject
 host-suffix, barboycreme.com, reject
 host-suffix, barbulasnippet.qpon, reject
@@ -11629,6 +11635,7 @@ host-suffix, boxypluckunrelated.com, reject
 host-suffix, boy.fujieace.com, reject
 host-suffix, boy.mybluehost.me, reject
 host-suffix, boyaidare.club, reject
+host-suffix, boyangservedketting.cfd, reject
 host-suffix, boychikdevout.com, reject
 host-suffix, boycottcelebrityheirloom.com, reject
 host-suffix, boyfriendnetwork.com, reject
@@ -26725,6 +26732,7 @@ host-suffix, coplotmentor.cfd, reject
 host-suffix, coplotsveals.shop, reject
 host-suffix, copm.mayflower.de, reject
 host-suffix, coponix.store, reject
+host-suffix, coppedfirm.com, reject
 host-suffix, coppedgauily.com, reject
 host-suffix, copper6.com, reject
 host-suffix, copper6.live, reject
@@ -29993,11 +30001,3 @@ host-suffix, custom.desertapparels.com, reject
 host-suffix, custom.diplomacycourses.org, reject
 host-suffix, custom.dowjones.com, reject
 host-suffix, custom.durableentrydoors.com, reject
-host-suffix, custom.dwell-inc.com, reject
-host-suffix, custom.ewptragetaschen.de, reject
-host-suffix, custom.fcsuniforms.com, reject
-host-suffix, custom.fireflystudiofl.com, reject
-host-suffix, custom.florianhiele.com, reject
-host-suffix, custom.follobyggservice.no, reject
-host-suffix, custom.goatconnect.io, reject
-host-suffix, custom.gtcfx.com, reject

@@ -1,6 +1,14 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, custom.dwell-inc.com, reject
+host-suffix, custom.ewptragetaschen.de, reject
+host-suffix, custom.fcsuniforms.com, reject
+host-suffix, custom.fireflystudiofl.com, reject
+host-suffix, custom.florianhiele.com, reject
+host-suffix, custom.follobyggservice.no, reject
+host-suffix, custom.goatconnect.io, reject
+host-suffix, custom.gtcfx.com, reject
 host-suffix, custom.humanrightscourses.org, reject
 host-suffix, custom.hypnovent.de, reject
 host-suffix, custom.info.shutterstock.com, reject
@@ -10455,6 +10463,7 @@ host-suffix, dgmaxinteractive.com, reject
 host-suffix, dgmmntcknzljy.space, reject
 host-suffix, dgmolb.irishjobs.ie, reject
 host-suffix, dgnqrl.icu, reject
+host-suffix, dgoldsaidthewal.org, reject
 host-suffix, dgoviv.freeriderco.com, reject
 host-suffix, dgoynwlmoxgsx.space, reject
 host-suffix, dgpcdn.org, reject
@@ -11154,6 +11163,7 @@ host-suffix, digithalo.com, reject
 host-suffix, digitizedcopy.com, reject
 host-suffix, digitru.st, reject
 host-suffix, digits.net, reject
+host-suffix, digmarvnewxvz.online, reject
 host-suffix, dignecashews.com, reject
 host-suffix, dignishub.digital, reject
 host-suffix, dignispeak.digital, reject
@@ -23735,6 +23745,7 @@ host-suffix, eushopoff.shop, reject
 host-suffix, euskaraharedukulele.cyou, reject
 host-suffix, eusmdates.com, reject
 host-suffix, eusobjdywfqil.space, reject
+host-suffix, eusowmffkdrez.space, reject
 host-suffix, eussiyvfjpqqc.site, reject
 host-suffix, eussownwpyxdw.online, reject
 host-suffix, eusta.de, reject
@@ -29990,14 +30001,3 @@ host-suffix, firurx.invia.hu, reject
 host-suffix, firvmamosigpu.website, reject
 host-suffix, firwinds.site, reject
 host-suffix, fisari.com, reject
-host-suffix, fiscalexplanation.com, reject
-host-suffix, fisddlapfuife.website, reject
-host-suffix, fiseqj.yoursuper.com, reject
-host-suffix, fisetinlayoffssuperl.qpon, reject
-host-suffix, fisgonclub.com, reject
-host-suffix, fish.muted.io, reject
-host-suffix, fishadz.pressflex.net, reject
-host-suffix, fishboardcrew.com, reject
-host-suffix, fishbowl.com, reject
-host-suffix, fishclix.com, reject
-host-suffix, fishermanwithavenge.com, reject

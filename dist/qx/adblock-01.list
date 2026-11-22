@@ -4448,6 +4448,7 @@ host-suffix, 61677.com, reject
 host-suffix, 61677c.com, reject
 host-suffix, 616book.com, reject
 host-suffix, 617529c296.5e14ab617d.com, reject
+host-suffix, 61ct4yimmej4gb8146bt.rest, reject
 host-suffix, 61d1b409d4.com, reject
 host-suffix, 61dp.com, reject
 host-suffix, 61edd03ae1.com, reject
@@ -5792,6 +5793,7 @@ host-suffix, 8zovisffy.com, reject
 host-suffix, 8zqpw2lj8n.com, reject
 host-suffix, 8zse5d.cyou, reject
 host-suffix, 8zt4vk.7qehbnzceqi1wqzcnkib.cyou, reject
+host-suffix, 8zyw4o9hwxbm8v.cfd, reject
 host-suffix, 9-160-37-135.cprapid.com, reject
 host-suffix, 9-205-251-140.cprapid.com, reject
 host-suffix, 9-205-89-4.cprapid.com, reject
@@ -20922,6 +20924,7 @@ host-suffix, aliyundrive.com, reject
 host-suffix, aliyundrive.net, reject
 host-suffix, aliyunxin.com, reject
 host-suffix, alizedusud.free.fr, reject
+host-suffix, alizfv2ls3.com, reject
 host-suffix, alizhaopin.com, reject
 host-suffix, aljamaa.fr, reject
 host-suffix, aljassarengineering.com, reject
@@ -21833,6 +21836,7 @@ host-suffix, amitaratelsdivvied.cyou, reject
 host-suffix, amjbc.com, reject
 host-suffix, amjmswjtecziz.website, reject
 host-suffix, amkcuwli.in, reject
+host-suffix, amkdipsafdpo.in, reject
 host-suffix, amkhuwcus.in, reject
 host-suffix, amkuayezfbcyp.online, reject
 host-suffix, aml.mybluehost.me, reject
@@ -29997,7 +30001,3 @@ host-suffix, appleapp.istyle.sk, reject
 host-suffix, appleapp.jumpplus.com, reject
 host-suffix, appleapp.lab9.be, reject
 host-suffix, appleapp.lineheart.lu, reject
-host-suffix, appleapp.mac-center.com, reject
-host-suffix, appleapp.mac-center.com.pe, reject
-host-suffix, appleapp.macforum.se, reject
-host-suffix, appleapp.machines.com.my, reject

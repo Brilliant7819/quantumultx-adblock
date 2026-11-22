@@ -1,6 +1,27 @@
 # NAME: Splash-Killer chunk
 # QX 原生 host-suffix，opt-parser=false
 
+host-suffix, p-behacdn.ksmobile.net, reject
+host-suffix, p-cg64-slinganalytics.movetv.com, reject
+host-suffix, p-digital-server.com, reject
+host-suffix, p-events-delivery.akamaized.net, reject
+host-suffix, p-events.ivideosmart.com, reject
+host-suffix, p-k-4-x.com, reject
+host-suffix, p-k.kuka.com, reject
+host-suffix, p-l005616560.scuoladipsicoterapiaerichfromm.it, reject
+host-suffix, p-n.io, reject
+host-suffix, p-pan.triodos.com, reject
+host-suffix, p-stats.movetv.com, reject
+host-suffix, p-td.com, reject
+host-suffix, p.39jqf4pjf8l2yr93powx.cyou, reject
+host-suffix, p.4penpv5blklm7u5bk1m7.cyou, reject
+host-suffix, p.4xicjlqo4uj9uuhm173p.cyou, reject
+host-suffix, p.5mnh.com, reject
+host-suffix, p.7060.la, reject
+host-suffix, p.7keuoze7ctki63r419u4f.cyou, reject
+host-suffix, p.7xccjif6mm6zrf7go6y6z.cyou, reject
+host-suffix, p.8es.net, reject
+host-suffix, p.99mssj.com, reject
 host-suffix, p.9wotuan.com, reject
 host-suffix, p.abcache.com, reject
 host-suffix, p.acro.sh, reject
@@ -12068,6 +12089,7 @@ host-suffix, pvjulyacziwkv.space, reject
 host-suffix, pvjuzdikhrbblo.com, reject
 host-suffix, pvkhr.necessaire.com, reject
 host-suffix, pvkoykd.addaywellness.com, reject
+host-suffix, pvkpfwxfxabqf.site, reject
 host-suffix, pvkwnghghldtx.space, reject
 host-suffix, pvkymjocyeukz.website, reject
 host-suffix, pvl.whwxom4lv2qume97.cyou, reject
@@ -16435,6 +16457,7 @@ host-suffix, rcaznuwyxt.cfd, reject
 host-suffix, rcb.oralsinrjcabofrio.com.br, reject
 host-suffix, rcbsrm.fivefoxes.co.jp, reject
 host-suffix, rccnyh.airportrentalcars.com, reject
+host-suffix, rcdacted.com, reject
 host-suffix, rcdevgames.net, reject
 host-suffix, rcdjlpqydhont.site, reject
 host-suffix, rcdn-web.com, reject
@@ -17101,6 +17124,7 @@ host-suffix, recookwhar.cfd, reject
 host-suffix, recopick.com, reject
 host-suffix, record.betsson.com, reject
 host-suffix, record.bonniergaming.com, reject
+host-suffix, record.cryptocasinopartners.com, reject
 host-suffix, record.guts.com, reject
 host-suffix, record.mrwin.com, reject
 host-suffix, record.ppincome.net, reject
@@ -20415,6 +20439,7 @@ host-suffix, rncuv.venusetfleur.com, reject
 host-suffix, rndex.xyz, reject
 host-suffix, rndgc.takemeche.com, reject
 host-suffix, rndhaunteran.com, reject
+host-suffix, rndmlcjxoaopd.space, reject
 host-suffix, rndmlk8asw.com, reject
 host-suffix, rndskittytor.com, reject
 host-suffix, rnejbimorzprh.site, reject
@@ -22817,6 +22842,7 @@ host-suffix, rvzzlpmsg.com, reject
 host-suffix, rw360x.com, reject
 host-suffix, rw56y62bgg.com, reject
 host-suffix, rw5ica.top, reject
+host-suffix, rwaddzdgiwsbu.site, reject
 host-suffix, rwadx.com, reject
 host-suffix, rwardcwuznrho.online, reject
 host-suffix, rwazlnzixclmx.space, reject
@@ -29975,29 +30001,3 @@ host-suffix, server.ad.logic.viasat.io, reject
 host-suffix, server.adapta.org, reject
 host-suffix, server.adcplasp.com.br, reject
 host-suffix, server.addtocart.com.bd, reject
-host-suffix, server.adeisemarcondes.com.br, reject
-host-suffix, server.adjectivebd.com, reject
-host-suffix, server.admfinanceira.com.br, reject
-host-suffix, server.adornadasjoias.com, reject
-host-suffix, server.adrianoleonardi.com.br, reject
-host-suffix, server.advantere.org, reject
-host-suffix, server.advisi.com.br, reject
-host-suffix, server.advogadamaryannacontratos.com.br, reject
-host-suffix, server.advogadopro.adv.br, reject
-host-suffix, server.advogadosoliveira.com.br, reject
-host-suffix, server.advprofviniciusmelo.com.br, reject
-host-suffix, server.adwort.de, reject
-host-suffix, server.aecmateriais.com.br, reject
-host-suffix, server.aedodontologia.com.br, reject
-host-suffix, server.aeroliteluggage.co.uk, reject
-host-suffix, server.afettoclinica.com.br, reject
-host-suffix, server.afiaborkahouse.com, reject
-host-suffix, server.aformuladariqueza.com.br, reject
-host-suffix, server.agamonibagansomadhan.com, reject
-host-suffix, server.agata-privathospital.dk, reject
-host-suffix, server.agelessmenshealth.com, reject
-host-suffix, server.agencedelor.be, reject
-host-suffix, server.agenciaalafia.com.br, reject
-host-suffix, server.agenciag3.com, reject
-host-suffix, server.agenciagabana.com.br, reject
-host-suffix, server.agenciaili.com.br, reject
