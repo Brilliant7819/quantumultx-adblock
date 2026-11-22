@@ -4,7 +4,7 @@
 > 聚合上游（anti-AD / NobyDa / hwind2021 / AdGuard 全系 / EasyList 中英 / EasyPrivacy / StevenBlack / 1Hosts / PeterLowe 等）广告资源
 > \+ 82 个解锁/去广告模块（BOBOLAOSHIV / app2smile / NobyDa / sooyaaabo / yqc007 / NobyDa/File 裸脚本）
 > \+ 每日自动检索 GitHub 上游源并验证收录（去广告 + 解锁脚本），
-> 生成可直接被 QX 拉取的远程清单。**你只需在 QX 里添加本仓库的 5 条远程引用，之后零维护。**
+> 生成可直接被 QX 拉取的远程清单。**你只需在 QX 里添加本仓库的远程引用，之后零维护。**
 
 ## 原理
 
@@ -29,18 +29,24 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/quantum
 
 QX 里用「配置文件 → 下载」拉这一个文件即可。节点订阅和 MITM 证书没有放进仓库，导入后把原来的 `[server_remote]`、`passphrase`、`p12` 粘回去。
 
-只想加远程资源、不换整份配置的话：分流用 `dist/qx-filter-remote.txt` 里的 11 个分片（`opt-parser=false`），重写用下面 4 条，同样 `opt-parser=false`。这 4 个文件已经是 QX 语法，再开解析器会把合法行改坏。
+只想加远程资源、不换整份配置的话：分流用 `dist/qx-filter-remote.txt` 里的 11 个分片 + `local-extra.list`（`opt-parser=false`），重写用下面 5 条，同样 `opt-parser=false`。这些文件已经是 QX 语法，再开解析器会把合法行改坏。
 
 ```ini
+[filter_remote]
+# 11 个广告分流分片见 dist/qx-filter-remote.txt
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/local-extra.list, tag=自建-补充分流, force-policy=reject, update-interval=86400, opt-parser=false, enabled=true
+
 [rewrite_remote]
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/adblock-splash.conf, tag=自建-开屏重写, update-interval=28800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/adblock-feed.conf, tag=自建-信息流重写, update-interval=28800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/adblock-script.conf, tag=自建-脚本去广告, update-interval=28800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/unlock-merged.conf, tag=自建-解锁模块, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/unlock-local.conf, tag=自建-本地解锁规则, update-interval=86400, opt-parser=false, enabled=true
 ```
 
 > 不要引用整份 `splash-killer.list`（约 30 万行 / 12MB）。用 `dist/qx/` 里的分片。
-> 本仓库这 4 条重写不要开资源解析器。只有 Surge、`.module`、`.sgmodule` 才需要 `opt-parser=true`。
+> 本仓库这 5 条重写不要开资源解析器。只有 Surge、`.module`、`.sgmodule` 才需要 `opt-parser=true`。
+> `unlock-local.conf` 是从主配置内联迁出的解锁/去广告规则（含对应 hostname），`local-extra.list` 是迁出的补充广告分流；二者不由 Actions 覆盖，手动维护。
 
 ## 生成产物
 
@@ -54,6 +60,8 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 | `dist/splash-killer.js` | 脚本：开屏杀手 |
 | `dist/feed-killer.js` | 脚本：信息流杀手 |
 | `dist/unlock-merged.conf` | **解锁模块单文件聚合**（约 970 规则 / hostname） |
+| `dist/unlock-local.conf` | 主配置内联迁出的解锁/去广告/去开屏规则 + 对应 MITM hostname（手动维护，Actions 不覆盖） |
+| `dist/local-extra.list` | 主配置迁出的补充广告/追踪域名分流（QX 原生，force-policy=reject） |
 | `dist/CREDITS.md` | **原作者致谢**：全部上游源作者/仓库清单 |
 | `dist/sources.json` | **自动检索**：GitHub 搜索验证后收录的源（机器可读） |
 | `dist/DISCOVERED.md` | **自动检索**：人工审核清单（同 sources.json 内容） |
