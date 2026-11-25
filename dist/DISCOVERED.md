@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-24 14:58:34 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-25 14:33:21 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 

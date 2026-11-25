@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:103299 · anti-ad-surge:103299 · nobyda-adrule:7954 · hwind-splash-killer:416 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6029 · easylist-intl:46943 · easyprivacy:47718 · adguard-base:2083 · adguard-mobile:970 · adguard-annoyance:1057 · adguard-social:60950 · adguard-tracking:123703 · adguard-gaming:193444 · adguard-chinese:6289 · adguard-annoyance2:625 · adguard-tracking-servers:732 · stevenblack:81662 · 1hosts:202830 · peterlowe:3556 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:110913 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751 · auto-lonecoding-quantumultx-rules-china:3892 · auto-lonecoding-quantumultx-rules-apple:1814
+anti-ad-quanx:103299 · anti-ad-surge:103299 · nobyda-adrule:7954 · hwind-splash-killer:416 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6039 · easylist-intl:47299 · easyprivacy:47722 · adguard-base:2083 · adguard-mobile:970 · adguard-annoyance:1057 · adguard-social:61251 · adguard-tracking:123706 · adguard-gaming:193756 · adguard-chinese:6300 · adguard-annoyance2:625 · adguard-tracking-servers:732 · stevenblack:81662 · 1hosts:202830 · peterlowe:3557 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:902 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:110913 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751 · auto-lonecoding-quantumultx-rules-china:3892 · auto-lonecoding-quantumultx-rules-apple:1814
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -48,9 +48,9 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 - 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
-- 聚合广告域名: 310257 个
+- 聚合广告域名: 310629 个
 - 开屏重写 hostname: 438 个
 - 信息流重写 hostname: 440 个
 - 有效解锁模块: 122 个（合并 1600+184+78 条规则）
 
-最后生成: 2026-11-24 15:00:11 UTC
+最后生成: 2026-11-25 14:35:10 UTC
