@@ -3,7 +3,7 @@
 > 由 GitHub Actions 每日自动生成，无需手动维护。
 
 ## 上游源（广告）
-anti-ad-quanx:102589 · anti-ad-surge:102589 · nobyda-adrule:7954 · hwind-splash-killer:416 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6060 · easylist-intl:48034 · easyprivacy:47737 · adguard-base:2083 · adguard-mobile:970 · adguard-annoyance:1059 · adguard-social:62022 · adguard-tracking:123729 · adguard-gaming:194576 · adguard-chinese:6322 · adguard-annoyance2:625 · adguard-tracking-servers:732 · stevenblack:81662 · 1hosts:202830 · peterlowe:3565 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:7855 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:110204 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751 · auto-lonecoding-quantumultx-rules-china:3892 · auto-lonecoding-quantumultx-rules-apple:1814
+anti-ad-quanx:102589 · anti-ad-surge:102589 · nobyda-adrule:7954 · hwind-splash-killer:416 · hwind-antihijack:186 · hwind-privacy:39895 · hwind-blockhttpdns:21 · easylistchina:6071 · easylist-intl:48140 · easyprivacy:47751 · adguard-base:2083 · adguard-mobile:970 · adguard-annoyance:1059 · adguard-social:62148 · adguard-tracking:123736 · adguard-gaming:194955 · adguard-chinese:6333 · adguard-annoyance2:625 · adguard-tracking-servers:732 · stevenblack:81669 · 1hosts:202830 · peterlowe:3565 · auto-ruddernation-designs-adobe-url-block-list-hosts:900 · auto-ethanaicode-adobe-block-hosts-list-hosts:7855 · auto-emiliodallatorre-adult-hosts-list-hosts:13178 · auto-qianbinbin-killads-hosts:110204 · auto-bigdargon-hostsvn-hosts:18602 · auto-biroloter-mobile-ad-hosts-hosts:751 · auto-lonecoding-quantumultx-rules-china:3892 · auto-lonecoding-quantumultx-rules-apple:1814
 
 ## 上游源（解锁模块）
 - sooyaaabo/Egern: 45 个模块
@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 > 上面 4 条重写同样 `opt-parser=false`。hostname 已经写在文件里，QX 会合并，不用解析器。
 
 ## 解锁模块
-122 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），1600 + 184 + 78 条规则，hostname 1006 个。
+123 个模块合并（BOBOLAOSHIV QX 原生 + sooyaaabo Surge 转 QX + yqc007 裸脚本），1600 + 184 + 78 条规则，hostname 1006 个。
 
 ## 原作者致谢
 本仓库聚合了以下上游开源项目的成果，**向每一位原作者致谢**（完整清单见 `CREDITS.md`）：
@@ -48,9 +48,9 @@ https://raw.githubusercontent.com/Brilliant7819/quantumultx-adblock/main/dist/un
 - 自动检索新增源见 `DISCOVERED.md`（由 discover_sources.py 每日 GitHub 搜索验证后收录）
 
 ## 统计
-- 聚合广告域名: 310384 个
+- 聚合广告域名: 310935 个
 - 开屏重写 hostname: 438 个
 - 信息流重写 hostname: 440 个
-- 有效解锁模块: 122 个（合并 1600+184+78 条规则）
+- 有效解锁模块: 123 个（合并 1600+184+78 条规则）
 
-最后生成: 2026-11-27 13:59:30 UTC
+最后生成: 2026-11-28 13:11:37 UTC

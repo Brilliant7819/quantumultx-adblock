@@ -1,6 +1,6 @@
 # 自动检索到的源（人工审核）
 
-> 由 discover_sources.py 自动生成 2026-11-27 13:58:33 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
+> 由 discover_sources.py 自动生成 2026-11-28 13:10:43 UTC。generator 会合并 `dist/sources.json` 里已验证的源，失败自动跳过。
 
 ## 去广告源
 
@@ -197,3 +197,7 @@
 - **auto-maijiantian-quantumultx-rewrite-rewrite** · qx-flat 129 规则 · 作者 `MaiJiantian` · ⭐1
   - https://raw.githubusercontent.com/MaiJiantian/QuantumultX-Rewrite/master/rewrite.conf
   - MaiJiantian/QuantumultX-Rewrite · 
+
+- **auto-azmedia2006-gemini-sku-rewriter-gemini-sku** · qx-flat 3 规则 · 作者 `azmedia2006` · ⭐3
+  - https://raw.githubusercontent.com/azmedia2006/gemini-sku-rewriter/main/gemini_sku.js
+  - azmedia2006/gemini-sku-rewriter · Proxy response-body script for Shadowrocket, Surge, Loon, Quantumult X, and Proxypin to sniff and rewrite Google One / G

@@ -40,6 +40,7 @@
 | 解锁模块(自动检索) | Tartarus2014 | QuantumultX脚本收集; QuantumultX脚本收集; QuantumultX脚本收集; QuantumultX脚本收集 | Tartarus2014/QuantumultX-Script |
 | 解锁模块(自动检索) | agkjVIP |  | agkjVIP/QuantumultX-Rewrite-Rules |
 | 解锁模块(自动检索) | aobenny | 500 / Simple Config GeoIP for Quantumult X (QuantumultX) 预配置文件: 去广告分流规则、Tiktok 解锁 Rewrite、神机分流规则  | aobenny/500 |
+| 解锁模块(自动检索) | azmedia2006 | Proxy response-body script for Shadowrocket, Surge, Loon, Quantumult X, and Proxypin to sniff and rewrite Google One / G | azmedia2006/gemini-sku-rewriter |
 | 解锁模块(自动检索) | deezertidal | QuantumultX QX quantumult 圈X quanx 重写 脚本 rewrite 规则 分流 破解 解锁 | deezertidal/QuantumultX-Rewrite |
 | 解锁模块(自动检索) | fmz200 | 收集一些Loon、Surge、QuantumultX、ShadowRocket、Egern的配置与去广告规则。; 收集一些Loon、Surge、QuantumultX、ShadowRocket、Egern的配置与去广告规则。 | fmz200/wool_scripts |
 | 解锁模块(自动检索) | funnyzak | Rules and Scripts For Surge 、 QuantumultX 、Clash、Loon、Stash.; Rules and Scripts For Surge 、 QuantumultX 、Clash、Loon、Stash. | funnyzak/network-rules |

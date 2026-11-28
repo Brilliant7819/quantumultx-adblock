@@ -625,6 +625,19 @@
       "rules": 129,
       "desc": "",
       "added_at": "2026-11-13"
+    },
+    {
+      "tag": "auto-azmedia2006-gemini-sku-rewriter-gemini-sku",
+      "type": "unlock",
+      "url": "https://raw.githubusercontent.com/azmedia2006/gemini-sku-rewriter/main/gemini_sku.js",
+      "format": "qx-flat",
+      "author": "azmedia2006",
+      "repo": "azmedia2006/gemini-sku-rewriter",
+      "file": "gemini_sku.js",
+      "stars": 3,
+      "rules": 3,
+      "desc": "Proxy response-body script for Shadowrocket, Surge, Loon, Quantumult X, and Proxypin to sniff and rewrite Google One / G",
+      "added_at": "2026-11-28"
     }
   ]
 }
